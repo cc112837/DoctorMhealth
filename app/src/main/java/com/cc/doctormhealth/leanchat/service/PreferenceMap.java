@@ -4,12 +4,12 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
-import com.MHealth.R;
-import com.MHealth.constant.MyApplication;
 import com.avos.avoscloud.AVGeoPoint;
-import com.avoscloud.chat.util.Logger;
 import com.avoscloud.leanchatlib.model.LeanchatUser;
 import com.avoscloud.leanchatlib.utils.Constants;
+import com.cc.doctormhealth.MyApplication;
+import com.cc.doctormhealth.R;
+import com.cc.doctormhealth.leanchat.util.Logger;
 
 /**
  * Created by lzw on 14-6-19.
@@ -22,9 +22,6 @@ public class PreferenceMap {
   public static final String VOICE_NOTIFY = "voiceNotify";
   public static final String VIBRATE_NOTIFY = "vibrateNotify";
   public static final String NEARBY_ORDER = "nearbyOrder";
-  //int addRequestN;
-  //String latitude;
-  //String longitude;
   public static PreferenceMap currentUserPreferenceMap;
   Context cxt;
   SharedPreferences pref;

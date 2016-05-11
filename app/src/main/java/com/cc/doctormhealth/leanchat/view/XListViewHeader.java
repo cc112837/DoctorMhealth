@@ -11,7 +11,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 
-import com.MHealth.R;
+import com.cc.doctormhealth.R;
 
 public class XListViewHeader extends LinearLayout {
   public final static int STATE_NORMAL = 0;

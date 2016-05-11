@@ -6,11 +6,11 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.MHealth.R;
-import com.avoscloud.chat.adapter.ContactsAdapter;
-import com.avoscloud.chat.event.ContactItemClickEvent;
-import com.avoscloud.chat.event.ContactItemLongClickEvent;
 import com.avoscloud.leanchatlib.viewholder.CommonViewHolder;
+import com.cc.doctormhealth.R;
+import com.cc.doctormhealth.leanchat.adapter.ContactsAdapter;
+import com.cc.doctormhealth.leanchat.event.ContactItemClickEvent;
+import com.cc.doctormhealth.leanchat.event.ContactItemLongClickEvent;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
 import de.greenrobot.event.EventBus;

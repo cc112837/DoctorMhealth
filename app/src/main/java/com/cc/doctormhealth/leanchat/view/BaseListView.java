@@ -1,19 +1,19 @@
 package com.cc.doctormhealth.leanchat.view;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.concurrent.atomic.AtomicBoolean;
-
 import android.content.Context;
 import android.util.AttributeSet;
 import android.view.View;
 import android.widget.AdapterView;
 
-import com.MHealth.R;
-import com.avoscloud.chat.adapter.BaseListAdapter;
-import com.avoscloud.chat.util.Logger;
-import com.avoscloud.chat.util.SimpleNetTask;
-import com.avoscloud.chat.util.Utils;
+import com.cc.doctormhealth.R;
+import com.cc.doctormhealth.leanchat.adapter.BaseListAdapter;
+import com.cc.doctormhealth.leanchat.util.Logger;
+import com.cc.doctormhealth.leanchat.util.SimpleNetTask;
+import com.cc.doctormhealth.leanchat.util.Utils;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 
 /**

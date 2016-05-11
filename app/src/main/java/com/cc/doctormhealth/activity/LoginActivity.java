@@ -1,0 +1,216 @@
+package com.cc.doctormhealth.activity;
+
+import android.app.ProgressDialog;
+import android.content.Intent;
+import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextUtils;
+import android.text.TextWatcher;
+import android.util.Log;
+import android.view.KeyEvent;
+import android.view.View;
+import android.widget.Button;
+import android.widget.TextView;
+
+import com.avos.avoscloud.AVException;
+import com.avos.avoscloud.AVOSCloud;
+import com.avos.avoscloud.AVUser;
+import com.avos.avoscloud.LogInCallback;
+import com.avos.avoscloud.im.v2.AVIMClient;
+import com.avos.avoscloud.im.v2.AVIMException;
+import com.avos.avoscloud.im.v2.callback.AVIMClientCallback;
+import com.avoscloud.leanchatlib.controller.ChatManager;
+import com.avoscloud.leanchatlib.model.LeanchatUser;
+import com.cc.doctormhealth.MyApplication;
+import com.cc.doctormhealth.R;
+import com.cc.doctormhealth.constant.Constants;
+import com.cc.doctormhealth.utils.MyAndroidUtil;
+import com.cc.doctormhealth.utils.Tool;
+
+import org.apache.http.HttpResponse;
+import org.apache.http.NameValuePair;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.entity.UrlEncodedFormEntity;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.message.BasicNameValuePair;
+import org.apache.http.params.HttpConnectionParams;
+import org.apache.http.params.HttpParams;
+import org.apache.http.protocol.HTTP;
+import org.apache.http.util.EntityUtils;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
+public class LoginActivity extends BaseActivity implements TextWatcher {
+
+    Button loginBtn, regButton;
+    TextView nameText, pwdText;
+    private String name, pwd;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_login);
+        String appId = "cirdf9pJrnd6XpNW1Xn3OVf5-gzGzoHsz";
+        String appKey = "eFwqv2nwhEDg9qdqzPUr3fga";
+
+
+        AVOSCloud.initialize(LoginActivity.this, appId, appKey);
+        if(AVUser.getCurrentUser() != null){
+            name = AVUser.getCurrentUser().getUsername();
+            finishLogin();
+        }
+        initTitle();
+        nameText = (TextView) findViewById(R.id.nameText);
+        pwdText = (TextView) findViewById(R.id.pwdText);
+        loginBtn = (Button) findViewById(R.id.loginBtn);
+        regButton = (Button) findViewById(R.id.regButton);
+        nameText.addTextChangedListener(this);
+        loginBtn.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                name = nameText.getText().toString();
+                pwd = pwdText.getText().toString();
+                if (TextUtils.isEmpty(name)) {
+                    Tool.initToast(LoginActivity.this, getString(R.string.register_name));
+                } else if (TextUtils.isEmpty(pwd)) {
+                    Tool.initToast(LoginActivity.this,
+                            getString(R.string.register_password));
+                } else {
+                    loginAccount(name, pwd);
+                }
+            }
+        });
+        regButton.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(LoginActivity.this, RegActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        // 已登录过,自动登录
+        name = MyApplication.sharedPreferences.getString(Constants.LOGIN_ACCOUNT,
+                null);
+        pwd = MyApplication.sharedPreferences.getString(Constants.LOGIN_PWD, null);
+        if (name != null)
+            nameText.setText(name);
+    }
+
+    private void loginAccount(final String userName, final String password) {
+        final ProgressDialog dialog = showSpinnerDialog();
+        AVUser.logInInBackground(userName, password,
+                new LogInCallback<LeanchatUser>() {
+                    @Override
+                    public void done(LeanchatUser avUser, AVException e) {
+                        dialog.dismiss();
+                        if (e == null) {
+                            AVUser aUser = AVUser.getCurrentUser();
+
+                            aUser.get("property");
+                            if (aUser.get("property").equals("doctor")) {
+
+                                finishLogin();
+                            } else {
+                                AVUser.logOut();
+                                Tool.initToast(LoginActivity.this,
+                                        getResources().getString(R.string.login_error));
+                            }
+                        } else
+                            Tool.initToast(LoginActivity.this,
+                                    getResources().getString(R.string.login_error));
+                    }
+                }, LeanchatUser.class);
+    }
+
+    private void finishLogin() {
+        // 第二个参数：登录标记 Tag
+        Thread th = new Thread() {
+            @Override
+            public void run() {
+                try {
+                    Log.e("run", "run");
+                    HttpClient client = new DefaultHttpClient();
+                    HttpPost request = new HttpPost(
+                            "http://123.57.191.21:8080/mhealth/servlet/DoctorLoginServlet");
+                    List<NameValuePair> info = new ArrayList<>();
+                    info.add(new BasicNameValuePair("doctorName", AVUser.getCurrentUser()
+                            .getUsername()));
+                    info.add(new BasicNameValuePair("objectId", AVUser.getCurrentUser()
+                            .getObjectId()));
+                    HttpParams params = client.getParams();
+                    HttpConnectionParams.setConnectionTimeout(params, 6 * 1000);
+                    request.setEntity(new UrlEncodedFormEntity(info, HTTP.UTF_8));
+                    // request.setEntity(new UrlEncodedFormEntity());
+                    HttpResponse response = client.execute(request);
+                    if (response.getStatusLine().getStatusCode() == 200) {
+                        String contact = EntityUtils.toString(response.getEntity(),
+                                HTTP.UTF_8);
+                        Log.e("run", contact);
+
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        };
+        th.start();
+        AVIMClient currentClient = AVIMClient.getInstance("android", "Mobile");
+        currentClient.open(new AVIMClientCallback() {
+            @Override
+            public void done(AVIMClient avimClient, AVIMException e) {
+                if (e == null) {
+                    // 与云端建立连接成功
+                }
+            }
+        });
+        Constants.USER_NAME = name;
+        ChatManager chatManager = ChatManager.getInstance();
+        chatManager.setupManagerWithUserId(AVUser.getCurrentUser().getObjectId());
+        chatManager.openClient(null);
+        Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK
+                | Intent.FLAG_ACTIVITY_NEW_TASK);
+        intent.putExtra("name", name);
+        startActivity(intent);
+        finish();
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        return super.onKeyDown(keyCode, event);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        name = MyApplication.sharedPreferences.getString(Constants.LOGIN_ACCOUNT,
+                null);
+        if (name != null)
+            nameText.setText(name);
+    }
+
+    @Override
+    public void afterTextChanged(Editable arg0) {
+        MyAndroidUtil.editXmlByString(Constants.LOGIN_ACCOUNT, nameText.getText()
+                .toString());
+    }
+
+    @Override
+    public void beforeTextChanged(CharSequence arg0, int arg1, int arg2, int arg3) {
+        MyAndroidUtil.editXmlByString(Constants.LOGIN_ACCOUNT, nameText.getText()
+                .toString());
+
+    }
+
+    @Override
+    public void onTextChanged(CharSequence arg0, int arg1, int arg2, int arg3) {
+        MyAndroidUtil.editXmlByString(Constants.LOGIN_ACCOUNT, nameText.getText()
+                .toString());
+    }
+
+}

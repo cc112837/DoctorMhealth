@@ -1,19 +1,5 @@
 package com.cc.doctormhealth.leanchat.util;
 
-import java.io.BufferedReader;
-import java.io.Closeable;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.UnsupportedEncodingException;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
@@ -31,8 +17,23 @@ import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
-import com.MHealth.R;
-import com.MHealth.constant.MyApplication;
+import com.cc.doctormhealth.MyApplication;
+import com.cc.doctormhealth.R;
+
+import java.io.BufferedReader;
+import java.io.Closeable;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.UnsupportedEncodingException;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+
 
 public class Utils {
 
@@ -84,7 +85,7 @@ public class Utils {
   }
 
   public static AlertDialog.Builder getBaseDialogBuilder(Activity ctx) {
-    return new AlertDialog.Builder(ctx).setTitle(R.string.chat_utils_tips).setIcon(R.drawable.utils_icon_info_2);
+    return new AlertDialog.Builder(ctx).setTitle(R.string.chat_utils_tips).setIcon(R.mipmap.utils_icon_info_2);
   }
 
   public static String getStrByRawId(Context ctx, int id) throws UnsupportedEncodingException {

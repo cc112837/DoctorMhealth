@@ -7,7 +7,7 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.MHealth.R;
+import com.cc.doctormhealth.R;
 
 
 public class XListViewFooter extends LinearLayout {

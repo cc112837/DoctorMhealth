@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/contact_base_bg"
+    android:orientation="vertical">
+
+
+    <FrameLayout
+        android:id="@+id/titlebar"
+        android:layout_width="fill_parent"
+        android:background="#0389f7"
+        android:layout_height="50dp"
+        android:orientation="horizontal" >
+
+
+        <ImageView
+            android:id="@+id/leftBtn"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginLeft="10dp"
+            android:background="@drawable/arrow_left_white"
+            android:layout_gravity="center_vertical"
+            android:scaleType="fitCenter"/>
+
+        <TextView
+            android:id="@+id/titleView"
+            style="@style/white20Text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/contact_new_friends"
+            android:gravity="center"
+            android:layout_gravity="center" />
+
+    </FrameLayout>
+    <com.cc.doctormhealth.leanchat.view.BaseListView
+        android:id="@+id/newfriendList"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@android:color/transparent"
+        android:cacheColorHint="#00000000"
+        android:descendantFocusability="afterDescendants"
+        android:divider="@drawable/base_horizontal_line"
+        android:dividerHeight="1dp"
+        android:fastScrollEnabled="false" />
+
+</LinearLayout>

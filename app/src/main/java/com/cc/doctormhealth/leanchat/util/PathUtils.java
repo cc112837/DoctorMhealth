@@ -1,10 +1,11 @@
 package com.cc.doctormhealth.leanchat.util;
 
-import java.io.File;
-
 import android.os.Environment;
 
-import com.MHealth.constant.MyApplication;
+import com.cc.doctormhealth.MyApplication;
+
+import java.io.File;
+
 
 /**
  * Created by lzw on 14-9-19.

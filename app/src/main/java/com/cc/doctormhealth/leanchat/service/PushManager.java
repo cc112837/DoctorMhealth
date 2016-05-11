@@ -1,16 +1,16 @@
 package com.cc.doctormhealth.leanchat.service;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import android.content.Context;
 
-import com.MHealth.activities.LoginActivity;
 import com.avos.avoscloud.AVInstallation;
 import com.avos.avoscloud.AVPush;
 import com.avos.avoscloud.AVQuery;
 import com.avos.avoscloud.AVUser;
 import com.avos.avoscloud.PushService;
+import com.cc.doctormhealth.activity.LoginActivity;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by lzw on 15/6/11.

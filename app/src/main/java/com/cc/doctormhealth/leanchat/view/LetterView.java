@@ -7,7 +7,7 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.avoscloud.chat.event.MemberLetterEvent;
+import com.cc.doctormhealth.leanchat.event.MemberLetterEvent;
 
 import java.util.ArrayList;
 import java.util.List;

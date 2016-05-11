@@ -1,22 +1,22 @@
 package com.cc.doctormhealth.leanchat.service;
 
-import java.util.List;
-
 import android.content.Context;
 
-import com.MHealth.R;
-import com.MHealth.constant.MyApplication;
 import com.avos.avoscloud.AVException;
 import com.avos.avoscloud.AVObject;
 import com.avos.avoscloud.AVQuery;
 import com.avos.avoscloud.CountCallback;
 import com.avos.avoscloud.FollowCallback;
 import com.avos.avoscloud.SaveCallback;
-import com.avoscloud.chat.model.AddRequest;
-import com.avoscloud.chat.util.SimpleNetTask;
-import com.avoscloud.chat.util.Utils;
 import com.avoscloud.leanchatlib.model.LeanchatUser;
 import com.avoscloud.leanchatlib.utils.LogUtils;
+import com.cc.doctormhealth.MyApplication;
+import com.cc.doctormhealth.R;
+import com.cc.doctormhealth.leanchat.model.AddRequest;
+import com.cc.doctormhealth.leanchat.util.SimpleNetTask;
+import com.cc.doctormhealth.leanchat.util.Utils;
+
+import java.util.List;
 
 /**
  * Created by lzw on 14-9-27.

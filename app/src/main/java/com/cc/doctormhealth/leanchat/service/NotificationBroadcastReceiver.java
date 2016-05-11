@@ -4,11 +4,11 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 
-import com.MHealth.activities.LoginActivity;
-import com.MHealth.activities.NewFriendActivity;
-import com.avoscloud.chat.activity.ChatRoomActivity;
 import com.avoscloud.leanchatlib.controller.ChatManager;
 import com.avoscloud.leanchatlib.utils.Constants;
+import com.cc.doctormhealth.activity.LoginActivity;
+import com.cc.doctormhealth.activity.NewFriendActivity;
+import com.cc.doctormhealth.leanchat.activity.ChatRoomActivity;
 
 /**
  * Created by wli on 15/9/8.

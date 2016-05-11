@@ -3,8 +3,8 @@ package com.cc.doctormhealth.leanchat.service;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.util.LruCache;
-import com.avoscloud.chat.util.PhotoUtils;
 import com.avoscloud.leanchatlib.utils.LogUtils;
+import com.cc.doctormhealth.leanchat.util.PhotoUtils;
 
 import java.util.Random;
 

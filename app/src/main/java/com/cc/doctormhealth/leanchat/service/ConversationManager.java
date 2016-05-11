@@ -1,15 +1,6 @@
 package com.cc.doctormhealth.leanchat.service;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 import android.graphics.Bitmap;
-
-import com.MHealth.R;
-import com.MHealth.constant.MyApplication;
 import com.avos.avoscloud.AVException;
 import com.avos.avoscloud.im.v2.AVIMClient;
 import com.avos.avoscloud.im.v2.AVIMConversation;
@@ -19,8 +10,6 @@ import com.avos.avoscloud.im.v2.AVIMException;
 import com.avos.avoscloud.im.v2.callback.AVIMConversationCallback;
 import com.avos.avoscloud.im.v2.callback.AVIMConversationCreatedCallback;
 import com.avos.avoscloud.im.v2.callback.AVIMConversationQueryCallback;
-import com.avoscloud.chat.event.ConversationChangeEvent;
-import com.avoscloud.chat.util.Logger;
 import com.avoscloud.leanchatlib.controller.ChatManager;
 import com.avoscloud.leanchatlib.controller.MessageAgent;
 import com.avoscloud.leanchatlib.controller.MessageHelper;
@@ -28,6 +17,16 @@ import com.avoscloud.leanchatlib.model.ConversationType;
 import com.avoscloud.leanchatlib.model.Room;
 import com.avoscloud.leanchatlib.utils.AVIMConversationCacheUtils;
 import com.avoscloud.leanchatlib.utils.Constants;
+import com.cc.doctormhealth.MyApplication;
+import com.cc.doctormhealth.R;
+import com.cc.doctormhealth.leanchat.event.ConversationChangeEvent;
+import com.cc.doctormhealth.leanchat.util.Logger;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import de.greenrobot.event.EventBus;
 

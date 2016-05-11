@@ -13,7 +13,8 @@ import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.Scroller;
 
-import com.MHealth.R;
+import com.cc.doctormhealth.R;
+
 
 public class XListView extends ListView implements OnScrollListener {
   private final static int SCROLLBACK_HEADER = 0;

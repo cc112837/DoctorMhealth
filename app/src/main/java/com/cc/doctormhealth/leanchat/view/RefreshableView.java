@@ -13,8 +13,8 @@ import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import com.MHealth.R;
 import com.avoscloud.leanchatlib.utils.LogUtils;
+import com.cc.doctormhealth.R;
 
 /**
  * Created by lzw on 14-4-23.

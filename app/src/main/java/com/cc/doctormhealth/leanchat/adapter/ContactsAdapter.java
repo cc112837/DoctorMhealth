@@ -1,5 +1,12 @@
 package com.cc.doctormhealth.leanchat.adapter;
 
+import android.text.TextUtils;
+import android.util.Log;
+
+import com.avoscloud.leanchatlib.adapter.HeaderListAdapter;
+import com.avoscloud.leanchatlib.model.LeanchatUser;
+import com.cc.doctormhealth.leanchat.viewholder.ContactItemHolder;
+
 import java.text.Collator;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -8,13 +15,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
-
-import android.text.TextUtils;
-import android.util.Log;
-
-import com.avoscloud.chat.viewholder.ContactItemHolder;
-import com.avoscloud.leanchatlib.adapter.HeaderListAdapter;
-import com.avoscloud.leanchatlib.model.LeanchatUser;
 
 /**
  * Created by wli on 15/11/24.

@@ -11,8 +11,9 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.TextView;
 
-import com.MHealth.R;
-import com.avoscloud.chat.util.PixelUtils;
+import com.cc.doctormhealth.R;
+import com.cc.doctormhealth.leanchat.util.PixelUtils;
+
 
 public class EnLetterView extends View {
   public static String[] letters = {"A", "B", "C", "D", "E", "F", "G", "H", "I",

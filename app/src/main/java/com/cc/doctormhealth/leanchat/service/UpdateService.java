@@ -1,7 +1,5 @@
 package com.cc.doctormhealth.leanchat.service;
 
-import java.util.List;
-
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
@@ -11,16 +9,17 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.preference.PreferenceManager;
-
-import com.MHealth.R;
 import com.avos.avoscloud.AVException;
 import com.avos.avoscloud.AVObject;
 import com.avos.avoscloud.AVQuery;
-import com.avoscloud.chat.model.UpdateInfo;
-import com.avoscloud.chat.util.Logger;
-import com.avoscloud.chat.util.NetAsyncTask;
-import com.avoscloud.chat.util.Utils;
 import com.avoscloud.leanchatlib.utils.LogUtils;
+import com.cc.doctormhealth.R;
+import com.cc.doctormhealth.leanchat.model.UpdateInfo;
+import com.cc.doctormhealth.leanchat.util.Logger;
+import com.cc.doctormhealth.leanchat.util.NetAsyncTask;
+import com.cc.doctormhealth.leanchat.util.Utils;
+
+import java.util.List;
 
 /**
  * Created by lzw on 14-6-24.

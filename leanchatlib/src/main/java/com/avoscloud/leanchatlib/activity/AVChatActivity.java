@@ -5,7 +5,6 @@ import android.app.ActionBar;
 import android.content.Intent;
 import android.os.Bundle;
 
-import com.avos.avoscloud.AVException;
 import com.avos.avoscloud.im.v2.AVIMClient;
 import com.avos.avoscloud.im.v2.AVIMConversation;
 import com.avos.avoscloud.im.v2.AVIMException;

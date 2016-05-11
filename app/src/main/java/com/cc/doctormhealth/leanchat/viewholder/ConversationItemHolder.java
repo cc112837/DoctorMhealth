@@ -1,19 +1,12 @@
 package com.cc.doctormhealth.leanchat.viewholder;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
-
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.MHealth.R;
 import com.avos.avoscloud.im.v2.AVIMConversation;
 import com.avos.avoscloud.im.v2.AVIMTypedMessage;
-import com.avoscloud.chat.event.ConversationItemClickEvent;
-import com.avoscloud.chat.service.CacheService;
-import com.avoscloud.chat.service.ConversationManager;
 import com.avoscloud.leanchatlib.controller.ConversationHelper;
 import com.avoscloud.leanchatlib.controller.MessageHelper;
 import com.avoscloud.leanchatlib.model.ConversationType;
@@ -21,7 +14,14 @@ import com.avoscloud.leanchatlib.model.LeanchatUser;
 import com.avoscloud.leanchatlib.model.Room;
 import com.avoscloud.leanchatlib.utils.PhotoUtils;
 import com.avoscloud.leanchatlib.viewholder.CommonViewHolder;
+import com.cc.doctormhealth.R;
+import com.cc.doctormhealth.leanchat.event.ConversationItemClickEvent;
+import com.cc.doctormhealth.leanchat.service.CacheService;
+import com.cc.doctormhealth.leanchat.service.ConversationManager;
 import com.nostra13.universalimageloader.core.ImageLoader;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import de.greenrobot.event.EventBus;
 

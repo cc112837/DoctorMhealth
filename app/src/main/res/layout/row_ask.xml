@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/bg_gray"
+    android:descendantFocusability="blocksDescendants"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:id="@+id/contactItemlayout"
+        style="@style/ContactListItem"
+        android:layout_height="wrap_content"
+        android:background="#ffffff" >
+
+        <ImageView
+            android:id="@+id/headImg"
+            android:layout_width="46dp"
+            android:layout_height="46dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:scaleType="fitXY" />
+
+        <TextView
+            android:id="@+id/nickView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="24dp"
+            android:layout_toRightOf="@+id/headImg"
+            android:text="名"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/sexView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/nickView"
+            android:layout_alignBottom="@+id/nickView"
+            android:layout_centerHorizontal="true"
+            android:text="男"
+            android:textColor="#234de9"
+            android:textSize="16sp" />
+        
+        <TextView
+            android:id="@+id/sexView1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/nickView"
+            android:layout_centerHorizontal="true"
+            android:text="女"
+            android:textColor="#ff00ae"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/bingView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/headImg"
+            android:layout_alignLeft="@+id/nickView"
+            android:text="病"
+            android:textColor="@color/grey"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/ageView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/sexView"
+            android:layout_alignBottom="@+id/sexView"
+            android:layout_marginLeft="30dp"
+            android:layout_toRightOf="@+id/sexView"
+            android:text="岁"
+            android:textSize="16sp" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="1dp" >
+    </RelativeLayout>
+
+</LinearLayout>

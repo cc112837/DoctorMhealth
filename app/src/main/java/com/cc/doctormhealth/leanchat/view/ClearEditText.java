@@ -13,7 +13,7 @@ import android.view.animation.CycleInterpolator;
 import android.view.animation.TranslateAnimation;
 import android.widget.EditText;
 
-import com.MHealth.R;
+import com.cc.doctormhealth.R;
 
 
 public class ClearEditText extends EditText implements

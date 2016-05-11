@@ -11,7 +11,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.MHealth.R;
+import com.cc.doctormhealth.R;
 
 /**
  * Created by lzw on 14-9-17.
