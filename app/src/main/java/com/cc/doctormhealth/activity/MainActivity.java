@@ -139,10 +139,6 @@ public class MainActivity extends AppCompatActivity {
 
 
     @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-    }
-
-    @Override
     protected void onResume() {
         MyAndroidUtil.clearNoti();
         super.onResume();
@@ -186,11 +182,6 @@ public class MainActivity extends AppCompatActivity {
         else {
             countView1.setVisibility(View.GONE);
         }
-    }
-    public void history(View v) {
-        Intent intent = new Intent();
-        intent.setClass(MainActivity.this, HistoryActivity.class);
-        startActivity(intent);
     }
 
     public void changeFragment(ChangeFragmentHelper helper) {

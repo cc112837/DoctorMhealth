@@ -11,7 +11,6 @@ import com.avos.avoscloud.AVException;
 import com.avos.avoscloud.AVUser;
 import com.avos.avoscloud.UpdatePasswordCallback;
 import com.cc.doctormhealth.R;
-import com.cc.doctormhealth.constant.Constants;
 import com.cc.doctormhealth.utils.Tool;
 
 public class ChangePwdActivity extends AppCompatActivity {
@@ -48,9 +47,6 @@ public class ChangePwdActivity extends AppCompatActivity {
                 } else if (!pwdView.getText().toString()
                         .equals(pwdView1.getText().toString())) {
                     Tool.initToast(getApplicationContext(), "两次密码不一致");
-                } else if (!oldPwdView.getText().toString()
-                        .equals(Constants.PWD)) {
-                    Tool.initToast(getApplicationContext(), "原密码错误");
                 } else {
                     AVUser user = AVUser.getCurrentUser();
                     user.updatePasswordInBackground(oldPwdView.getText()

@@ -1,13 +1,14 @@
 package com.cc.doctormhealth.fragment;
 
 
-import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.v4.app.Fragment;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,25 +26,33 @@ import com.avoscloud.leanchatlib.controller.ChatManager;
 import com.avoscloud.leanchatlib.model.LeanchatUser;
 import com.cc.doctormhealth.R;
 import com.cc.doctormhealth.activity.ChangePwdActivity;
+import com.cc.doctormhealth.activity.LoginActivity;
 import com.cc.doctormhealth.activity.NotiNewsActivity;
 import com.cc.doctormhealth.constant.Constants;
 import com.cc.doctormhealth.leanchat.service.PushManager;
 import com.cc.doctormhealth.leanchat.util.PathUtils;
 import com.cc.doctormhealth.leanchat.util.PhotoUtils;
+import com.cc.doctormhealth.utils.CacheUtils;
+import com.cc.doctormhealth.utils.LogUtil;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.File;
+import java.io.IOException;
+import java.util.Date;
 
 /**
  * A simple {@link Fragment} subclass.
  */
 public class MeFragment extends Fragment {
 
-    private static final int IMAGE_PICK_REQUEST = 1;
-    private static final int CROP_REQUEST = 2;
     RelativeLayout logout, account, noti_news, about;
     TextView username;
     ImageView headImage;
+    String dateTime;
+    private AlertDialog avatarDialog;
     private ChatManager chatManager = ChatManager.getInstance();
 
     @Override
@@ -59,17 +68,26 @@ public class MeFragment extends Fragment {
         username.setText(Constants.USER_NAME);
         headImage = (ImageView) view.findViewById(R.id.headView);
         LeanchatUser curUser = AVUser.getCurrentUser(LeanchatUser.class);
-        ImageLoader.getInstance().displayImage(curUser.getAvatarUrl(), headImage,
+        String avatarUrl = curUser.getAvatarUrl();
+        if(avatarUrl==null){
+            try {
+                JSONObject object = new JSONObject( curUser.toString());
+                JSONObject serverData = object.getJSONObject("serverData");
+                JSONObject avatar = serverData.getJSONObject("avatar");
+                avatarUrl = avatar.getString("url");
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }}
+
+        ImageLoader.getInstance().displayImage(avatarUrl, headImage,
                 com.avoscloud.leanchatlib.utils.PhotoUtils.avatarImageOptions);
         headImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(Intent.ACTION_PICK, null);
-                intent.setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
-                        "image/*");
-                startActivityForResult(intent, IMAGE_PICK_REQUEST);
+                AvatarDialog();
             }
         });
+
         logout.setOnClickListener(new View.OnClickListener() {
 
             @Override
@@ -81,8 +99,9 @@ public class MeFragment extends Fragment {
                 });
                 PushManager.getInstance().unsubscribeCurrentUserChannel();
                 AVUser.logOut();
+                getActivity().startActivity(new Intent(getActivity(), LoginActivity.class));
                 getActivity().finish();
-                System.exit(0);
+//                System.exit(0);
             }
         });
         account.setOnClickListener(new View.OnClickListener() {
@@ -114,57 +133,107 @@ public class MeFragment extends Fragment {
 
         return view;
     }
+    public void AvatarDialog() {
 
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        avatarDialog = new AlertDialog.Builder(getContext()).create();
+        avatarDialog.setCanceledOnTouchOutside(true);
+        View v = LayoutInflater.from(getContext()).inflate(R.layout.my_headicon, null);
+        avatarDialog.show();
+        avatarDialog.setContentView(v);
+        avatarDialog.getWindow().setGravity(Gravity.CENTER);
+        TextView albumPic = (TextView) v.findViewById(R.id.album_pic);
+        TextView cameraPic = (TextView) v.findViewById(R.id.camera_pic);
+        albumPic.setOnClickListener(new View.OnClickListener() {
 
-        super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode == Activity.RESULT_OK) {
-            if (requestCode == IMAGE_PICK_REQUEST) {
-                Uri uri = data.getData();
-                startImageCrop(uri, 200, 200, CROP_REQUEST);
-            } else if (requestCode == CROP_REQUEST) {
-                final String path = saveCropAvatar(data);
-                LeanchatUser user = (LeanchatUser) AVUser.getCurrentUser();
-                user.saveAvatar(path, new SaveCallback() {
-                    @Override
-                    public void done(AVException arg0) {
-                        if (arg0 == null) {
-                            LeanchatUser curUser = AVUser.getCurrentUser(LeanchatUser.class);
-                            ImageLoader
-                                    .getInstance()
-                                    .displayImage(
-                                            curUser.getAvatarUrl(),
-                                            headImage,
-                                            com.avoscloud.leanchatlib.utils.PhotoUtils.avatarImageOptions);
-
-                        }
-
-                    }
-                });
+            @Override
+            public void onClick(View arg0) {
+                avatarDialog.dismiss();
+                Date date1 = new Date(System.currentTimeMillis());
+                dateTime = date1.getTime() + "";
+                showAvatarFromAlbum();
             }
+        });
+        cameraPic.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                avatarDialog.dismiss();
+                Date date = new Date(System.currentTimeMillis());
+                dateTime = date.getTime() + "";
+                showAvatarFromCamera();
+            }
+        });
+    }
+
+    private void showAvatarFromCamera() {
+        File f = new File(CacheUtils.getCacheDirectory(getContext(), true, "icon") + dateTime);
+        if (f.exists()) {
+            f.delete();
         }
+        try {
+            f.createNewFile();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        Uri uri = Uri.fromFile(f);
+        Intent camera = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        camera.putExtra(MediaStore.EXTRA_OUTPUT, uri);
+        startActivityForResult(camera, 1);
+    }
+
+    private void showAvatarFromAlbum() {
+        Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+        intent.setType("image/*");
+        startActivityForResult(intent, 2);
 
     }
 
-    public Uri startImageCrop(Uri uri, int outputX, int outputY, int requestCode) {
-        Intent intent = null;
-        intent = new Intent("com.android.camera.action.CROP");
-        intent.setDataAndType(uri, "image/*");
-        intent.putExtra("crop", "true");
-        intent.putExtra("aspectX", 1);
-        intent.putExtra("aspectY", 1);
-        intent.putExtra("outputX", outputX);
-        intent.putExtra("outputY", outputY);
-        intent.putExtra("scale", true);
-        String outputPath = PathUtils.getAvatarTmpPath();
-        Uri outputUri = Uri.fromFile(new File(outputPath));
-        intent.putExtra(MediaStore.EXTRA_OUTPUT, outputUri);
-        intent.putExtra("return-data", true);
-        intent.putExtra("outputFormat", Bitmap.CompressFormat.JPEG.toString());
-        intent.putExtra("noFaceDetection", false); // face detection
-        startActivityForResult(intent, requestCode);
-        return outputUri;
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        switch (requestCode) {
+            case 1:
+                String files = CacheUtils.getCacheDirectory(getContext(), true, "icon") + dateTime;
+                File file = new File(files);
+                if (file.exists() && file.length() > 0) {
+                    Uri uri = Uri.fromFile(file);
+                    startPhotoZoom(uri);
+                } else {
+                }
+                break;
+            case 2:
+                if (data == null) {
+                    return;
+                }
+                startPhotoZoom(data.getData());
+                break;
+            case 3:
+                if (data != null) {
+                    LogUtil.e("data3","执行了");
+                    final String path = saveCropAvatar(data);
+                    LeanchatUser user = LeanchatUser.getCurrentUser();
+                    user.saveAvatar(path, new SaveCallback() {
+                        @Override
+                        public void done(AVException arg0) {
+                            if (arg0 == null) {
+                                LeanchatUser curUser = LeanchatUser.getCurrentUser(LeanchatUser.class);
+                                String avatarUrl = curUser.getAvatarUrl();
+                                ImageLoader
+                                        .getInstance()
+                                        .displayImage(
+                                                avatarUrl,
+                                                headImage,
+                                                com.avoscloud.leanchatlib.utils.PhotoUtils.avatarImageOptions);
+                            }
+
+                        }
+                    });
+                }
+                break;
+            default:
+                break;
+        }
+
     }
 
     private String saveCropAvatar(Intent data) {
@@ -183,5 +252,20 @@ public class MeFragment extends Fragment {
         }
         return path;
     }
+    public void startPhotoZoom(Uri uri) {
+        Intent intent = new Intent("com.android.camera.action.CROP");
+        intent.setDataAndType(uri, "image/*");
+        intent.putExtra("aspectX", 1);
+        intent.putExtra("aspectY", 1);
+        intent.putExtra("outputX", 120);
+        intent.putExtra("outputY", 120);
+        intent.putExtra("crop", "true");
+        intent.putExtra("scale", true);
+        intent.putExtra("scaleUpIfNeeded", true);
+        intent.putExtra("return-data", true);
+        startActivityForResult(intent,3);
+
+    }
+
 
 }

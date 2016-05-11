@@ -61,7 +61,7 @@
             </intent-filter>
         </activity>
 
-        <receiver android:name="leanchat.service.MHealthDReceiver">
+        <receiver android:name=".leanchat.service.MHealthDReceiver">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
                 <action android:name="android.intent.action.USER_PRESENT" />
