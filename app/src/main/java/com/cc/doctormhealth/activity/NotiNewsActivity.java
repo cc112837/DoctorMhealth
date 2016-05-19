@@ -2,7 +2,9 @@ package com.cc.doctormhealth.activity;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
 import android.widget.CompoundButton;
+import android.widget.ImageView;
 import android.widget.ToggleButton;
 
 import com.cc.doctormhealth.MyApplication;
@@ -10,12 +12,20 @@ import com.cc.doctormhealth.R;
 import com.cc.doctormhealth.utils.MyAndroidUtil;
 
 public class NotiNewsActivity extends AppCompatActivity {
+    ImageView btn_back;
 
     ToggleButton switch1, switch2;
     @Override
     protected void onCreate(Bundle arg0) {
         super.onCreate(arg0);
         setContentView(R.layout.activity_noti_news);
+        btn_back=(ImageView) findViewById(R.id.leftBtn);
+        btn_back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
         switch1 = (ToggleButton) findViewById(R.id.switch1);
         switch2 = (ToggleButton) findViewById(R.id.switch2);
         if(MyApplication.sharedPreferences.getBoolean("isSound", true))

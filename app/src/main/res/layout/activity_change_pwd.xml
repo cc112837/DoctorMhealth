@@ -1,54 +1,57 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:background="@color/white"
+    android:fitsSystemWindows="true"
+    android:background="@color/blue"
     android:orientation="vertical">
 
     <FrameLayout
         android:id="@+id/titlebar"
         android:layout_width="fill_parent"
-        android:layout_height="50dp"
+        android:layout_height="wrap_content"
         android:background="@color/blue"
-        android:orientation="horizontal">
+        android:orientation="horizontal" >
 
-        <ImageView
-            android:id="@+id/btn_back"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_gravity="center_vertical"
-            android:paddingLeft="15dp"
-            android:src="@mipmap/btn_back" />
+
 
         <TextView
             android:id="@+id/titleView"
             style="@style/white20Text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
+            android:text="修改密码"
             android:gravity="center"
-            android:text="修改密码" />
+            android:layout_gravity="center" />
 
+        <ImageView
+            android:id="@+id/leftBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:layout_gravity="center_vertical"
+            android:padding="10dp"
+            android:src="@mipmap/btn_back" />
 
     </FrameLayout>
 
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
+        android:background="@color/white"
         android:orientation="vertical"
-        android:padding="10dp">
-
+        android:padding="10dp"
+        >
         <EditText
             android:id="@+id/oldPwdView"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_marginTop="20dp"
             android:background="@mipmap/input_bg"
+            android:textSize="18sp"
+            android:textColor="@color/black"
             android:gravity="center_vertical"
             android:hint="@string/old_password"
-            android:inputType="textPassword"
             android:paddingLeft="10dp"
-            android:textColor="@color/black"
-            android:textSize="18sp" />
+            android:inputType="textPassword" />
 
         <EditText
             android:id="@+id/pwdView"
@@ -56,12 +59,12 @@
             android:layout_height="50dp"
             android:layout_marginTop="20dp"
             android:background="@mipmap/input_bg"
-            android:gravity="center_vertical"
-            android:hint="@string/new_password"
-            android:inputType="textPassword"
-            android:paddingLeft="10dp"
+            android:textSize="18sp"
             android:textColor="@color/black"
-            android:textSize="18sp" />
+            android:gravity="center_vertical"
+            android:paddingLeft="10dp"
+            android:hint="@string/new_password"
+            android:inputType="textPassword" />
 
         <EditText
             android:id="@+id/pwdView1"
@@ -69,12 +72,14 @@
             android:layout_height="50dp"
             android:layout_marginTop="20dp"
             android:background="@mipmap/input_bg"
+            android:textSize="18sp"
+            android:textColor="@color/black"
             android:gravity="center_vertical"
+            android:paddingLeft="10dp"
             android:hint="@string/new_password"
             android:inputType="textPassword"
-            android:paddingLeft="10dp"
-            android:textColor="@color/black"
-            android:textSize="18sp"></EditText>
+            >
+        </EditText>
 
         <Button
             android:id="@+id/subBtn"
@@ -83,8 +88,8 @@
             android:layout_gravity="center"
             android:layout_marginTop="30dp"
             android:background="@mipmap/btn"
-            android:gravity="center"
             android:text="@string/confirm"
+            android:gravity="center"
             android:textColor="@color/white" />
 
     </LinearLayout>

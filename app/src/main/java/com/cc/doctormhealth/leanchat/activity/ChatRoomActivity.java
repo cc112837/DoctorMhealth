@@ -40,7 +40,6 @@ public class ChatRoomActivity extends AVBaseActivity {
 	protected ChatFragment chatFragment;
 	protected AVIMConversation conversation;
 	protected ImageView image;
-//	protected ImageView right;
 	protected TextView title;
 
 	@Override
@@ -48,7 +47,6 @@ public class ChatRoomActivity extends AVBaseActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_chat);
 		image = (ImageView) findViewById(R.id.leftBtn);
-//		right = (ImageView) findViewById(R.id.rightBtn);
 		title = (TextView) findViewById(R.id.titleViewOfChatRoom);
 		image.setOnClickListener(new OnClickListener() {
 
@@ -60,24 +58,7 @@ public class ChatRoomActivity extends AVBaseActivity {
 		chatFragment = (ChatFragment) getFragmentManager().findFragmentById(
 				R.id.fragment_chat);
 		initByIntent(getIntent());
-//		right.setOnClickListener(new OnClickListener() {
-//
-//			@Override
-//			public void onClick(View v) {
-//				if (ConversationHelper.typeOfConversation(conversation) == ConversationType.Single) {
-//					List<String> Ids = new ArrayList<String>();
-//					Ids.addAll(conversation.getMembers());
-//					Ids.remove(AVUser.getCurrentUser().getObjectId());
-//					if (null != Ids && Ids.size() == 1) {
-//						LeanchatUser user = CacheService.lookupUser(Ids.get(0));
-//						Intent i = new Intent(ChatRoomActivity.this, FriendActivity.class);
-//						i.putExtra("userId", user.getObjectId());
-//						i.putExtra("username", user.getUsername());
-//						startActivity(i);
-//					}
-//				}
-//			}
-//		});
+
 	}
 
 	@Override
@@ -166,20 +147,7 @@ public class ChatRoomActivity extends AVBaseActivity {
 		return super.onCreateOptionsMenu(menu);
 	}
 
-	// @Override
-	// public boolean onMenuItemSelected(int featureId, MenuItem item) {
-	// int menuId = item.getItemId();
-	// if (menuId == R.id.people) {
-	// if (null != conversation) {
-	// Intent intent = new Intent(ChatRoomActivity.this,
-	// ConversationDetailActivity.class);
-	// intent.putExtra(Constants.CONVERSATION_ID,
-	// conversation.getConversationId());
-	// startActivityForResult(intent, QUIT_GROUP_REQUEST);
-	// }
-	// }
-	// return super.onMenuItemSelected(featureId, item);
-	// }
+
 
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent intent) {

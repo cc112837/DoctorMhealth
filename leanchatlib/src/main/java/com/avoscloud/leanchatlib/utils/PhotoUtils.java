@@ -3,11 +3,13 @@ package com.avoscloud.leanchatlib.utils;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.widget.ImageView;
+
 import com.avoscloud.leanchatlib.R;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.assist.ImageScaleType;
 import com.nostra13.universalimageloader.core.display.FadeInBitmapDisplayer;
+import com.nostra13.universalimageloader.core.display.RoundedBitmapDisplayer;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -28,10 +30,19 @@ public class PhotoUtils {
       .imageScaleType(ImageScaleType.EXACTLY)
       .bitmapConfig(Bitmap.Config.RGB_565)
       .resetViewBeforeLoading(true)// 设置图片在下载前是否重置，复位
-          //.displayer(new RoundedBitmapDisplayer(20))
-          //.displayer(new FadeInBitmapDisplayer(100))// 淡入
       .build();
-
+    public static DisplayImageOptions avatarImageOption = new DisplayImageOptions.Builder()
+            .showImageOnLoading(R.drawable.chat_default_user_corner)
+            .showImageForEmptyUri(R.drawable.chat_default_user_corner)
+            .showImageOnFail(R.drawable.chat_default_user_corner)
+            .cacheInMemory(true)
+            .cacheOnDisc(true)
+            .displayer(new RoundedBitmapDisplayer(180))
+            .considerExifParams(true)
+            .imageScaleType(ImageScaleType.EXACTLY)
+            .bitmapConfig(Bitmap.Config.RGB_565)
+            .resetViewBeforeLoading(true)// 设置图片在下载前是否重置，复位
+            .build();
   private static DisplayImageOptions normalImageOptions = new DisplayImageOptions.Builder()
       .showImageOnLoading(R.drawable.chat_common_empty_photo)
       .showImageForEmptyUri(R.drawable.chat_common_empty_photo)

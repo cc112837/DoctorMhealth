@@ -5,13 +5,13 @@
     android:layout_height="fill_parent"
     android:background="@color/grey_bg"
     android:orientation="vertical"
-    android:padding="0dp" >
+    android:padding="0dp">
 
     <RelativeLayout
         android:id="@+id/RelativeLayout_up"
         android:layout_width="match_parent"
         android:layout_height="180dp"
-        android:background="#0199f7" >
+        android:background="#0199f7">
 
         <TextView
             android:id="@+id/username"
@@ -36,19 +36,19 @@
         android:id="@+id/scrollView1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/RelativeLayout_up" >
+        android:layout_below="@+id/RelativeLayout_up">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="#ffffff"
             android:gravity="bottom"
-            android:orientation="vertical" >
+            android:orientation="vertical">
 
             <RelativeLayout
                 android:id="@+id/account"
                 android:layout_width="match_parent"
-                android:layout_height="45dp" >
+                android:layout_height="45dp">
 
                 <ImageView
                     android:id="@+id/tu1"
@@ -84,13 +84,12 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="24dp"
-                android:background="#dad8d9" >
-            </RelativeLayout>
+                android:background="#dad8d9"></RelativeLayout>
 
             <RelativeLayout
                 android:id="@+id/noti_news"
                 android:layout_width="match_parent"
-                android:layout_height="45dp" >
+                android:layout_height="45dp">
 
                 <ImageView
                     android:id="@+id/tu2"
@@ -110,7 +109,7 @@
                     android:layout_toRightOf="@id/tu2"
                     android:text="新消息通知"
                     android:textColor="#000000"
-                    android:textSize="18sp"  />
+                    android:textSize="18sp" />
 
                 <ImageView
                     android:id="@+id/ImageView2"
@@ -125,13 +124,92 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="24dp"
-                android:background="#dad8d9" >
+                android:background="#dad8d9"></RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/share"
+                android:layout_width="match_parent"
+                android:layout_height="45dp">
+
+                <ImageView
+                    android:id="@+id/tushare"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginTop="10dp"
+                    android:src="@mipmap/share" />
+
+                <TextView
+                    android:id="@+id/TextViewshare"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_toRightOf="@id/tushare"
+                    android:text="分享"
+                    android:textColor="#000000"
+                    android:textSize="18sp" />
+
+                <ImageView
+                    android:id="@+id/ImageViewshare"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="16dp"
+                    android:src="@mipmap/jiantou" />
             </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="#dad8d9" />
+
+            <RelativeLayout
+                android:id="@+id/fankui"
+                android:layout_width="match_parent"
+                android:layout_height="45dp">
+
+                <ImageView
+                    android:id="@+id/tufankui"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginTop="10dp"
+                    android:src="@mipmap/info" />
+
+                <TextView
+                    android:id="@+id/TextViewfankui"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_toRightOf="@id/tufankui"
+                    android:text="反馈"
+                    android:textColor="#000000"
+                    android:textSize="18sp" />
+
+                <ImageView
+                    android:id="@+id/ivfankui"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="16dp"
+                    android:src="@mipmap/jiantou" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="#dad8d9" />
 
             <RelativeLayout
                 android:id="@+id/about"
                 android:layout_width="match_parent"
-                android:layout_height="45dp" >
+                android:layout_height="45dp">
 
                 <ImageView
                     android:id="@+id/tu5"
@@ -151,7 +229,7 @@
                     android:layout_toRightOf="@id/tu5"
                     android:text="关于"
                     android:textColor="#000000"
-                    android:textSize="18sp"  />
+                    android:textSize="18sp" />
 
                 <ImageView
                     android:id="@+id/ImageView03"
@@ -166,13 +244,12 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="24dp"
-                android:background="#dad8d9" >
-            </RelativeLayout>
+                android:background="#dad8d9"></RelativeLayout>
 
             <RelativeLayout
                 android:id="@+id/logout"
                 android:layout_width="match_parent"
-                android:layout_height="45dp" >
+                android:layout_height="45dp">
 
                 <TextView
                     android:id="@+id/TextView04"
@@ -181,15 +258,11 @@
                     android:layout_centerHorizontal="true"
                     android:layout_centerVertical="true"
                     android:text="退出登录"
-                    android:textSize="18sp"
-                    android:textColor="#ff0302" />
+                    android:textColor="#ff0302"
+                    android:textSize="18sp" />
             </RelativeLayout>
 
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="#dad8d9" >
-            </RelativeLayout>
+
         </LinearLayout>
     </ScrollView>
 

@@ -27,7 +27,7 @@ public class ChangePwdActivity extends AppCompatActivity {
         pwdView = (EditText) findViewById(R.id.pwdView);
         pwdView1 = (EditText) findViewById(R.id.pwdView1);
         subBtn = (Button) findViewById(R.id.subBtn);
-        btn_back=(ImageView) findViewById(R.id.btn_back);
+        btn_back=(ImageView) findViewById(R.id.leftBtn);
         btn_back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
