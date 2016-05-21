@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.avos.avoscloud.AVException;
@@ -21,11 +22,13 @@ import com.avos.avoscloud.im.v2.AVIMException;
 import com.avos.avoscloud.im.v2.callback.AVIMClientCallback;
 import com.avoscloud.leanchatlib.controller.ChatManager;
 import com.avoscloud.leanchatlib.model.LeanchatUser;
+import com.avoscloud.leanchatlib.utils.PhotoUtils;
 import com.cc.doctormhealth.MyApplication;
 import com.cc.doctormhealth.R;
 import com.cc.doctormhealth.constant.Constants;
 import com.cc.doctormhealth.utils.MyAndroidUtil;
 import com.cc.doctormhealth.utils.Tool;
+import com.nostra13.universalimageloader.core.ImageLoader;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
@@ -48,6 +51,7 @@ public class LoginActivity extends BaseActivity implements TextWatcher {
     Button loginBtn, regButton;
     TextView nameText, pwdText;
     private String name, pwd;
+    ImageView headicon;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,6 +59,9 @@ public class LoginActivity extends BaseActivity implements TextWatcher {
         setContentView(R.layout.activity_login);
         String appId = "cirdf9pJrnd6XpNW1Xn3OVf5-gzGzoHsz";
         String appKey = "eFwqv2nwhEDg9qdqzPUr3fga";
+        headicon=(ImageView) findViewById(R.id.headicon);
+        ImageLoader.getInstance().displayImage(MyApplication.sharedPreferences.getString(Constants.icon,null), headicon,
+                PhotoUtils.avatarlogin);
 
 
         AVOSCloud.initialize(LoginActivity.this, appId, appKey);

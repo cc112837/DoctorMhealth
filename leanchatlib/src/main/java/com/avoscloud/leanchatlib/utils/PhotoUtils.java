@@ -43,6 +43,18 @@ public class PhotoUtils {
             .bitmapConfig(Bitmap.Config.RGB_565)
             .resetViewBeforeLoading(true)// 设置图片在下载前是否重置，复位
             .build();
+    public static DisplayImageOptions avatarlogin = new DisplayImageOptions.Builder()
+            .showImageOnLoading(R.drawable.yisheng)
+            .showImageForEmptyUri(R.drawable.yisheng)
+            .showImageOnFail(R.drawable.yisheng)
+            .cacheInMemory(true)
+            .cacheOnDisc(true)
+            .displayer(new RoundedBitmapDisplayer(180))
+            .considerExifParams(true)
+            .imageScaleType(ImageScaleType.EXACTLY)
+            .bitmapConfig(Bitmap.Config.RGB_565)
+            .resetViewBeforeLoading(true)// 设置图片在下载前是否重置，复位
+            .build();
   private static DisplayImageOptions normalImageOptions = new DisplayImageOptions.Builder()
       .showImageOnLoading(R.drawable.chat_common_empty_photo)
       .showImageForEmptyUri(R.drawable.chat_common_empty_photo)

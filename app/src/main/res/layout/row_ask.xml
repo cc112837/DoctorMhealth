@@ -16,6 +16,7 @@
             android:id="@+id/headImg"
             android:layout_width="46dp"
             android:layout_height="46dp"
+            android:src="@mipmap/default_icon"
             android:layout_alignParentLeft="true"
             android:layout_alignParentTop="true"
             android:scaleType="fitXY" />

@@ -2,6 +2,7 @@ package com.cc.doctormhealth.adapter;
 
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +11,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.cc.doctormhealth.R;
+import com.cc.doctormhealth.activity.FriendActivity;
 import com.cc.doctormhealth.constant.ImgConfig;
 import com.cc.doctormhealth.model.Patient;
 
@@ -55,6 +57,16 @@ public class HistoryAdapter extends BaseAdapter {
 		}
 		
 		ImgConfig.showHeadImg(item.username, viewHolder.headImg);
+		viewHolder.headImg.setOnClickListener(new View.OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				Intent intent = new Intent(context, FriendActivity.class);
+				intent.putExtra("username", item.username);
+				intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+				context.startActivity(intent);
+			}
+		});
 			
 		
 		return convertView;

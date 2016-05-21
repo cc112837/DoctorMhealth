@@ -1,134 +1,151 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/RelativeLayout1"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    android:background="@mipmap/login_bg"
-    android:orientation="vertical" >
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
-    <Button
-        android:id="@+id/loginBtn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@mipmap/btn"
-        android:text="@string/login_str"
-        android:textColor="@color/white"
-        android:layout_above="@+id/t"
-        android:textSize="24sp"
-        android:layout_alignRight="@+id/lll"
-        android:layout_alignEnd="@+id/lll"
-        android:layout_alignLeft="@+id/lll"
-        android:layout_alignStart="@+id/lll" />
 
     <LinearLayout
+        android:id="@+id/loginLinear"
         android:layout_width="match_parent"
-        android:layout_height="55dp"
-        android:layout_above="@+id/lll"
-        android:layout_marginBottom="10dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:background="@drawable/conner_shape"
-        android:orientation="horizontal" >
+        android:layout_height="match_parent"
+        android:background="@mipmap/login_background"
+        android:orientation="vertical"
+        tools:context="com.cpsecpom.LoginActivity">
 
         <ImageView
-            android:layout_width="55dp"
-            android:layout_height="40dp"
+            android:id="@+id/headicon"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
             android:layout_gravity="center"
-            android:src="@mipmap/login_icon_account" />
+            android:layout_marginTop="100dp"
+            android:src="@mipmap/ic_launcher" />
 
-        <TextView
-            android:layout_width="5dp"
-            android:layout_height="match_parent"
-            android:background="#ffffff" />
-
-        <EditText
-            android:id="@+id/nameText"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@drawable/conner_right"
-            android:hint="请输入账号"
-            android:textSize="16sp"  />
+            android:layout_height="0dp"
+            android:layout_marginTop="40dp"
+            android:layout_weight="9"
+            android:orientation="vertical"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/conner_shape"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="50dp"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:src="@mipmap/login_phone" />
+
+                <TextView
+                    android:layout_width="5dp"
+                    android:layout_height="match_parent"
+                    android:background="#ffffff" />
+
+                <EditText
+                    android:id="@+id/nameText"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@drawable/conner_right"
+                    android:hint="请输入账号">
+
+                    <requestFocus />
+                </EditText>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/conner_shape"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="50dp"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:src="@mipmap/login_password" />
+
+                <TextView
+                    android:layout_width="5dp"
+                    android:layout_height="match_parent"
+                    android:background="#ffffff" />
+
+                <EditText
+                    android:id="@+id/pwdText"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@drawable/conner_right"
+                    android:hint="请输入密码"
+                    android:password="true" />
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/loginBtn"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="@mipmap/btn"
+                android:text="登录"
+                android:textColor="#ffffff"
+                android:textSize="22sp" />
+
+        </LinearLayout>
+
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+
+            <Button
+                android:id="@+id/regButton"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@color/transparent_background"
+                android:gravity="center"
+                android:text="注册新账号"
+                android:textColor="@color/dark_grey"
+                android:textSize="18sp" />
+
+
+            <Button
+                android:id="@+id/forgetButton"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@color/transparent_background"
+                android:gravity="center"
+                android:text="忘记密码？"
+                android:textColor="@color/dark_grey"
+                android:textSize="18sp" />
+
+        </LinearLayout>
     </LinearLayout>
 
-    <LinearLayout
-        android:id="@+id/lll"
-        android:layout_width="match_parent"
-        android:layout_height="55dp"
-        android:layout_above="@+id/loginBtn"
-        android:layout_marginBottom="10dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:background="@drawable/conner_shape"
-        android:orientation="horizontal" >
-
-        <ImageView
-            android:layout_width="55dp"
-            android:layout_height="40dp"
-            android:layout_gravity="center"
-            android:src="@mipmap/login_icon_password" />
-
-        <TextView
-            android:layout_width="5dp"
-            android:layout_height="match_parent"
-            android:background="#ffffff" />
-
-        <EditText
-            android:id="@+id/pwdText"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@drawable/conner_right"
-            android:hint="请输入密码"
-            android:textSize="16sp"
-            android:inputType="textPassword" />
-    </LinearLayout>
-
-    <RelativeLayout
-        android:id="@+id/text"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/t">
-
-        <Button
-            android:id="@+id/regButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_margin="10dp"
-            android:layout_toLeftOf="@+id/line"
-            android:background="@color/transparent_background"
-            android:gravity="center"
-            android:text="注册新账号"
-            android:textColor="@color/white"
-            android:textSize="18sp" />
-
-        <TextView
-            android:id="@+id/line"
-            android:layout_width="1dp"
-            android:layout_height="17dp"
-            android:layout_centerHorizontal="true"
-            android:layout_centerVertical="true"
-            android:layout_margin="10dp"
-            android:background="@color/white" />
-
-        <Button
-            android:id="@+id/forgetButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_margin="10dp"
-            android:layout_toRightOf="@+id/line"
-            android:background="@color/transparent_background"
-            android:gravity="center"
-            android:text="忘记密码？"
-            android:textColor="@color/white"
-            android:textSize="18sp" />
-
-    </RelativeLayout>
+</LinearLayout>
 
 
-    <TextView
-        android:id="@+id/t"
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_centerInParent="true" />
 
-</RelativeLayout>
+
+
+
+
+
+
+
+
+
+
+

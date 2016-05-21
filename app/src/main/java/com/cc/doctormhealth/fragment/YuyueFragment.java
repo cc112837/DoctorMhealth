@@ -1,15 +1,18 @@
 package com.cc.doctormhealth.fragment;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import com.cc.doctormhealth.R;
+import com.cc.doctormhealth.activity.FriendActivity;
 import com.cc.doctormhealth.adapter.YuyueAdapter;
 import com.cc.doctormhealth.model.Patients;
 
@@ -47,6 +50,15 @@ public class YuyueFragment extends Fragment {
         text = (TextView) getActivity().findViewById(R.id.number);
         text.setText("已有" + patientList.size() + "名用户预约您");
         list.setAdapter(adapter);
+        list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent intent = new Intent(getActivity(), FriendActivity.class);
+                intent.putExtra("username", ((Patients)list.getItemAtPosition(position)).username);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(intent);
+            }
+        });
     }
 
     private void init() {

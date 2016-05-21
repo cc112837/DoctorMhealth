@@ -34,6 +34,7 @@ import com.cc.doctormhealth.leanchat.service.PushManager;
 import com.cc.doctormhealth.leanchat.util.PathUtils;
 import com.cc.doctormhealth.leanchat.util.PhotoUtils;
 import com.cc.doctormhealth.utils.CacheUtils;
+import com.cc.doctormhealth.utils.MyAndroidUtil;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
 import org.json.JSONException;
@@ -100,7 +101,8 @@ public class MeFragment extends Fragment {
             } catch (JSONException e) {
                 e.printStackTrace();
             }}
-
+        MyAndroidUtil.editXmlByString(
+                Constants.icon, avatarUrl);
         ImageLoader.getInstance().displayImage(avatarUrl, headImage,
                 com.avoscloud.leanchatlib.utils.PhotoUtils.avatarImageOption);
         headImage.setOnClickListener(new View.OnClickListener() {

@@ -20,6 +20,7 @@ public class Constants {
 	
 	
 	public static String USER_NAME = "";
+	public static String icon = "";
 	public static String PWD = "";
 //	public static User loginUser;
 
