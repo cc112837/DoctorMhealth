@@ -1,7 +1,6 @@
 package com.cc.doctormhealth.leanchat.adapter;
 
 import android.text.TextUtils;
-import android.util.Log;
 
 import com.avoscloud.leanchatlib.adapter.HeaderListAdapter;
 import com.avoscloud.leanchatlib.model.LeanchatUser;
@@ -46,9 +45,6 @@ public class ContactsAdapter extends
 				ContactItem item = new ContactItem();
 				item.user = user;
 				item.sortContent = user.getUsername();
-//				PinyinHelper.convertToPinyinString(user.getUsername(),"",
-//				 PinyinFormat.WITHOUT_TONE);
-				 Log.e("sortContent", item.sortContent);
 				contactList.add(item);
 			}
 		}
@@ -105,10 +101,6 @@ public class ContactsAdapter extends
 					item.initialVisible = true;
 					lastInitial = ' ';
 				}
-				// Log.e("sortContent", item.sortContent);
-				// Log.e("sortContent", item.initialVisible+"");
-				Log.e("username", item.user.getUsername()
-						+ "?????????????????????upinvisible");
 			}
 		}
 	}

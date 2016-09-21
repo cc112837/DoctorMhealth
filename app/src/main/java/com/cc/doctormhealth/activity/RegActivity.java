@@ -13,8 +13,6 @@ public class RegActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_reg);
 
-
-
         //登录成功
         Tool.initToast(getApplicationContext(),
                 getString(R.string.register_success));

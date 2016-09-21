@@ -3,12 +3,8 @@ package com.cc.doctormhealth.fragment;
 
 import android.app.AlertDialog;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.net.Uri;
 import android.os.Bundle;
-import android.provider.MediaStore;
 import android.support.v4.app.Fragment;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,9 +12,7 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.avos.avoscloud.AVException;
 import com.avos.avoscloud.AVUser;
-import com.avos.avoscloud.SaveCallback;
 import com.avos.avoscloud.feedback.FeedbackAgent;
 import com.avos.avoscloud.im.v2.AVIMClient;
 import com.avos.avoscloud.im.v2.AVIMException;
@@ -31,18 +25,11 @@ import com.cc.doctormhealth.activity.LoginActivity;
 import com.cc.doctormhealth.activity.NotiNewsActivity;
 import com.cc.doctormhealth.constant.Constants;
 import com.cc.doctormhealth.leanchat.service.PushManager;
-import com.cc.doctormhealth.leanchat.util.PathUtils;
-import com.cc.doctormhealth.leanchat.util.PhotoUtils;
-import com.cc.doctormhealth.utils.CacheUtils;
 import com.cc.doctormhealth.utils.MyAndroidUtil;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import java.io.File;
-import java.io.IOException;
-import java.util.Date;
 
 import cn.sharesdk.framework.ShareSDK;
 import cn.sharesdk.onekeyshare.OnekeyShare;
@@ -55,7 +42,7 @@ import cn.sharesdk.onekeyshare.OnekeyShare;
 
 public class MeFragment extends Fragment {
 
-    RelativeLayout logout, account, noti_news, about,fankui,share;
+    RelativeLayout logout, account, noti_news, about, fankui, share;
     TextView username;
     ImageView headImage;
     String dateTime;
@@ -92,25 +79,20 @@ public class MeFragment extends Fragment {
         headImage = (ImageView) view.findViewById(R.id.headView);
         LeanchatUser curUser = AVUser.getCurrentUser(LeanchatUser.class);
         String avatarUrl = curUser.getAvatarUrl();
-        if(avatarUrl==null){
+        if (avatarUrl == null) {
             try {
-                JSONObject object = new JSONObject( curUser.toString());
+                JSONObject object = new JSONObject(curUser.toString());
                 JSONObject serverData = object.getJSONObject("serverData");
                 JSONObject avatar = serverData.getJSONObject("avatar");
                 avatarUrl = avatar.getString("url");
             } catch (JSONException e) {
                 e.printStackTrace();
-            }}
+            }
+        }
         MyAndroidUtil.editXmlByString(
                 Constants.icon, avatarUrl);
         ImageLoader.getInstance().displayImage(avatarUrl, headImage,
                 com.avoscloud.leanchatlib.utils.PhotoUtils.avatarImageOption);
-        headImage.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                AvatarDialog();
-            }
-        });
 
         logout.setOnClickListener(new View.OnClickListener() {
 
@@ -155,138 +137,6 @@ public class MeFragment extends Fragment {
         });
 
         return view;
-    }
-    public void AvatarDialog() {
-
-        avatarDialog = new AlertDialog.Builder(getContext()).create();
-        avatarDialog.setCanceledOnTouchOutside(true);
-        View v = LayoutInflater.from(getContext()).inflate(R.layout.my_headicon, null);
-        avatarDialog.show();
-        avatarDialog.setContentView(v);
-        avatarDialog.getWindow().setGravity(Gravity.CENTER);
-        TextView albumPic = (TextView) v.findViewById(R.id.album_pic);
-        TextView cameraPic = (TextView) v.findViewById(R.id.camera_pic);
-        albumPic.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View arg0) {
-                avatarDialog.dismiss();
-                Date date1 = new Date(System.currentTimeMillis());
-                dateTime = date1.getTime() + "";
-                showAvatarFromAlbum();
-            }
-        });
-        cameraPic.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                avatarDialog.dismiss();
-                Date date = new Date(System.currentTimeMillis());
-                dateTime = date.getTime() + "";
-                showAvatarFromCamera();
-            }
-        });
-    }
-
-    private void showAvatarFromCamera() {
-        File f = new File(CacheUtils.getCacheDirectory(getContext(), true, "icon") + dateTime);
-        if (f.exists()) {
-            f.delete();
-        }
-        try {
-            f.createNewFile();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        Uri uri = Uri.fromFile(f);
-        Intent camera = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        camera.putExtra(MediaStore.EXTRA_OUTPUT, uri);
-        startActivityForResult(camera, 1);
-    }
-
-    private void showAvatarFromAlbum() {
-        Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
-        intent.setType("image/*");
-        startActivityForResult(intent, 2);
-
-    }
-
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        switch (requestCode) {
-            case 1:
-                String files = CacheUtils.getCacheDirectory(getContext(), true, "icon") + dateTime;
-                File file = new File(files);
-                if (file.exists() && file.length() > 0) {
-                    Uri uri = Uri.fromFile(file);
-                    startPhotoZoom(uri);
-                } else {
-                }
-                break;
-            case 2:
-                if (data == null) {
-                    return;
-                }
-                startPhotoZoom(data.getData());
-                break;
-            case 3:
-                if (data != null) {
-                    final String path = saveCropAvatar(data);
-                    LeanchatUser user = LeanchatUser.getCurrentUser();
-                    user.saveAvatar(path, new SaveCallback() {
-                        @Override
-                        public void done(AVException arg0) {
-                            if (arg0 == null) {
-                                LeanchatUser curUser = LeanchatUser.getCurrentUser(LeanchatUser.class);
-                                String avatarUrl = curUser.getAvatarUrl();
-                                ImageLoader
-                                        .getInstance()
-                                        .displayImage(
-                                                avatarUrl,
-                                                headImage,
-                                                com.avoscloud.leanchatlib.utils.PhotoUtils.avatarImageOption);
-                            }
-
-                        }
-                    });
-                }
-                break;
-            default:
-                break;
-        }
-
-    }
-
-    private String saveCropAvatar(Intent data) {
-        Bundle extras = data.getExtras();
-        String path = null;
-        if (extras != null) {
-            Bitmap bitmap = extras.getParcelable("data");
-            if (bitmap != null) {
-                bitmap = PhotoUtils.toRoundCorner(bitmap, 10);
-                path = PathUtils.getAvatarCropPath();
-                PhotoUtils.saveBitmap(path, bitmap);
-                if (bitmap != null && bitmap.isRecycled() == false) {
-                    bitmap.recycle();
-                }
-            }
-        }
-        return path;
-    }
-    public void startPhotoZoom(Uri uri) {
-        Intent intent = new Intent("com.android.camera.action.CROP");
-        intent.setDataAndType(uri, "image/*");
-        intent.putExtra("aspectX", 1);
-        intent.putExtra("aspectY", 1);
-        intent.putExtra("outputX", 120);
-        intent.putExtra("outputY", 120);
-        intent.putExtra("crop", "true");
-        intent.putExtra("scale", true);
-        intent.putExtra("scaleUpIfNeeded", true);
-        intent.putExtra("return-data", true);
-        startActivityForResult(intent,3);
-
     }
 
     @Override
