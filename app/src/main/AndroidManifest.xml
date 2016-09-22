@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.cc.doctormhealth">
+
     <!-- 用于访问wifi网络信息，wifi信息会用于进行网络定位 -->
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <!-- 获取运营商信息，用于支持提供运营商信息相关的接口 -->
@@ -82,7 +83,7 @@
             </intent-filter>
         </receiver>
 
-        <activity android:name="com.avos.avoscloud.feedback.ThreadActivity"></activity>
+        <activity android:name="com.avos.avoscloud.feedback.ThreadActivity" />
         <activity android:name=".activity.MainActivity" />
         <activity android:name=".activity.RegActivity" />
         <activity android:name=".activity.SearchActivity" />
@@ -90,14 +91,13 @@
         <activity android:name=".activity.HistoryActivity" />
         <activity android:name=".activity.NewFriendActivity" />
         <activity android:name=".activity.ChangePwdActivity" />
-        <activity android:name=".activity.NotiNewsActivity"></activity>
+        <activity android:name=".activity.NotiNewsActivity" />
         <activity
             android:name=".leanchat.activity.ChatRoomActivity"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".leanchat.activity.ImageBrowserActivity"
-            android:screenOrientation="portrait"></activity>
-
+            android:screenOrientation="portrait" />
         <activity
             android:name="com.mob.tools.MobUIShell"
             android:configChanges="keyboardHidden|orientation|screenSize"
@@ -118,7 +118,9 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-
+        <activity android:name=".activity.MyMoneyActivity" />
+        <activity android:name=".activity.AboutActivity" />
+        <activity android:name=".activity.ServicePriActivity"></activity>
     </application>
 
 </manifest>
