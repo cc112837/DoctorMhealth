@@ -18,6 +18,7 @@ import com.avos.avoscloud.im.v2.AVIMException;
 import com.avos.avoscloud.im.v2.callback.AVIMClientCallback;
 import com.avoscloud.leanchatlib.controller.ChatManager;
 import com.avoscloud.leanchatlib.model.LeanchatUser;
+import com.cc.doctormhealth.MyApplication;
 import com.cc.doctormhealth.R;
 import com.cc.doctormhealth.activity.AboutActivity;
 import com.cc.doctormhealth.activity.ChangePwdActivity;
@@ -81,7 +82,8 @@ public class MeFragment extends Fragment {
             }
         });
         username = (TextView) view.findViewById(R.id.username);
-        username.setText(Constants.USER_NAME);
+        username.setText(MyApplication.sharedPreferences.getString(Constants.LOGIN_ACCOUNT,
+                null));
         headImage = (ImageView) view.findViewById(R.id.headView);
         LeanchatUser curUser = AVUser.getCurrentUser(LeanchatUser.class);
         String avatarUrl = curUser.getAvatarUrl();

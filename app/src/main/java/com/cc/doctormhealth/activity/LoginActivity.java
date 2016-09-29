@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
@@ -29,22 +28,6 @@ import com.cc.doctormhealth.constant.Constants;
 import com.cc.doctormhealth.utils.MyAndroidUtil;
 import com.cc.doctormhealth.utils.Tool;
 import com.nostra13.universalimageloader.core.ImageLoader;
-
-import org.apache.http.HttpResponse;
-import org.apache.http.NameValuePair;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.entity.UrlEncodedFormEntity;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.impl.client.DefaultHttpClient;
-import org.apache.http.message.BasicNameValuePair;
-import org.apache.http.params.HttpConnectionParams;
-import org.apache.http.params.HttpParams;
-import org.apache.http.protocol.HTTP;
-import org.apache.http.util.EntityUtils;
-
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
 public class LoginActivity extends BaseActivity implements TextWatcher {
 
@@ -110,7 +93,7 @@ public class LoginActivity extends BaseActivity implements TextWatcher {
 
     private void loginAccount(final String userName, final String password) {
         final ProgressDialog dialog = showSpinnerDialog();
-        AVUser.logInInBackground(userName, password,
+        AVUser.logInInBackground("D"+userName, password,
                 new LogInCallback<LeanchatUser>() {
                     @Override
                     public void done(LeanchatUser avUser, AVException e) {
@@ -120,7 +103,6 @@ public class LoginActivity extends BaseActivity implements TextWatcher {
 
                             aUser.get("property");
                             if (aUser.get("property").equals("doctor")) {
-
                                 finishLogin();
                             } else {
                                 AVUser.logOut();
@@ -136,36 +118,6 @@ public class LoginActivity extends BaseActivity implements TextWatcher {
 
     private void finishLogin() {
         // 第二个参数：登录标记 Tag
-        Thread th = new Thread() {
-            @Override
-            public void run() {
-                try {
-                    Log.e("run", "run");
-                    HttpClient client = new DefaultHttpClient();
-                    HttpPost request = new HttpPost(
-                            "http://123.57.191.21:8080/mhealth/servlet/DoctorLoginServlet");
-                    List<NameValuePair> info = new ArrayList<>();
-                    info.add(new BasicNameValuePair("doctorName", AVUser.getCurrentUser()
-                            .getUsername()));
-                    info.add(new BasicNameValuePair("objectId", AVUser.getCurrentUser()
-                            .getObjectId()));
-                    HttpParams params = client.getParams();
-                    HttpConnectionParams.setConnectionTimeout(params, 6 * 1000);
-                    request.setEntity(new UrlEncodedFormEntity(info, HTTP.UTF_8));
-                    // request.setEntity(new UrlEncodedFormEntity());
-                    HttpResponse response = client.execute(request);
-                    if (response.getStatusLine().getStatusCode() == 200) {
-                        String contact = EntityUtils.toString(response.getEntity(),
-                                HTTP.UTF_8);
-                        Log.e("run", contact);
-
-                    }
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-        };
-        th.start();
         AVIMClient currentClient = AVIMClient.getInstance("android", "Mobile");
         currentClient.open(new AVIMClientCallback() {
             @Override

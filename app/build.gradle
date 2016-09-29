@@ -25,12 +25,18 @@ android {
         }
     }
 }
-
+repositories{
+    flatDir{
+        dirs 'libs' //就是你放aar的目录地址
+    }
+}
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     testCompile 'junit:junit:4.12'
     compile 'com.android.support:appcompat-v7:23.1.1'
     compile project(':leanchatlib')
+    compile name: 'SMSSDK-2.0.2', ext: 'aar'
     compile 'com.google.code.gson:gson:2.2.4'
     compile project(':onekeyshare')
+    compile 'com.jiechic.library:xUtils:2.6.14'
 }
