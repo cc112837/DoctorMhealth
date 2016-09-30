@@ -180,7 +180,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
         android:text="确认"
-        android:background="@mipmap/btn"
+        android:background="@drawable/button_radius_style"
         android:textColor="@color/white" />
 </LinearLayout>
 </LinearLayout>

@@ -3,6 +3,8 @@ package com.cc.doctormhealth.activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
@@ -11,6 +13,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.avos.avoscloud.AVException;
 import com.avos.avoscloud.AVOSCloud;
@@ -25,7 +28,10 @@ import com.avoscloud.leanchatlib.utils.PhotoUtils;
 import com.cc.doctormhealth.MyApplication;
 import com.cc.doctormhealth.R;
 import com.cc.doctormhealth.constant.Constants;
+import com.cc.doctormhealth.model.UserInfo;
+import com.cc.doctormhealth.model.UserReg;
 import com.cc.doctormhealth.utils.MyAndroidUtil;
+import com.cc.doctormhealth.utils.MyHttpUtils;
 import com.cc.doctormhealth.utils.Tool;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
@@ -42,16 +48,16 @@ public class LoginActivity extends BaseActivity implements TextWatcher {
         setContentView(R.layout.activity_login);
         String appId = "cirdf9pJrnd6XpNW1Xn3OVf5-gzGzoHsz";
         String appKey = "eFwqv2nwhEDg9qdqzPUr3fga";
-        headicon=(ImageView) findViewById(R.id.headicon);
-        ImageLoader.getInstance().displayImage(MyApplication.sharedPreferences.getString(Constants.icon,null), headicon,
+        headicon = (ImageView) findViewById(R.id.headicon);
+        ImageLoader.getInstance().displayImage(MyApplication.sharedPreferences.getString(Constants.icon, null), headicon,
                 PhotoUtils.avatarlogin);
 
 
         AVOSCloud.initialize(LoginActivity.this, appId, appKey);
-        if(AVUser.getCurrentUser() != null){
-            name = AVUser.getCurrentUser().getUsername();
-            finishLogin();
-        }
+//        if(AVUser.getCurrentUser() != null){
+//            name = AVUser.getCurrentUser().getUsername();
+//            finishLogin();
+//        }
         initTitle();
         nameText = (TextView) findViewById(R.id.nameText);
         pwdText = (TextView) findViewById(R.id.pwdText);
@@ -70,7 +76,8 @@ public class LoginActivity extends BaseActivity implements TextWatcher {
                     Tool.initToast(LoginActivity.this,
                             getString(R.string.register_password));
                 } else {
-                    loginAccount(name, pwd);
+//                    loginAccount(name, pwd);
+                    loginSerAccount(name, pwd);
                 }
             }
         });
@@ -78,7 +85,7 @@ public class LoginActivity extends BaseActivity implements TextWatcher {
 
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(LoginActivity.this, RegActivity.class);
+                Intent intent = new Intent(LoginActivity.this, CheckActivity.class);
                 startActivity(intent);
             }
         });
@@ -91,9 +98,41 @@ public class LoginActivity extends BaseActivity implements TextWatcher {
             nameText.setText(name);
     }
 
+    private Handler handler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            switch (msg.what) {
+                case 12:
+                    UserReg userReg = (UserReg) msg.obj;
+                    if (userReg.getStatus().equals("1")) {
+                        Toast.makeText(LoginActivity.this, "登录成功", Toast.LENGTH_LONG).show();
+                        if (userReg.getMember() == 1) {
+                            finishLogin();
+                        } else {
+                            Intent intent = new Intent(LoginActivity.this, TextActivity.class);
+                            startActivity(intent);
+                        }
+                    } else {
+                        Toast.makeText(LoginActivity.this, userReg.getData(), Toast.LENGTH_LONG).show();
+
+                    }
+                    break;
+            }
+        }
+    };
+
+    private void loginSerAccount(String name, String pwd) {
+        String url = Constants.SERVER_URL + "MhealthDoctorLoginServlet";
+        UserInfo userInfo = new UserInfo();
+        userInfo.setPhone(name);
+        userInfo.setPass(pwd);
+        MyHttpUtils.handData(handler, 12, url, userInfo);
+    }
+
     private void loginAccount(final String userName, final String password) {
         final ProgressDialog dialog = showSpinnerDialog();
-        AVUser.logInInBackground("D"+userName, password,
+        AVUser.logInInBackground("D" + userName, password,
                 new LogInCallback<LeanchatUser>() {
                     @Override
                     public void done(LeanchatUser avUser, AVException e) {

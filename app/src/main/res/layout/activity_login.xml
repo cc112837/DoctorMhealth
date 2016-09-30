@@ -92,7 +92,7 @@
                 android:id="@+id/loginBtn"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:background="@mipmap/btn"
+                android:background="@drawable/button_radius_style"
                 android:text="登录"
                 android:textColor="#ffffff"
                 android:textSize="22sp" />

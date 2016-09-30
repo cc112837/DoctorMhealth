@@ -87,7 +87,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginTop="30dp"
-            android:background="@mipmap/btn"
+           android:background="@drawable/button_radius_style"
             android:text="@string/confirm"
             android:gravity="center"
             android:textColor="@color/white" />
