@@ -10,7 +10,7 @@ import android.widget.ImageView;
 import com.cc.doctormhealth.R;
 
 public class TextActivity extends Activity {
-    private ImageView leftBtn,iv_1,iv_2,iv_3;
+    private ImageView leftBtn,iv_1,iv_2;
     private EditText et_name,et_idcard,et_hospital,et_keshi;
     private Button btn_confirm;
 
@@ -30,7 +30,6 @@ public class TextActivity extends Activity {
         btn_confirm=(Button) findViewById(R.id.btn_confirm);
         iv_1=(ImageView) findViewById(R.id.iv_1);
         iv_2=(ImageView) findViewById(R.id.iv_2);
-        iv_3=(ImageView) findViewById(R.id.iv_3);
         leftBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

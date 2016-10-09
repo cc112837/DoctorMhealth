@@ -111,8 +111,8 @@
 
             <TextView
                 android:layout_width="match_parent"
-                android:layout_height="1px"
-                android:background="@color/grey_bg" />
+                android:layout_height="10dp"
+                android:background="@color/grey_e" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -206,17 +206,18 @@
 
                 <ImageView
                     android:id="@+id/iv_1"
+                    android:src="@mipmap/rank_add"
                     android:layout_width="80dp"
                     android:layout_height="80dp" />
 
                 <ImageView
                     android:id="@+id/iv_2"
+                    android:src="@mipmap/rank_add"
                     android:layout_width="80dp"
                     android:layout_height="80dp"
                     android:layout_marginLeft="10dp" />
 
                 <ImageView
-                    android:id="@+id/iv_3"
                     android:layout_width="80dp"
                     android:layout_height="80dp"
                     android:layout_marginLeft="10dp" />

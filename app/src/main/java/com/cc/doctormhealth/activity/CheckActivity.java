@@ -33,9 +33,8 @@ public class CheckActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_check);
-//        Intent intent = getIntent();
-//        phone = intent.getStringExtra("phone");
-        phone="18369956786";
+        Intent intent = getIntent();
+        phone = intent.getStringExtra("phone");
         init();
 
     }
@@ -61,8 +60,7 @@ public class CheckActivity extends Activity {
                 } else if (!pass.equals(pass_again)) {
                     Toast.makeText(CheckActivity.this, "输入密码不一致，请重新确认", Toast.LENGTH_SHORT).show();
                 } else {
-//                    createAccount(phone,pass);
-                    creaSerAccount(phone,pass);
+                    createAccount(phone, pass);
                 }
             }
         });
@@ -111,8 +109,7 @@ public class CheckActivity extends Activity {
                             R.string.registerFailed)
                             + e.getMessage());
                 } else {
-                    Utils.toast(R.string.registerSucceed);
-
+                    creaSerAccount(phone,pass);
                 }
             }
         });
