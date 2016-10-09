@@ -2,12 +2,17 @@ package com.cc.doctormhealth.utils;
 
 import android.os.Handler;
 
+import com.cc.doctormhealth.model.ConfirmFile;
+import com.cc.doctormhealth.model.Info;
+import com.cc.doctormhealth.model.User;
 import com.cc.doctormhealth.model.UserInfo;
 import com.cc.doctormhealth.model.UserReg;
 import com.lidroid.xutils.HttpUtils;
 import com.lidroid.xutils.http.RequestParams;
 import com.lidroid.xutils.http.callback.RequestCallBack;
 import com.lidroid.xutils.http.client.HttpRequest;
+
+import java.io.File;
 
 
 /**
@@ -38,6 +43,27 @@ public class MyHttpUtils extends HttpUtils {
                 params.addBodyParameter("phone", userInf.getPhone());
                 params.addBodyParameter("passWord", userInf.getPass());
                 sendData(HttpRequest.HttpMethod.POST, url, params, new MyCallBack(new UserReg(), handler, what));
+                break;
+            case 13:
+                UserInfo user= (UserInfo) object;
+                params.addBodyParameter("phone", user.getPhone());
+                params.addBodyParameter("imagePath", new File(user.getPass()));
+                sendData(HttpRequest.HttpMethod.POST,url,params,new MyCallBack(new Info(),handler,what));
+                break;
+            case 14:
+                UserInfo ser= (UserInfo) object;
+                params.addBodyParameter("phone", ser.getPhone());
+                params.addBodyParameter("imagePath", new File(ser.getPass()));
+                sendData(HttpRequest.HttpMethod.POST,url,params,new MyCallBack(new Info(),handler,what));
+                break;
+            case 15:
+                User renzheng = (User)object;
+                params.addBodyParameter("phone",renzheng.getUsername());
+                params.addBodyParameter("userName",renzheng.getTruename());
+                params.addBodyParameter("idCard",renzheng.getEmail());
+                params.addBodyParameter("hospital",renzheng.getAdr());
+                params.addBodyParameter("department", renzheng.getIntro());
+                sendData(HttpRequest.HttpMethod.POST, url, params, new MyCallBack(new ConfirmFile(), handler, what));
                 break;
         }
 

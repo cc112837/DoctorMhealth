@@ -39,7 +39,7 @@ public class LoginActivity extends BaseActivity implements TextWatcher {
 
     Button loginBtn, regButton;
     TextView nameText, pwdText;
-    private String name, pwd;
+    private String name, pwd,check;
     ImageView headicon;
 
     @Override
@@ -54,7 +54,9 @@ public class LoginActivity extends BaseActivity implements TextWatcher {
 
 
         AVOSCloud.initialize(LoginActivity.this, appId, appKey);
-        if(AVUser.getCurrentUser() != null){
+        check = MyApplication.sharedPreferences.getString(Constants.LOGIN_CHECK,
+                null);
+        if(AVUser.getCurrentUser() != null&&"1".equals(check)){
             name = AVUser.getCurrentUser().getUsername();
             finishLogin();
         }
@@ -106,7 +108,8 @@ public class LoginActivity extends BaseActivity implements TextWatcher {
                     UserReg userReg = (UserReg) msg.obj;
                     if (userReg.getStatus().equals("1")) {
                         Toast.makeText(LoginActivity.this, "登录成功", Toast.LENGTH_LONG).show();
-                        if (userReg.getMember() == 1) {
+                        if (userReg.getMember() == 2) {
+                            MyAndroidUtil.editXmlByString(Constants.LOGIN_CHECK,"1");
                             finishLogin();
                         } else {
                             Intent intent = new Intent(LoginActivity.this, TextActivity.class);
