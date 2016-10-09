@@ -54,10 +54,10 @@ public class LoginActivity extends BaseActivity implements TextWatcher {
 
 
         AVOSCloud.initialize(LoginActivity.this, appId, appKey);
-//        if(AVUser.getCurrentUser() != null){
-//            name = AVUser.getCurrentUser().getUsername();
-//            finishLogin();
-//        }
+        if(AVUser.getCurrentUser() != null){
+            name = AVUser.getCurrentUser().getUsername();
+            finishLogin();
+        }
         initTitle();
         nameText = (TextView) findViewById(R.id.nameText);
         pwdText = (TextView) findViewById(R.id.pwdText);
@@ -76,8 +76,7 @@ public class LoginActivity extends BaseActivity implements TextWatcher {
                     Tool.initToast(LoginActivity.this,
                             getString(R.string.register_password));
                 } else {
-//                    loginAccount(name, pwd);
-                    loginSerAccount(name, pwd);
+                    loginAccount(name, pwd);
                 }
             }
         });
@@ -85,7 +84,7 @@ public class LoginActivity extends BaseActivity implements TextWatcher {
 
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(LoginActivity.this, CheckActivity.class);
+                Intent intent = new Intent(LoginActivity.this, RegActivity.class);
                 startActivity(intent);
             }
         });
@@ -142,7 +141,7 @@ public class LoginActivity extends BaseActivity implements TextWatcher {
 
                             aUser.get("property");
                             if (aUser.get("property").equals("doctor")) {
-                                finishLogin();
+                                loginSerAccount(name, pwd);
                             } else {
                                 AVUser.logOut();
                                 Tool.initToast(LoginActivity.this,
