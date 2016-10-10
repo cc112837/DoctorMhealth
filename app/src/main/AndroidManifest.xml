@@ -122,7 +122,8 @@
         <activity android:name=".activity.AboutActivity" />
         <activity android:name=".activity.ServicePriActivity" />
         <activity android:name=".activity.CheckActivity" />
-        <activity android:name=".activity.TextActivity"></activity>
+        <activity android:name=".activity.TextActivity" />
+        <activity android:name=".activity.WelcomeActivity"></activity>
     </application>
 
 </manifest>
