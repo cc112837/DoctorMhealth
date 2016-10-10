@@ -24,10 +24,9 @@ public class WelcomeActivity extends Activity {
                 }
                 String name = MyApplication.sharedPreferences.getString(Constants.LOGIN_ACCOUNT,
                         "");
-                String check = MyApplication.sharedPreferences.getString(Constants.LOGIN_CHECK,
-                        "");
+
                 Intent intent;
-                if ((name != "")&&(check.equals("1")) ) {
+                if (name != "" ){
                     intent = new Intent(WelcomeActivity.this, MainActivity.class);
                     intent.putExtra("name",name);
                 } else {

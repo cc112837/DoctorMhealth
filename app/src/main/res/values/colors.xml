@@ -18,7 +18,7 @@
         <!-- 透明颜色 -->
         <color name="transparent_background">#00000000</color>
         <color name="transparent">#80000000</color>
-        <color name="blue">#ff19A4ED</color>
+        <color name="blue">#0d97f9</color>
         <color name="green">#ff92d7da</color>
         <color name="line_color">#959595</color>
         <color name="bg_gray">#f1f1f1</color>

@@ -58,6 +58,7 @@ public class MyHttpUtils extends HttpUtils {
                 break;
             case 15:
                 User renzheng = (User)object;
+                params.addBodyParameter("doctorId",renzheng.getMobile());
                 params.addBodyParameter("phone",renzheng.getUsername());
                 params.addBodyParameter("userName",renzheng.getTruename());
                 params.addBodyParameter("idCard",renzheng.getEmail());

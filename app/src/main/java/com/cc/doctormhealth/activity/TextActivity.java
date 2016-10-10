@@ -17,6 +17,7 @@ import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.Toast;
 
+import com.avoscloud.leanchatlib.model.LeanchatUser;
 import com.cc.doctormhealth.MyApplication;
 import com.cc.doctormhealth.R;
 import com.cc.doctormhealth.constant.Constants;
@@ -120,6 +121,8 @@ public class TextActivity extends Activity implements View.OnClickListener {
                     Toast.makeText(TextActivity.this, "输入不能为空", Toast.LENGTH_LONG).show();
                 } else {
                     User user = new User();
+                    user.setMobile(LeanchatUser
+                            .getCurrentUser().getObjectId()+"");
                     user.setUsername(MyApplication.sharedPreferences.getString(Constants.LOGIN_ACCOUNT, ""));
                     user.setTruename(name);
                     user.setEmail(idcard);

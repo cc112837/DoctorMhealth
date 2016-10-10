@@ -9,7 +9,7 @@
         android:id="@+id/RelativeLayout_up"
         android:layout_width="match_parent"
         android:layout_height="180dp"
-        android:background="#0199f7">
+        android:background="@color/blue">
 
         <TextView
             android:id="@+id/username"

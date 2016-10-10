@@ -14,15 +14,17 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.RadioGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.avos.avoscloud.AVUser;
 import com.avoscloud.leanchatlib.model.LeanchatUser;
+import com.cc.doctormhealth.MyApplication;
 import com.cc.doctormhealth.R;
+import com.cc.doctormhealth.constant.Constants;
 import com.cc.doctormhealth.fragment.ChangeFragmentHelper;
 import com.cc.doctormhealth.fragment.ContactFragment;
 import com.cc.doctormhealth.fragment.MeFragment;
 import com.cc.doctormhealth.fragment.MessageFragment;
-import com.cc.doctormhealth.fragment.YuyueFragment;
 import com.cc.doctormhealth.leanchat.service.CacheService;
 import com.cc.doctormhealth.utils.MyAndroidUtil;
 import com.cc.doctormhealth.utils.Tool;
@@ -30,10 +32,11 @@ import com.cc.doctormhealth.utils.Tool;
 public class MainActivity extends AppCompatActivity {
 
     private ImageView rightBtn;
-    private TextView countView,countView1,titleView;
+    private TextView countView, titleView;
     private FrameLayout titlebar;
     private long exitTime = 0; // 两次按返回键退出用
     private Fragment fragment;
+    String check;
 
     @Override
     protected void onCreate(Bundle arg0) {
@@ -54,17 +57,30 @@ public class MainActivity extends AppCompatActivity {
     private void initView() {
         titlebar = (FrameLayout) findViewById(R.id.titlebar);
         countView = (TextView) findViewById(R.id.countView);
-        countView1 = (TextView) findViewById(R.id.countView1);
         titleView = (TextView) findViewById(R.id.titleView);
-        rightBtn= (ImageView) findViewById(R.id.rightBtn);
-        rightBtn.setOnClickListener(new View.OnClickListener() {
+        rightBtn = (ImageView) findViewById(R.id.rightBtn);
+        check = MyApplication.sharedPreferences.getString(Constants.LOGIN_CHECK,
+                null);
 
+        rightBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(MainActivity.this, SearchActivity.class));
-
+                if ("2".equals(check)) {
+                    startActivity(new Intent(MainActivity.this, SearchActivity.class));
+                } else if ("1".equals(check)) {
+                    Toast.makeText(MainActivity.this, "正在认证资质,请稍等", Toast.LENGTH_LONG);
+                    rightBtn.setEnabled(true);
+                } else if ("3".equals(check)) {
+                    Toast.makeText(MainActivity.this, "资质认证失败,请重新认证", Toast.LENGTH_LONG);
+                    rightBtn.setEnabled(true);
+                } else {
+                    Intent intent = new Intent(MainActivity.this, TextActivity.class);
+                    startActivity(intent);
+                }
             }
         });
+
+
         //盛放Fragment的容器
         FrameLayout main_container = ((FrameLayout) findViewById(R.id.main_container));
 
@@ -85,12 +101,6 @@ public class MainActivity extends AppCompatActivity {
                         titlebar.setVisibility(View.VISIBLE);
                         rightBtn.setVisibility(View.GONE);
                         titleView.setText("消息");
-                        break;
-                    case R.id.main_strategy:
-                        fragment = new YuyueFragment();
-                        titlebar.setVisibility(View.VISIBLE);
-                        rightBtn.setVisibility(View.GONE);
-                        titleView.setText("预约");
                         break;
                     case R.id.main_discover:
                         fragment = new ContactFragment();
@@ -114,6 +124,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
     }
+
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (KeyEvent.KEYCODE_BACK == keyCode) {
@@ -124,8 +135,7 @@ public class MainActivity extends AppCompatActivity {
                 finish();
                 System.exit(0);
             }
-        }
-        else if (KeyEvent.KEYCODE_VOLUME_DOWN == keyCode) {
+        } else if (KeyEvent.KEYCODE_VOLUME_DOWN == keyCode) {
             AudioManager audioManager = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
             audioManager.adjustStreamVolume(AudioManager.STREAM_MUSIC,
                     AudioManager.ADJUST_LOWER, AudioManager.FLAG_SHOW_UI);
@@ -152,35 +162,32 @@ public class MainActivity extends AppCompatActivity {
 
     public void updateCount() {
         // 更新界面
-        int count = 0 ;//= NewMsgDbHelper.getInstance(getApplicationContext()).getMsgCount();
+        int count = 0;//= NewMsgDbHelper.getInstance(getApplicationContext()).getMsgCount();
         if (count > 0) {
             countView.setVisibility(View.VISIBLE);
-            countView.setText(""+count);
-        }
-        else {
+            countView.setText("" + count);
+        } else {
             countView.setVisibility(View.GONE);
         }
     }
-    public void updateCount(int count ) {
+
+    public void updateCount(int count) {
         // 更新界面//= NewMsgDbHelper.getInstance(getApplicationContext()).getMsgCount();
-        if (count>0) {
+        if (count > 0) {
             countView.setVisibility(View.VISIBLE);
-            countView.setText(""+count);
-        }
-        else {
+            countView.setText("" + count);
+        } else {
             countView.setVisibility(View.GONE);
         }
     }
 
     public void updateCount1() {
         // 更新界面
-        int count = 0 ;//= NewMsgDbHelper.getInstance(getApplicationContext()).getMsgCount(""+0);
-        if (count>0) {
-            countView1.setVisibility(View.VISIBLE);
-            countView1.setText(""+count);
-        }
-        else {
-            countView1.setVisibility(View.GONE);
+        int count = 0;//= NewMsgDbHelper.getInstance(getApplicationContext()).getMsgCount(""+0);
+        if (count > 0) {
+
+        } else {
+
         }
     }
 
