@@ -37,7 +37,7 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 
 public class LoginActivity extends BaseActivity implements TextWatcher {
 
-    Button loginBtn, regButton;
+    Button loginBtn, regButton,forgetButton;
     TextView nameText, pwdText;
     private String name, pwd;
     ImageView headicon;
@@ -60,6 +60,7 @@ public class LoginActivity extends BaseActivity implements TextWatcher {
             finishLogin();
         }
         initTitle();
+        forgetButton=(Button) findViewById(R.id.forgetButton);
         nameText = (TextView) findViewById(R.id.nameText);
         pwdText = (TextView) findViewById(R.id.pwdText);
         loginBtn = (Button) findViewById(R.id.loginBtn);
@@ -81,11 +82,21 @@ public class LoginActivity extends BaseActivity implements TextWatcher {
                 }
             }
         });
+        forgetButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent intent = new Intent(LoginActivity.this, RegActivity.class);
+                intent.putExtra("flag","for");
+                startActivity(intent);
+            }
+        });
         regButton.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(LoginActivity.this, RegActivity.class);
+                intent.putExtra("flag","reg");
                 startActivity(intent);
             }
         });

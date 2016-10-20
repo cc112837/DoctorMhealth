@@ -3,7 +3,9 @@ package com.cc.doctormhealth.utils;
 import android.os.Handler;
 
 import com.cc.doctormhealth.model.ConfirmFile;
+import com.cc.doctormhealth.model.ForGetpass;
 import com.cc.doctormhealth.model.Info;
+import com.cc.doctormhealth.model.Result;
 import com.cc.doctormhealth.model.User;
 import com.cc.doctormhealth.model.UserInfo;
 import com.cc.doctormhealth.model.UserReg;
@@ -65,6 +67,15 @@ public class MyHttpUtils extends HttpUtils {
                 params.addBodyParameter("hospital",renzheng.getAdr());
                 params.addBodyParameter("department", renzheng.getIntro());
                 sendData(HttpRequest.HttpMethod.POST, url, params, new MyCallBack(new ConfirmFile(), handler, what));
+                break;
+            case  16:
+                params.addBodyParameter("phone",((UserInfo) object).getPhone());
+                sendData(HttpRequest.HttpMethod.POST, url, params, new MyCallBack(new ForGetpass(), handler, what));
+                break;
+            case  17:
+                params.addBodyParameter("phone",((UserInfo) object).getPhone());
+                params.addBodyParameter("passWord1",((UserInfo) object).getPass());
+                sendData(HttpRequest.HttpMethod.POST, url, params, new MyCallBack(new Result(), handler, what));
                 break;
         }
 

@@ -15,6 +15,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RadioButton;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.avoscloud.leanchatlib.model.LeanchatUser;
@@ -39,6 +40,7 @@ public class TextActivity extends Activity implements View.OnClickListener {
     private EditText et_name, et_idcard, et_hospital, et_keshi;
     private Button btn_confirm;
     String dateTime, path;
+    private TextView tv_step;
     Bitmap bitmap1;
     private AlertDialog avatarDialog;
     int flag;
@@ -52,12 +54,14 @@ public class TextActivity extends Activity implements View.OnClickListener {
 
     private void init() {
         leftBtn = (ImageView) findViewById(R.id.leftBtn);
+        tv_step = (TextView) findViewById(R.id.tv_step);
         et_name = (EditText) findViewById(R.id.et_name);
         et_idcard = (EditText) findViewById(R.id.et_idcard);
         et_hospital = (EditText) findViewById(R.id.et_hospital);
         et_keshi = (EditText) findViewById(R.id.et_keshi);
         btn_confirm = (Button) findViewById(R.id.btn_confirm);
         iv_1 = (ImageView) findViewById(R.id.iv_1);
+        tv_step.setOnClickListener(this);
         iv_2 = (ImageView) findViewById(R.id.iv_2);
         iv_2.setOnClickListener(this);
         iv_1.setOnClickListener(this);
@@ -71,17 +75,17 @@ public class TextActivity extends Activity implements View.OnClickListener {
             super.handleMessage(msg);
             switch (msg.what) {
                 case 15:
-                    ConfirmFile confirmFile=(ConfirmFile) msg.obj;
-                    if (confirmFile.getStatus().equals("1")){
-                        Toast.makeText(TextActivity.this,"资质提交成功，请等待",Toast.LENGTH_LONG).show();
-                        Intent intent =new Intent(TextActivity.this,MainActivity.class);
+                    ConfirmFile confirmFile = (ConfirmFile) msg.obj;
+                    if (confirmFile.getStatus().equals("1")) {
+                        Toast.makeText(TextActivity.this, "资质提交成功，请等待", Toast.LENGTH_LONG).show();
+                        Intent intent = new Intent(TextActivity.this, MainActivity.class);
                         startActivity(intent);
-                    }
-                    else{
-                        Toast.makeText(TextActivity.this,"请检查信息是否完整",Toast.LENGTH_LONG).show();
+                    } else {
+                        Toast.makeText(TextActivity.this, "请检查信息是否完整", Toast.LENGTH_LONG).show();
 
                     }
                     break;
+
                 case 13:
                     Info info = (Info) msg.obj;
                     if (info.getStatus().equals("1")) {
@@ -112,6 +116,10 @@ public class TextActivity extends Activity implements View.OnClickListener {
             case R.id.leftBtn:
                 finish();
                 break;
+            case R.id.tv_step:
+                Intent intent = new Intent(TextActivity.this, MainActivity.class);
+                startActivity(intent);
+                break;
             case R.id.btn_confirm:
                 String name = et_name.getText().toString();
                 String idcard = et_idcard.getText().toString();
@@ -122,13 +130,13 @@ public class TextActivity extends Activity implements View.OnClickListener {
                 } else {
                     User user = new User();
                     user.setMobile(LeanchatUser
-                            .getCurrentUser().getObjectId()+"");
+                            .getCurrentUser().getObjectId() + "");
                     user.setUsername(MyApplication.sharedPreferences.getString(Constants.LOGIN_ACCOUNT, ""));
                     user.setTruename(name);
                     user.setEmail(idcard);
                     user.setAdr(hospital);
                     user.setIntro(keshi);
-                    String url=Constants.SERVER_URL+"MhealthDoctorCheckServlet";
+                    String url = Constants.SERVER_URL + "MhealthDoctorCheckServlet";
                     MyHttpUtils.handData(handler, 15, url, user);
                 }
                 break;

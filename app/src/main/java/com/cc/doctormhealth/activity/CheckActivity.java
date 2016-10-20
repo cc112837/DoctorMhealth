@@ -12,22 +12,34 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.avos.avoscloud.AVException;
+import com.avos.avoscloud.AVUser;
+import com.avos.avoscloud.LogInCallback;
 import com.avos.avoscloud.SignUpCallback;
+import com.avos.avoscloud.UpdatePasswordCallback;
+import com.avos.avoscloud.im.v2.AVIMClient;
+import com.avos.avoscloud.im.v2.AVIMException;
+import com.avos.avoscloud.im.v2.callback.AVIMClientCallback;
+import com.avoscloud.leanchatlib.controller.ChatManager;
 import com.avoscloud.leanchatlib.model.LeanchatUser;
 import com.cc.doctormhealth.MyApplication;
 import com.cc.doctormhealth.R;
 import com.cc.doctormhealth.constant.Constants;
+import com.cc.doctormhealth.leanchat.service.PushManager;
 import com.cc.doctormhealth.leanchat.util.Utils;
+import com.cc.doctormhealth.model.Result;
 import com.cc.doctormhealth.model.UserInfo;
 import com.cc.doctormhealth.model.UserReg;
 import com.cc.doctormhealth.utils.MyAndroidUtil;
 import com.cc.doctormhealth.utils.MyHttpUtils;
+import com.cc.doctormhealth.utils.Tool;
 
 public class CheckActivity extends Activity {
     private EditText register_password, register_password_again;
     private Button confirm_btn;
     private ImageView btn_back;
     private String phone, pass;
+    private String flag;
+    private String findpass;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +47,8 @@ public class CheckActivity extends Activity {
         setContentView(R.layout.activity_check);
         Intent intent = getIntent();
         phone = intent.getStringExtra("phone");
+        flag = intent.getStringExtra("flag");
+        findpass = intent.getStringExtra("pass");
         init();
 
     }
@@ -60,7 +74,57 @@ public class CheckActivity extends Activity {
                 } else if (!pass.equals(pass_again)) {
                     Toast.makeText(CheckActivity.this, "输入密码不一致，请重新确认", Toast.LENGTH_SHORT).show();
                 } else {
-                    createAccount(phone, pass);
+                    if ("reg".equals(flag)) {
+                        createAccount(phone, pass);
+                    } else {
+                        LeanchatUser.logInInBackground("D" + phone, findpass,
+                                new LogInCallback<LeanchatUser>() {
+                                    @Override
+                                    public void done(LeanchatUser avUser, AVException e) {
+                                        if (e == null) {
+                                            AVUser aUser = AVUser.getCurrentUser();
+                                            aUser.get("property");
+                                            if (aUser.get("property").equals("doctor")) {
+                                                // 第二个参数：登录标记 Tag
+                                                ChatManager chatManager = ChatManager.getInstance();
+                                                chatManager.setupManagerWithUserId(AVUser.getCurrentUser().getObjectId());
+                                                chatManager.openClient(null);
+                                                aUser.updatePasswordInBackground(findpass, pass,
+                                                        new UpdatePasswordCallback() {
+
+                                                            @Override
+                                                            public void done(AVException arg0) {
+                                                                if (arg0 == null) {
+                                                                    String utr = Constants.SERVER_URL + "MhealthDoctorPasswordServlet";
+                                                                    UserInfo user = new UserInfo();
+                                                                    user.setPhone(phone + "");
+                                                                    user.setPass(pass + "");
+                                                                    MyHttpUtils.handData(handler, 17, utr, user);
+                                                                } else
+                                                                    Tool.initToast(getApplicationContext(),
+                                                                            "设置密码失败");
+                                                            }
+                                                        });
+
+                                            } else {
+                                                ChatManager chatManager = ChatManager.getInstance();
+                                                chatManager.closeWithCallback(new AVIMClientCallback() {
+                                                    @Override
+                                                    public void done(AVIMClient avimClient, AVIMException e) {
+                                                    }
+                                                });
+                                                PushManager.getInstance().unsubscribeCurrentUserChannel();
+                                                AVUser.logOut();
+                                                Tool.initToast(CheckActivity.this,
+                                                        getResources().getString(R.string.login_error));
+                                            }
+                                        } else
+                                            Tool.initToast(CheckActivity.this,
+                                                    getResources().getString(R.string.login_error));
+                                    }
+                                }, LeanchatUser.class);
+                    }
+
                 }
             }
         });
@@ -88,6 +152,16 @@ public class CheckActivity extends Activity {
                         );
                     }
                     break;
+
+                case 17:
+                    Result result = (Result) msg.obj;
+                    if (result.getStatus().equals("1")) {
+                        Toast.makeText(CheckActivity.this, "密码设置成功，请重新登录", Toast.LENGTH_LONG).show();
+                        finish();
+                    } else {
+                        Toast.makeText(CheckActivity.this, "密码设置失败，请重新设置", Toast.LENGTH_LONG).show();
+                    }
+                    break;
             }
         }
     };
@@ -109,7 +183,7 @@ public class CheckActivity extends Activity {
                             R.string.registerFailed)
                             + e.getMessage());
                 } else {
-                    creaSerAccount(phone,pass);
+                    creaSerAccount(phone, pass);
                 }
             }
         });

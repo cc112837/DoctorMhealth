@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.os.Handler;
+import android.os.Message;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -11,6 +13,10 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.cc.doctormhealth.R;
+import com.cc.doctormhealth.constant.Constants;
+import com.cc.doctormhealth.model.ForGetpass;
+import com.cc.doctormhealth.model.UserInfo;
+import com.cc.doctormhealth.utils.MyHttpUtils;
 import com.lidroid.xutils.HttpUtils;
 import com.lidroid.xutils.http.RequestParams;
 import com.lidroid.xutils.http.ResponseInfo;
@@ -26,10 +32,16 @@ public class RegActivity extends BaseActivity implements View.OnClickListener{
     private EditText et_phone, et_code;
     private Button Message_btn, register_btn;
     private ImageView btn_back;
+    private String flag;
+    private String userPhone;
+    private String phonecode;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_reg);
+        Intent intent = getIntent();
+        flag = intent.getStringExtra("flag");
         initSms();
         initView();
         initEvent();
@@ -51,11 +63,60 @@ public class RegActivity extends BaseActivity implements View.OnClickListener{
     private void initSms() {
         SMSSDK.initSDK(this, "17911ed3c824f", "93314de199c355e46dde099cc239882b");
     }
+private Handler handler=new Handler(){
+    @Override
+    public void handleMessage(Message msg) {
+        super.handleMessage(msg);
+        switch (msg.what){
+            case 16:
+                final ForGetpass forGetpass = (ForGetpass) msg.obj;
+                if (forGetpass.getStatus().equals("1")) {
+                    RequestParams params = new RequestParams();
+                    params.addBodyParameter("appkey", "17911ed3c824f");
+                    params.addBodyParameter("phone", userPhone);
+                    params.addBodyParameter("zone", "86");
+                    params.addBodyParameter("code", phonecode);
+                    new HttpUtils().send(com.lidroid.xutils.http.client.HttpRequest.HttpMethod.POST, "https://webapi.sms.mob.com/sms/verify",
+                            params, new RequestCallBack<Object>() {
+                                @Override
+                                public void onSuccess(ResponseInfo<Object> responseInfo) {
+                                    try {
+                                        JSONObject object = new JSONObject(responseInfo.result.toString());
+                                        String s = object.getString("status");
+                                        if ("200".equals(s)) {
+                                            Intent intent = new Intent(RegActivity.this, CheckActivity.class);
+                                            intent.putExtra("phone",userPhone+"");
+                                            intent.putExtra("flag",flag);
+                                            intent.putExtra("pass",forGetpass.getPassword());
+                                            startActivity(intent);
+                                            finish();
+                                        } else {
+                                            Toast.makeText(RegActivity.this, "验证失败", Toast.LENGTH_LONG).show();
+                                        }
+                                    } catch (JSONException e) {
+                                        e.printStackTrace();
+                                    }
 
+
+                                }
+
+                                @Override
+                                public void onFailure(com.lidroid.xutils.exception.HttpException error, String msg) {
+
+                                }
+
+                            });
+                } else {
+                    Toast.makeText(RegActivity.this, forGetpass.getData(), Toast.LENGTH_LONG).show();
+                }
+                break;
+        }
+    }
+};
     @Override
     public void onClick(View v) {
-        final String userPhone = et_phone.getText().toString();
-        final String Phonecode = et_code.getText().toString();
+        userPhone = et_phone.getText().toString();
+        phonecode = et_code.getText().toString();
         switch (v.getId()) {
             case R.id.Message_btn:
                 if (userPhone.length() != 11) {
@@ -103,39 +164,10 @@ public class RegActivity extends BaseActivity implements View.OnClickListener{
                 }
                 break;
             case R.id.register_btn:
-                RequestParams params = new RequestParams();
-                params.addBodyParameter("appkey", "17911ed3c824f");
-                params.addBodyParameter("phone", userPhone);
-                params.addBodyParameter("zone", "86");
-                params.addBodyParameter("code", Phonecode);
-                new HttpUtils().send(com.lidroid.xutils.http.client.HttpRequest.HttpMethod.POST, "https://webapi.sms.mob.com/sms/verify",
-                        params, new RequestCallBack<Object>() {
-                            @Override
-                            public void onSuccess(ResponseInfo<Object> responseInfo) {
-                                try {
-                                    JSONObject object = new JSONObject(responseInfo.result.toString());
-                                    String s = object.getString("status");
-                                    if ("200".equals(s)) {
-                                        Intent intent = new Intent(RegActivity.this, CheckActivity.class);
-                                        intent.putExtra("phone",userPhone+"");
-                                        startActivity(intent);
-                                        finish();
-                                    } else {
-                                        Toast.makeText(RegActivity.this, "验证失败", Toast.LENGTH_LONG).show();
-                                    }
-                                } catch (JSONException e) {
-                                    e.printStackTrace();
-                                }
-
-
-                            }
-
-                            @Override
-                            public void onFailure(com.lidroid.xutils.exception.HttpException error, String msg) {
-
-                            }
-
-                        });
+                String uri = Constants.SERVER_URL + "MhealthDoctorOldPasswordServlet";
+                UserInfo userInfo = new UserInfo();
+                userInfo.setPhone(userPhone + "");
+                MyHttpUtils.handData(handler, 16, uri, userInfo);
                 break;
             case R.id.back:
                 finish();
