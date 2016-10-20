@@ -10,8 +10,8 @@
     <FrameLayout
         android:id="@+id/titlebar"
         android:layout_width="fill_parent"
-        android:background="#0389f7"
-        android:layout_height="50dp"
+        android:background="@color/blue"
+        android:layout_height="45dp"
         android:orientation="horizontal" >
 
 

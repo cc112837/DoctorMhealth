@@ -34,8 +34,11 @@ import com.avos.avoscloud.im.v2.callback.AVIMConversationCreatedCallback;
 import com.avoscloud.leanchatlib.controller.ChatManager;
 import com.avoscloud.leanchatlib.model.LeanchatUser;
 import com.avoscloud.leanchatlib.utils.Constants;
+import com.cc.doctormhealth.MyApplication;
 import com.cc.doctormhealth.R;
 import com.cc.doctormhealth.activity.NewFriendActivity;
+import com.cc.doctormhealth.activity.SearchActivity;
+import com.cc.doctormhealth.activity.TextActivity;
 import com.cc.doctormhealth.leanchat.activity.ChatRoomActivity;
 import com.cc.doctormhealth.leanchat.adapter.ContactsAdapter;
 import com.cc.doctormhealth.leanchat.event.ContactItemClickEvent;
@@ -61,9 +64,9 @@ public class ContactFragment extends Fragment {
     protected SwipeRefreshLayout refreshLayout;
 
     protected RecyclerView recyclerView;
-
+    String check;
     private View headerView;
-    ImageView msgTipsView;
+    ImageView msgTipsView,rightBtn;
 
     private ContactsAdapter itemAdapter;
     LinearLayoutManager layoutManager;
@@ -77,7 +80,7 @@ public class ContactFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_contact, container, false);
         headerView = inflater.inflate(R.layout.contact_fragment_header_layout,
                 container, false);
-
+        rightBtn = (ImageView) view.findViewById(R.id.rightBtn);
         refreshLayout = (SwipeRefreshLayout) view
                 .findViewById(R.id.activity_square_members_srl_list);
 
@@ -86,7 +89,25 @@ public class ContactFragment extends Fragment {
 
         layoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(layoutManager);
-
+        check = MyApplication.sharedPreferences.getString(com.cc.doctormhealth.constant.Constants.LOGIN_CHECK,
+                null);
+        rightBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if ("2".equals(check)) {
+                    startActivity(new Intent(getActivity(), SearchActivity.class));
+                } else if ("1".equals(check)) {
+                    Toast.makeText(getActivity(), "正在认证资质,请稍等", Toast.LENGTH_LONG);
+                    rightBtn.setEnabled(true);
+                } else if ("3".equals(check)) {
+                    Toast.makeText(getActivity(), "资质认证失败,请重新认证", Toast.LENGTH_LONG);
+                    rightBtn.setEnabled(true);
+                } else {
+                    Intent intent = new Intent(getActivity(), TextActivity.class);
+                    startActivity(intent);
+                }
+            }
+        });
         itemAdapter = new ContactsAdapter();
         itemAdapter.setHeaderView(headerView);
         recyclerView.setAdapter(itemAdapter);

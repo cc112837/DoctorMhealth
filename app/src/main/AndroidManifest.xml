@@ -53,11 +53,6 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".activity.LoginActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
 
         <receiver android:name=".leanchat.service.MHealthDReceiver">
@@ -88,7 +83,6 @@
         <activity android:name=".activity.RegActivity" />
         <activity android:name=".activity.SearchActivity" />
         <activity android:name=".activity.FriendActivity" />
-        <activity android:name=".activity.HistoryActivity" />
         <activity android:name=".activity.NewFriendActivity" />
         <activity android:name=".activity.ChangePwdActivity" />
         <activity android:name=".activity.NotiNewsActivity" />
@@ -123,7 +117,13 @@
         <activity android:name=".activity.ServicePriActivity" />
         <activity android:name=".activity.CheckActivity" />
         <activity android:name=".activity.TextActivity" />
-        <activity android:name=".activity.WelcomeActivity"></activity>
+        <activity android:name=".activity.WelcomeActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>

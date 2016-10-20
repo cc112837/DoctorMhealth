@@ -2,11 +2,11 @@ package com.cc.doctormhealth.activity;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
-import com.cc.doctormhealth.MyApplication;
 import com.cc.doctormhealth.R;
-import com.cc.doctormhealth.constant.Constants;
+import com.cc.doctormhealth.utils.PackageUtils;
 
 public class WelcomeActivity extends Activity {
 
@@ -14,6 +14,14 @@ public class WelcomeActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_welcome);
+
+        SharedPreferences sp = getSharedPreferences("version", MODE_PRIVATE);
+
+        //相当于旧版本
+        final String version = sp.getString("version", null);
+
+        //相当于新版本
+        final String newVersion = PackageUtils.getPackageVersion(this);
         Thread thread = new Thread(new Runnable() {
             @Override
             public void run() {
@@ -22,18 +30,18 @@ public class WelcomeActivity extends Activity {
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
-                String name = MyApplication.sharedPreferences.getString(Constants.LOGIN_ACCOUNT,
-                        "");
+                //说明登录过，不需要进入导航页，直接进入主界面
+                //当新版本与旧版本一致时直接跳转进入主界面
+                if (newVersion.equals(version)) {
+                    Intent intent = new Intent(WelcomeActivity.this, LoginActivity.class);
+                    startActivity(intent);
+                    finish();
 
-                Intent intent;
-                if (name != "" ){
-                    intent = new Intent(WelcomeActivity.this, MainActivity.class);
-                    intent.putExtra("name",name);
-                } else {
-                    intent = new Intent(WelcomeActivity.this, LoginActivity.class);
+                } else {//需要进入导航页
+                    Intent intent = new Intent(WelcomeActivity.this, LoginActivity.class);
+                    startActivity(intent);
+                    finish();
                 }
-                startActivity(intent);
-                finish();
             }
         });
         thread.start();

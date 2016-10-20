@@ -1,7 +1,6 @@
 package com.cc.doctormhealth.activity;
 
 import android.content.Context;
-import android.content.Intent;
 import android.media.AudioManager;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -11,16 +10,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.FrameLayout;
-import android.widget.ImageView;
 import android.widget.RadioGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.avos.avoscloud.AVUser;
 import com.avoscloud.leanchatlib.model.LeanchatUser;
-import com.cc.doctormhealth.MyApplication;
 import com.cc.doctormhealth.R;
-import com.cc.doctormhealth.constant.Constants;
 import com.cc.doctormhealth.fragment.ChangeFragmentHelper;
 import com.cc.doctormhealth.fragment.ContactFragment;
 import com.cc.doctormhealth.fragment.MeFragment;
@@ -31,9 +26,7 @@ import com.cc.doctormhealth.utils.Tool;
 
 public class MainActivity extends AppCompatActivity {
 
-    private ImageView rightBtn;
-    private TextView countView, titleView;
-    private FrameLayout titlebar;
+    private TextView countView;
     private long exitTime = 0; // 两次按返回键退出用
     private Fragment fragment;
     String check;
@@ -49,37 +42,12 @@ public class MainActivity extends AppCompatActivity {
         helper.setIsClearStackBack(true);
         changeFragment(helper);
         updateCount();
-        updateCount1();
         CacheService.registerUser(AVUser.getCurrentUser(LeanchatUser.class));
     }
 
 
     private void initView() {
-        titlebar = (FrameLayout) findViewById(R.id.titlebar);
         countView = (TextView) findViewById(R.id.countView);
-        titleView = (TextView) findViewById(R.id.titleView);
-        rightBtn = (ImageView) findViewById(R.id.rightBtn);
-        check = MyApplication.sharedPreferences.getString(Constants.LOGIN_CHECK,
-                null);
-
-        rightBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if ("2".equals(check)) {
-                    startActivity(new Intent(MainActivity.this, SearchActivity.class));
-                } else if ("1".equals(check)) {
-                    Toast.makeText(MainActivity.this, "正在认证资质,请稍等", Toast.LENGTH_LONG);
-                    rightBtn.setEnabled(true);
-                } else if ("3".equals(check)) {
-                    Toast.makeText(MainActivity.this, "资质认证失败,请重新认证", Toast.LENGTH_LONG);
-                    rightBtn.setEnabled(true);
-                } else {
-                    Intent intent = new Intent(MainActivity.this, TextActivity.class);
-                    startActivity(intent);
-                }
-            }
-        });
-
 
         //盛放Fragment的容器
         FrameLayout main_container = ((FrameLayout) findViewById(R.id.main_container));
@@ -89,8 +57,6 @@ public class MainActivity extends AppCompatActivity {
         main_tabBar.check(R.id.main_relation);
 
         fragment = null;
-        titlebar.setVisibility(View.VISIBLE);
-        rightBtn.setVisibility(View.GONE);
 
         main_tabBar.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
@@ -98,20 +64,12 @@ public class MainActivity extends AppCompatActivity {
                 switch (checkedId) {
                     case R.id.main_relation:
                         fragment = new MessageFragment();
-                        titlebar.setVisibility(View.VISIBLE);
-                        rightBtn.setVisibility(View.GONE);
-                        titleView.setText("消息");
                         break;
                     case R.id.main_discover:
                         fragment = new ContactFragment();
-                        titlebar.setVisibility(View.VISIBLE);
-                        rightBtn.setVisibility(View.VISIBLE);
-                        titleView.setText("医圈");
                         break;
                     case R.id.main_person:
                         fragment = new MeFragment();
-                        titlebar.setVisibility(View.GONE);
-                        rightBtn.setVisibility(View.GONE);
                         break;
 
                 }
@@ -181,15 +139,6 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    public void updateCount1() {
-        // 更新界面
-        int count = 0;//= NewMsgDbHelper.getInstance(getApplicationContext()).getMsgCount(""+0);
-        if (count > 0) {
-
-        } else {
-
-        }
-    }
 
     public void changeFragment(ChangeFragmentHelper helper) {
 
