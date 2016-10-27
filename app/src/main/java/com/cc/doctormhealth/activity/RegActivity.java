@@ -87,7 +87,7 @@ private Handler handler=new Handler(){
                                             Intent intent = new Intent(RegActivity.this, CheckActivity.class);
                                             intent.putExtra("phone",userPhone+"");
                                             intent.putExtra("flag",flag);
-                                            intent.putExtra("pass",forGetpass.getPassword());
+                                            intent.putExtra("pass",forGetpass.getPassword()+"");
                                             startActivity(intent);
                                             finish();
                                         } else {
