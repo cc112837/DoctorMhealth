@@ -12,21 +12,14 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.avos.avoscloud.AVUser;
-import com.avos.avoscloud.feedback.FeedbackAgent;
-import com.avos.avoscloud.im.v2.AVIMClient;
-import com.avos.avoscloud.im.v2.AVIMException;
-import com.avos.avoscloud.im.v2.callback.AVIMClientCallback;
 import com.avoscloud.leanchatlib.controller.ChatManager;
 import com.avoscloud.leanchatlib.model.LeanchatUser;
 import com.cc.doctormhealth.MyApplication;
 import com.cc.doctormhealth.R;
 import com.cc.doctormhealth.activity.AboutActivity;
-import com.cc.doctormhealth.activity.ChangePwdActivity;
-import com.cc.doctormhealth.activity.LoginActivity;
 import com.cc.doctormhealth.activity.MyMoneyActivity;
 import com.cc.doctormhealth.activity.NotiNewsActivity;
 import com.cc.doctormhealth.constant.Constants;
-import com.cc.doctormhealth.leanchat.service.PushManager;
 import com.cc.doctormhealth.utils.MyAndroidUtil;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
@@ -41,9 +34,9 @@ import cn.sharesdk.onekeyshare.OnekeyShare;
  * 创建时间：2016/5/19 15:48
 */
 
-public class MeFragment extends Fragment {
+public class MeFragment extends Fragment implements View.OnClickListener{
 
-    RelativeLayout logout, account, noti_news, about, fankui, share,money;
+    RelativeLayout logout, account, setting, about, pride, share,money;
     TextView username;
     ImageView headImage;
     private ChatManager chatManager = ChatManager.getInstance();
@@ -53,34 +46,12 @@ public class MeFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_me, container, false);
         ShareSDK.initSDK(getContext());
-        account = (RelativeLayout) view.findViewById(R.id.account);
         chatManager = ChatManager.getInstance();
-        noti_news = (RelativeLayout) view.findViewById(R.id.noti_news);
+        setting = (RelativeLayout) view.findViewById(R.id.setting);
         about = (RelativeLayout) view.findViewById(R.id.about);
-        logout = (RelativeLayout) view.findViewById(R.id.logout);
-        fankui = (RelativeLayout) view.findViewById(R.id.fankui);
+        pride = (RelativeLayout) view.findViewById(R.id.pride);
         money=(RelativeLayout) view.findViewById(R.id.money);
-        money.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent=new Intent(getActivity(), MyMoneyActivity.class);
-                startActivity(intent);
-            }
-        });
-        fankui.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                FeedbackAgent agent = new FeedbackAgent(getActivity());
-                agent.startDefaultThreadActivity();
-            }
-        });
         share = (RelativeLayout) view.findViewById(R.id.share);
-        share.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                showShare();
-            }
-        });
         username = (TextView) view.findViewById(R.id.username);
         username.setText(MyApplication.sharedPreferences.getString(Constants.LOGIN_ACCOUNT,
                 null));
@@ -102,49 +73,13 @@ public class MeFragment extends Fragment {
         ImageLoader.getInstance().displayImage(avatarUrl, headImage,
                 com.avoscloud.leanchatlib.utils.PhotoUtils.avatarImageOption);
 
-        logout.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                chatManager.closeWithCallback(new AVIMClientCallback() {
-                    @Override
-                    public void done(AVIMClient avimClient, AVIMException e) {
-                    }
-                });
-                PushManager.getInstance().unsubscribeCurrentUserChannel();
-                AVUser.logOut();
-                getActivity().startActivity(new Intent(getActivity(), LoginActivity.class));
-                getActivity().finish();
-            }
-        });
-        account.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent();
-                intent.setClass(getActivity(), ChangePwdActivity.class);
-                getActivity().startActivity(intent);
-
-            }
-        });
-        noti_news.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), NotiNewsActivity.class);
-                startActivity(intent);
-
-            }
-        });
-        about.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                Intent intent=new Intent(getActivity(), AboutActivity.class);
-                startActivity(intent);
-            }
-        });
-
+        logout.setOnClickListener(this);
+        money.setOnClickListener(this);
+        account.setOnClickListener(this);
+        setting.setOnClickListener(this);
+        about.setOnClickListener(this);
+        pride.setOnClickListener(this);
+        share.setOnClickListener(this);
         return view;
     }
 
@@ -166,5 +101,30 @@ public class MeFragment extends Fragment {
         oks.setSite(getString(R.string.app_name));
         oks.setSiteUrl("http://dd.myapp.com/16891/AD6CA13CA709A7611A7A0268722A760D.apk");
         oks.show(getContext());
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()){
+            case R.id.about:
+                Intent intent=new Intent(getActivity(), AboutActivity.class);
+                startActivity(intent);
+                break;
+            case R.id.setting:
+                Intent intent1 = new Intent(getActivity(), NotiNewsActivity.class);
+                startActivity(intent1);
+                break;
+            case R.id.money:
+                Intent intent3=new Intent(getActivity(), MyMoneyActivity.class);
+                startActivity(intent3);
+                break;
+            case R.id.pride:
+
+                break;
+            case R.id.share:
+                showShare();
+                break;
+
+        }
     }
 }

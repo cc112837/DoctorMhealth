@@ -52,8 +52,7 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activity.LoginActivity">
-        </activity>
+        <activity android:name=".activity.LoginActivity" />
 
         <receiver android:name=".leanchat.service.MHealthDReceiver">
             <intent-filter>
@@ -124,6 +123,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".activity.SettingActivity" />
+        <activity android:name=".activity.PrideActivity"></activity>
     </application>
 
 </manifest>
