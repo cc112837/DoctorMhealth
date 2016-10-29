@@ -14,18 +14,4 @@
         android:divider="@color/grey_bg"
         android:dividerHeight="1px"
         android:scrollbars="vertical" />
-
-
-    <ListView
-        android:id="@+id/childcategory"
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:layout_weight="1"
-        android:background="@color/white"
-        android:visibility="invisible"
-        android:divider="@color/bg_gray"
-        android:dividerHeight="1px"
-        android:scrollbars="vertical" />
-
-
 </LinearLayout>

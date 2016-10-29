@@ -60,8 +60,8 @@
                     android:layout_gravity="center"
                     android:layout_marginLeft="5dp"
                     android:gravity="center"
-                    android:text="非常满意"
-                    android:textColor="@color/black"
+                    android:text="最近三月"
+                    android:textColor="@color/blue"
                     android:textSize="14.0sp" />
 
                 <ImageView
@@ -94,7 +94,7 @@
                     android:layout_gravity="center"
                     android:layout_marginLeft="5dp"
                     android:gravity="center"
-                    android:text="最近三月"
+                    android:text="全部"
                     android:textSize="14.0sp" />
 
                 <ImageView

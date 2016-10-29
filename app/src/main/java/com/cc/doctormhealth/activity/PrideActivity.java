@@ -14,14 +14,20 @@ import android.widget.TextView;
 
 import com.cc.doctormhealth.R;
 import com.cc.doctormhealth.adapter.EvaluationListAdapter;
+import com.cc.doctormhealth.adapter.LocationAdapter;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class PrideActivity extends Activity implements View.OnClickListener {
     private ImageView leftBtn;
-    private ListView lv_show, cityListView, locationListView;
+    private ListView lv_show, locationListView;
     private PopupWindow mPopupWindow;
     private EvaluationListAdapter evaluationListAdapter;
     private LinearLayout total_location, layout_left;
     private TextView text_address;
+    private List<String> locationList=new ArrayList<>();
+    private LocationAdapter locationAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,8 +39,12 @@ public class PrideActivity extends Activity implements View.OnClickListener {
     private void init() {
         leftBtn = (ImageView) findViewById(R.id.leftBtn);
         lv_show = (ListView) findViewById(R.id.lv_show);
+        total_location=(LinearLayout) findViewById(R.id.total_location);
         evaluationListAdapter = new EvaluationListAdapter(PrideActivity.this, null);
         lv_show.setAdapter(evaluationListAdapter);
+        leftBtn.setOnClickListener(this);
+        total_location.setOnClickListener(this);
+
 
     }
 
@@ -43,26 +53,21 @@ public class PrideActivity extends Activity implements View.OnClickListener {
                 PrideActivity.this).inflate(R.layout.popup_category, null);
         locationListView = (ListView) layout_left
                 .findViewById(R.id.rootcategory);
-        cityListView = (ListView) layout_left.findViewById(R.id.childcategory);
-        cityListView.setVisibility(View.INVISIBLE);
+        locationList.add("全部评价");
+        locationList.add("近三个月");
+        locationAdapter = new LocationAdapter(PrideActivity.this,locationList);
+        locationListView.setAdapter(locationAdapter);
         locationListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
             @Override
             public void onItemClick(AdapterView<?> parent, View view,
                                     int position, long id) {
-
-                cityListView.setVisibility(View.VISIBLE);
-                cityListView.setAdapter(null);
-            }
-        });
-        cityListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 mPopupWindow.dismiss();
-
                 text_address.setText("全部");
+
             }
         });
+
         mPopupWindow = new PopupWindow(layout_left, width, height * 2 / 3, true);
         mPopupWindow.setOnDismissListener(new PopupWindow.OnDismissListener() {
             @Override
@@ -81,6 +86,11 @@ public class PrideActivity extends Activity implements View.OnClickListener {
         switch (v.getId()) {
             case R.id.leftBtn:
                 finish();
+                break;
+            case R.id.total_location:
+                text_address.setTextColor(0xf000cf00);
+                showPopupWindow(lv_show.getWidth(),
+                        lv_show.getHeight());
                 break;
         }
     }
