@@ -18,7 +18,8 @@ import com.cc.doctormhealth.MyApplication;
 import com.cc.doctormhealth.R;
 import com.cc.doctormhealth.activity.AboutActivity;
 import com.cc.doctormhealth.activity.MyMoneyActivity;
-import com.cc.doctormhealth.activity.NotiNewsActivity;
+import com.cc.doctormhealth.activity.PrideActivity;
+import com.cc.doctormhealth.activity.SettingActivity;
 import com.cc.doctormhealth.constant.Constants;
 import com.cc.doctormhealth.utils.MyAndroidUtil;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -32,11 +33,11 @@ import cn.sharesdk.onekeyshare.OnekeyShare;
 /**
  * 邮箱:cc112837@163.com
  * 创建时间：2016/5/19 15:48
-*/
+ */
 
-public class MeFragment extends Fragment implements View.OnClickListener{
+public class MeFragment extends Fragment implements View.OnClickListener {
 
-    RelativeLayout logout, account, setting, about, pride, share,money;
+    RelativeLayout setting, about, pride, share, money;
     TextView username;
     ImageView headImage;
     private ChatManager chatManager = ChatManager.getInstance();
@@ -50,7 +51,7 @@ public class MeFragment extends Fragment implements View.OnClickListener{
         setting = (RelativeLayout) view.findViewById(R.id.setting);
         about = (RelativeLayout) view.findViewById(R.id.about);
         pride = (RelativeLayout) view.findViewById(R.id.pride);
-        money=(RelativeLayout) view.findViewById(R.id.money);
+        money = (RelativeLayout) view.findViewById(R.id.money);
         share = (RelativeLayout) view.findViewById(R.id.share);
         username = (TextView) view.findViewById(R.id.username);
         username.setText(MyApplication.sharedPreferences.getString(Constants.LOGIN_ACCOUNT,
@@ -73,9 +74,7 @@ public class MeFragment extends Fragment implements View.OnClickListener{
         ImageLoader.getInstance().displayImage(avatarUrl, headImage,
                 com.avoscloud.leanchatlib.utils.PhotoUtils.avatarImageOption);
 
-        logout.setOnClickListener(this);
         money.setOnClickListener(this);
-        account.setOnClickListener(this);
         setting.setOnClickListener(this);
         about.setOnClickListener(this);
         pride.setOnClickListener(this);
@@ -105,21 +104,22 @@ public class MeFragment extends Fragment implements View.OnClickListener{
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.about:
-                Intent intent=new Intent(getActivity(), AboutActivity.class);
+                Intent intent = new Intent(getActivity(), AboutActivity.class);
                 startActivity(intent);
                 break;
             case R.id.setting:
-                Intent intent1 = new Intent(getActivity(), NotiNewsActivity.class);
+                Intent intent1 = new Intent(getActivity(), SettingActivity.class);
                 startActivity(intent1);
                 break;
             case R.id.money:
-                Intent intent3=new Intent(getActivity(), MyMoneyActivity.class);
+                Intent intent3 = new Intent(getActivity(), MyMoneyActivity.class);
                 startActivity(intent3);
                 break;
             case R.id.pride:
-
+                Intent intent2 = new Intent(getActivity(), PrideActivity.class);
+                startActivity(intent2);
                 break;
             case R.id.share:
                 showShare();

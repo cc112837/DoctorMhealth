@@ -56,7 +56,7 @@
                     android:layout_centerVertical="true"
                     android:layout_marginBottom="10dp"
                     android:layout_marginTop="10dp"
-                    android:src="@mipmap/account_security" />
+                    android:src="@mipmap/mymoney" />
 
                 <TextView
                     android:id="@+id/textView1"
@@ -138,7 +138,7 @@
                     android:layout_centerVertical="true"
                     android:layout_marginBottom="10dp"
                     android:layout_marginTop="10dp"
-                    android:src="@mipmap/noti_news" />
+                    android:src="@mipmap/setting" />
 
                 <TextView
                     android:id="@+id/textView2"

@@ -9,7 +9,7 @@
         android:id="@+id/titlebar"
         android:layout_width="fill_parent"
         android:layout_height="45dp"
-        android:background="#03a2ff"
+        android:background="@color/blue"
         android:orientation="horizontal">
         <ImageView
             android:id="@+id/leftBtn"
