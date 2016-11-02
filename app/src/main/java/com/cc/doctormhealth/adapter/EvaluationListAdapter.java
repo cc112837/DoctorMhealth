@@ -15,10 +15,10 @@ import java.util.List;
 public class EvaluationListAdapter extends BaseAdapter {
 
     private Context context;
-    private List<UserEvaluation> list;
+    private List<UserEvaluation.DataEntity> list;
     private LayoutInflater mInflater;
 
-    public EvaluationListAdapter(Context context, List<UserEvaluation> list) {
+    public EvaluationListAdapter(Context context, List<UserEvaluation.DataEntity> list) {
         this.context = context;
         this.list = list;
         mInflater = LayoutInflater.from(context);
@@ -45,7 +45,6 @@ public class EvaluationListAdapter extends BaseAdapter {
         if (view == null) {
             vholder = new ViewHolder();
             view = mInflater.inflate(R.layout.item_evaluation_list, null);
-            vholder.tv_data = (TextView) view.findViewById(R.id.tv_data);
             vholder.tv_month = (TextView) view.findViewById(R.id.tv_month);
             vholder.name = (TextView) view.findViewById(R.id.yonghu);
             vholder.degree = (TextView) view.findViewById(R.id.yonghuDegree);
@@ -54,13 +53,12 @@ public class EvaluationListAdapter extends BaseAdapter {
         } else {
             vholder = (ViewHolder) view.getTag();
         }
-        String str = list.get(position).getUserid();
+        String str = list.get(position).getUserName();
         vholder.name.setText("用户："+str.charAt(0) + "****"
                 + str.charAt(str.length() - 3));
-        vholder.tv_data.setText("");
-        vholder.tv_month.setText("");
-        vholder.degree.setText("满意度："+list.get(position).getDegree() + "");
-        vholder.pingjia.setText(list.get(position).getComment());
+        vholder.tv_month.setText(""+list.get(position).getCreateTime());
+        vholder.degree.setText("满意度："+list.get(position).getSatisfy() + "");
+        vholder.pingjia.setText(list.get(position).getEvaluate());
         return view;
 
     }
@@ -70,7 +68,6 @@ public class EvaluationListAdapter extends BaseAdapter {
         public TextView degree;
         public TextView pingjia;
         public TextView tv_month;
-        public TextView tv_data;
     }
 
 }

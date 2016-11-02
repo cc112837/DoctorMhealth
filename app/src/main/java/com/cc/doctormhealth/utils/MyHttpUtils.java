@@ -7,6 +7,7 @@ import com.cc.doctormhealth.model.ForGetpass;
 import com.cc.doctormhealth.model.Info;
 import com.cc.doctormhealth.model.Result;
 import com.cc.doctormhealth.model.User;
+import com.cc.doctormhealth.model.UserEvaluation;
 import com.cc.doctormhealth.model.UserInfo;
 import com.cc.doctormhealth.model.UserReg;
 import com.lidroid.xutils.HttpUtils;
@@ -76,6 +77,11 @@ public class MyHttpUtils extends HttpUtils {
                 params.addBodyParameter("phone",((UserInfo) object).getPhone());
                 params.addBodyParameter("passWord1",((UserInfo) object).getPass());
                 sendData(HttpRequest.HttpMethod.POST, url, params, new MyCallBack(new Result(), handler, what));
+                break;
+            case 18:
+                params.addBodyParameter("taoId",((UserInfo) object).getPhone());
+                params.addBodyParameter("status",((UserInfo) object).getPass());
+                sendData(HttpRequest.HttpMethod.POST, url, params, new MyCallBack(new UserEvaluation(), handler, what));
                 break;
         }
 
