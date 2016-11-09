@@ -34,92 +34,70 @@
 
     </RelativeLayout>
 
-    <LinearLayout
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5px"
+        android:background="@color/grey_bg"></View>
+
+    <RadioGroup
+        android:id="@+id/rg_all"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:orientation="horizontal">
+
+        <RadioButton
+            android:id="@+id/tv_all"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:layout_weight="1"
+            android:background="@drawable/selector_evalution"
+            android:button="@null"
+            android:checked="true"
+            android:gravity="center"
+            android:padding="5dp"
+            android:text="全部"
+            android:textColor="@drawable/selector_textcolor" />
+
+        <RadioButton
+            android:id="@+id/tv_satis"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:layout_weight="1"
+            android:background="@drawable/selector_evalution"
+            android:button="@null"
+            android:gravity="center"
+            android:padding="5dp"
+            android:text="满意"
+            android:textColor="@drawable/selector_textcolor" />
+
+        <RadioButton
+            android:id="@+id/tv_nosatis"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:layout_weight="1"
+            android:background="@drawable/selector_evalution"
+            android:button="@null"
+            android:gravity="center"
+            android:padding="5dp"
+            android:text="不满意"
+            android:textColor="@drawable/selector_textcolor" />
+    </RadioGroup>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5px"
+        android:background="@color/grey_bg"></View>
+
+    <ListView
+        android:id="@+id/lv_show"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/white"
-        android:orientation="vertical">
+        android:divider="@color/bg_gray"
+        android:dividerHeight="1px"></ListView>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <LinearLayout
-                android:id="@+id/total_location"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:id="@+id/text_address"
-                    android:layout_width="wrap_content"
-                    android:layout_height="40dp"
-                    android:layout_gravity="center"
-                    android:layout_marginLeft="5dp"
-                    android:gravity="center"
-                    android:text="最近三月"
-                    android:textColor="@color/blue"
-                    android:textSize="14.0sp" />
-
-                <ImageView
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:padding="5dp"
-                    android:layout_gravity="center_vertical|right"
-                    android:layout_marginLeft="5dp"
-                    android:scaleType="fitXY"
-                    android:src="@mipmap/down" />
-            </LinearLayout>
-
-            <View
-                android:layout_width="0.5px"
-                android:layout_height="fill_parent"
-                android:layout_gravity="center_vertical"
-                android:background="#999999" />
-
-            <LinearLayout
-                android:id="@+id/order"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center_horizontal"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:id="@+id/order_text"
-                    android:layout_width="wrap_content"
-                    android:layout_height="40.0dip"
-                    android:layout_gravity="center"
-                    android:layout_marginLeft="5dp"
-                    android:gravity="center"
-                    android:text="全部"
-                    android:textSize="14.0sp" />
-
-                <ImageView
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:layout_gravity="center_vertical|right"
-                    android:layout_marginLeft="5dp"
-                    android:scaleType="fitXY"
-                    android:src="@mipmap/down" />
-
-            </LinearLayout>
-        </LinearLayout>
-
-        <View
-            android:layout_width="fill_parent"
-            android:layout_height="0.5px"
-            android:background="#999999" />
-
-        <ListView
-            android:id="@+id/lv_show"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:divider="@color/bg_gray"
-            android:dividerHeight="1px"></ListView>
-
-    </LinearLayout>
 </LinearLayout>

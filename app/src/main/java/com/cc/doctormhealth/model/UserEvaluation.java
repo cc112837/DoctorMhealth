@@ -14,6 +14,15 @@ public class UserEvaluation implements Serializable {
 	 */
 
 	private List<DataEntity> data;
+	private int count;
+
+	public int getCount() {
+		return count;
+	}
+
+	public void setCount(int count) {
+		this.count = count;
+	}
 
 	public void setData(List<DataEntity> data) {
 		this.data = data;

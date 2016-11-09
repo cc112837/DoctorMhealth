@@ -2,6 +2,7 @@ package com.cc.doctormhealth.utils;
 
 import android.os.Handler;
 
+import com.avoscloud.leanchatlib.model.LeanchatUser;
 import com.cc.doctormhealth.model.ConfirmFile;
 import com.cc.doctormhealth.model.ForGetpass;
 import com.cc.doctormhealth.model.Info;
@@ -79,8 +80,9 @@ public class MyHttpUtils extends HttpUtils {
                 sendData(HttpRequest.HttpMethod.POST, url, params, new MyCallBack(new Result(), handler, what));
                 break;
             case 18:
-                params.addBodyParameter("taoId",((UserInfo) object).getPhone());
+                params.addBodyParameter("taoId", LeanchatUser.getCurrentUser().getObjectId()+"");
                 params.addBodyParameter("status",((UserInfo) object).getPass());
+				params.addBodyParameter("statify", ((UserInfo) object).getPhone());
                 sendData(HttpRequest.HttpMethod.POST, url, params, new MyCallBack(new UserEvaluation(), handler, what));
                 break;
         }
