@@ -6,6 +6,7 @@ import com.avoscloud.leanchatlib.model.LeanchatUser;
 import com.cc.doctormhealth.model.ConfirmFile;
 import com.cc.doctormhealth.model.ForGetpass;
 import com.cc.doctormhealth.model.Info;
+import com.cc.doctormhealth.model.Money;
 import com.cc.doctormhealth.model.Result;
 import com.cc.doctormhealth.model.User;
 import com.cc.doctormhealth.model.UserEvaluation;
@@ -84,6 +85,10 @@ public class MyHttpUtils extends HttpUtils {
                 params.addBodyParameter("status",((UserInfo) object).getPass());
 				params.addBodyParameter("statify", ((UserInfo) object).getPhone());
                 sendData(HttpRequest.HttpMethod.POST, url, params, new MyCallBack(new UserEvaluation(), handler, what));
+                break;
+            case  19:
+                params.addBodyParameter("doctorId",LeanchatUser.getCurrentUser().getObjectId());
+                sendData(HttpRequest.HttpMethod.POST, url, params, new MyCallBack(new Money(), handler, what));
                 break;
         }
 
