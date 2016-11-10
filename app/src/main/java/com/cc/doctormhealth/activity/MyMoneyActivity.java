@@ -8,7 +8,6 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.cc.doctormhealth.R;
 import com.cc.doctormhealth.adapter.MoneyAdapter;
@@ -20,7 +19,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MyMoneyActivity extends Activity implements View.OnClickListener {
-    private TextView tv_show;
+    private TextView tv_aid;
     private ImageView leftBtn;
     private TextView tv_total;
     private ListView lv_show;
@@ -51,8 +50,8 @@ public class MyMoneyActivity extends Activity implements View.OnClickListener {
     }
 
     private void init() {
-        tv_show = (TextView) findViewById(R.id.tv_show);
-        tv_show.setOnClickListener(this);
+        tv_aid = (TextView) findViewById(R.id.tv_aid);
+        tv_aid.setOnClickListener(this);
         leftBtn = (ImageView) findViewById(R.id.leftBtn);
         leftBtn.setOnClickListener(this);
         tv_total = (TextView) findViewById(R.id.tv_total);
@@ -66,8 +65,8 @@ public class MyMoneyActivity extends Activity implements View.OnClickListener {
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.tv_show:
-                Toast.makeText(this, "稍后开通，敬请期待", Toast.LENGTH_LONG).show();
+            case R.id.tv_aid:
+                //
                 break;
             case R.id.leftBtn:
                 finish();
