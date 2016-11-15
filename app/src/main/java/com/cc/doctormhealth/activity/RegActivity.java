@@ -164,10 +164,54 @@ private Handler handler=new Handler(){
                 }
                 break;
             case R.id.register_btn:
+			if(userPhone.length() == 11&&phonecode.length()==4){
+			if("reg".equals(flag)){
+		
+				 RequestParams params = new RequestParams();
+                    params.addBodyParameter("appkey", "17911ed3c824f");
+                    params.addBodyParameter("phone", userPhone);
+                    params.addBodyParameter("zone", "86");
+                    params.addBodyParameter("code", phonecode);
+                    new HttpUtils().send(com.lidroid.xutils.http.client.HttpRequest.HttpMethod.POST, "https://webapi.sms.mob.com/sms/verify",
+                            params, new RequestCallBack<Object>() {
+                                @Override
+                                public void onSuccess(ResponseInfo<Object> responseInfo) {
+                                    try {
+                                        JSONObject object = new JSONObject(responseInfo.result.toString());
+                                        String s = object.getString("status");
+                                        if ("200".equals(s)) {
+                                            Intent intent = new Intent(RegActivity.this, CheckActivity.class);
+                                            intent.putExtra("phone",userPhone+"");
+                                            intent.putExtra("flag",flag);
+                                            intent.putExtra("pass","");
+                                            startActivity(intent);
+                                            finish();
+                                        } else {
+                                            Toast.makeText(RegActivity.this, "验证失败", Toast.LENGTH_LONG).show();
+                                        }
+                                    } catch (JSONException e) {
+                                        e.printStackTrace();
+                                    }
+
+
+                                }
+
+                                @Override
+                                public void onFailure(com.lidroid.xutils.exception.HttpException error, String msg) {
+
+                                }
+
+                            });
+			}
+			else{
                 String uri = Constants.SERVER_URL + "MhealthDoctorOldPasswordServlet";
                 UserInfo userInfo = new UserInfo();
                 userInfo.setPhone(userPhone + "");
-                MyHttpUtils.handData(handler, 16, uri, userInfo);
+                MyHttpUtils.handData(handler, 16, uri, userInfo);}
+				}
+				else{
+					Toast.makeText(this, "请确保手机号码和验证码输入正确", Toast.LENGTH_SHORT).show();
+				}
                 break;
             case R.id.back:
                 finish();
