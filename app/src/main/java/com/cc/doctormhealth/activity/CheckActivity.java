@@ -119,8 +119,7 @@ public class CheckActivity extends Activity {
                                                         getResources().getString(R.string.login_error));
                                             }
                                         } else
-                                            Tool.initToast(CheckActivity.this,
-                                                    getResources().getString(R.string.login_error));
+                                            Tool.initToast(CheckActivity.this, "设置密码失败");
                                     }
                                 }, LeanchatUser.class);
                     }

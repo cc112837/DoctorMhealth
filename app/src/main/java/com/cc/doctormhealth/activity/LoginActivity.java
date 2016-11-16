@@ -37,7 +37,7 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 
 public class LoginActivity extends BaseActivity implements TextWatcher {
 
-    Button loginBtn, regButton,forgetButton;
+    Button loginBtn, regButton, forgetButton;
     TextView nameText, pwdText;
     private String name, pwd;
     ImageView headicon;
@@ -55,12 +55,12 @@ public class LoginActivity extends BaseActivity implements TextWatcher {
 
         AVOSCloud.initialize(LoginActivity.this, appId, appKey);
 
-        if(AVUser.getCurrentUser() != null){
+        if (AVUser.getCurrentUser() != null) {
             name = AVUser.getCurrentUser().getUsername();
             finishLogin();
         }
         initTitle();
-        forgetButton=(Button) findViewById(R.id.forgetButton);
+        forgetButton = (Button) findViewById(R.id.forgetButton);
         nameText = (TextView) findViewById(R.id.nameText);
         pwdText = (TextView) findViewById(R.id.pwdText);
         loginBtn = (Button) findViewById(R.id.loginBtn);
@@ -87,7 +87,7 @@ public class LoginActivity extends BaseActivity implements TextWatcher {
             public void onClick(View v) {
 
                 Intent intent = new Intent(LoginActivity.this, RegActivity.class);
-                intent.putExtra("flag","for");
+                intent.putExtra("flag", "for");
                 startActivity(intent);
             }
         });
@@ -96,7 +96,7 @@ public class LoginActivity extends BaseActivity implements TextWatcher {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(LoginActivity.this, RegActivity.class);
-                intent.putExtra("flag","reg");
+                intent.putExtra("flag", "reg");
                 startActivity(intent);
             }
         });
@@ -119,10 +119,10 @@ public class LoginActivity extends BaseActivity implements TextWatcher {
                     if (userReg.getStatus().equals("1")) {
                         Toast.makeText(LoginActivity.this, "登录成功", Toast.LENGTH_LONG).show();
                         if (userReg.getMember() == 2) {
-                            MyAndroidUtil.editXmlByString(Constants.LOGIN_CHECK,userReg.getMember()+"");
+                            MyAndroidUtil.editXmlByString(Constants.LOGIN_CHECK, userReg.getMember() + "");
                             finishLogin();
                         } else {
-                            MyAndroidUtil.editXmlByString(Constants.LOGIN_CHECK,userReg.getMember()+"");
+                            MyAndroidUtil.editXmlByString(Constants.LOGIN_CHECK, userReg.getMember() + "");
                             Intent intent = new Intent(LoginActivity.this, TextActivity.class);
                             startActivity(intent);
                         }
@@ -152,7 +152,6 @@ public class LoginActivity extends BaseActivity implements TextWatcher {
                         dialog.dismiss();
                         if (e == null) {
                             AVUser aUser = AVUser.getCurrentUser();
-
                             aUser.get("property");
                             if (aUser.get("property").equals("doctor")) {
                                 loginSerAccount(name, pwd);
@@ -161,9 +160,13 @@ public class LoginActivity extends BaseActivity implements TextWatcher {
                                 Tool.initToast(LoginActivity.this,
                                         getResources().getString(R.string.login_error));
                             }
-                        } else
-                            Tool.initToast(LoginActivity.this,
-                                    getResources().getString(R.string.login_error));
+                        } else {
+                            if (e.getCode() == 1) {
+                               Toast.makeText(LoginActivity.this, "登录错误次数已超上限,请20分钟后重试",Toast.LENGTH_LONG).show();
+                            } else {
+                                Toast.makeText(LoginActivity.this, e.getMessage(),Toast.LENGTH_LONG).show();
+                            }
+                        }
                     }
                 }, LeanchatUser.class);
     }
@@ -176,6 +179,8 @@ public class LoginActivity extends BaseActivity implements TextWatcher {
             public void done(AVIMClient avimClient, AVIMException e) {
                 if (e == null) {
                     // 与云端建立连接成功
+                }
+                else{
                 }
             }
         });
