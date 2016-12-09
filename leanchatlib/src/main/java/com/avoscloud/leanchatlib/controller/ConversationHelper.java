@@ -29,7 +29,7 @@ public class ConversationHelper {
     }
 
     int typeInt = (Integer) type;
-    if (typeInt == ConversationType.Single.getValue()) {
+    if (typeInt == ConversationType.Single.getValue()||typeInt == ConversationType.Doctor.getValue()) {
       if (conversation.getMembers().size() != 2 ||
           conversation.getMembers().contains(ChatManager.getInstance().getSelfId()) == false) {
         LogUtils.d("invalid reason : oneToOne conversation not correct");
@@ -64,7 +64,7 @@ public class ConversationHelper {
    */
   public static String otherIdOfConversation(AVIMConversation conversation) {
     if (isValidConversation(conversation)) {
-      if (typeOfConversation(conversation) == ConversationType.Single) {
+      if (typeOfConversation(conversation) == ConversationType.Single||typeOfConversation(conversation) == ConversationType.Doctor) {
         List<String> members = conversation.getMembers();
         if (members.size() == 2) {
           if (members.get(0).equals(ChatManager.getInstance().getSelfId())) {
@@ -81,7 +81,7 @@ public class ConversationHelper {
 
   public static String nameOfConversation(AVIMConversation conversation) {
     if (isValidConversation(conversation)) {
-      if (typeOfConversation(conversation) == ConversationType.Single) {
+      if (typeOfConversation(conversation) == ConversationType.Single||typeOfConversation(conversation) == ConversationType.Doctor) {
         String otherId = otherIdOfConversation(conversation);
         AVUser user = AVUserCacheUtils.getCachedUser(otherId);
         if (user != null) {
@@ -100,7 +100,7 @@ public class ConversationHelper {
 
   public static String titleOfConversation(AVIMConversation conversation) {
     if (isValidConversation(conversation)) {
-      if (typeOfConversation(conversation) == ConversationType.Single) {
+      if (typeOfConversation(conversation) == ConversationType.Single||typeOfConversation(conversation) == ConversationType.Doctor) {
         return nameOfConversation(conversation);
       } else {
         List<String> members = conversation.getMembers();

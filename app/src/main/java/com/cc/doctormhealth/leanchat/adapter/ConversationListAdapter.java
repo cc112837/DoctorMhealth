@@ -71,7 +71,7 @@ public class ConversationListAdapter extends ArrayAdapter<Room> {
 				.findViewById(R.id.recent_unread);
 		AVIMConversation conversation = room.getConversation();
 		if (null != conversation) {
-			if (ConversationHelper.typeOfConversation(conversation) == ConversationType.Single) {
+			if (ConversationHelper.typeOfConversation(conversation) == ConversationType.Single||ConversationHelper.typeOfConversation(conversation) == ConversationType.Doctor) {
 				LeanchatUser user = (LeanchatUser) CacheService
 						.lookupUser(ConversationHelper
 								.otherIdOfConversation(conversation));
