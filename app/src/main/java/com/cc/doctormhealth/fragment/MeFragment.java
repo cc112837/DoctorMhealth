@@ -11,8 +11,9 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.avos.avoscloud.AVUser;
-import com.avoscloud.leanchatlib.controller.ChatManager;
+import com.avos.avoscloud.AVException;
+import com.avos.avoscloud.AVObject;
+import com.avos.avoscloud.GetCallback;
 import com.avoscloud.leanchatlib.model.LeanchatUser;
 import com.cc.doctormhealth.MyApplication;
 import com.cc.doctormhealth.R;
@@ -23,9 +24,6 @@ import com.cc.doctormhealth.activity.SettingActivity;
 import com.cc.doctormhealth.constant.Constants;
 import com.cc.doctormhealth.utils.MyAndroidUtil;
 import com.nostra13.universalimageloader.core.ImageLoader;
-
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import cn.sharesdk.framework.ShareSDK;
 import cn.sharesdk.onekeyshare.OnekeyShare;
@@ -39,15 +37,15 @@ public class MeFragment extends Fragment implements View.OnClickListener {
 
     RelativeLayout setting, about, pride, share, money;
     TextView username;
+
     ImageView headImage;
-    private ChatManager chatManager = ChatManager.getInstance();
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_me, container, false);
         ShareSDK.initSDK(getContext());
-        chatManager = ChatManager.getInstance();
         setting = (RelativeLayout) view.findViewById(R.id.setting);
         about = (RelativeLayout) view.findViewById(R.id.about);
         pride = (RelativeLayout) view.findViewById(R.id.pride);
@@ -57,23 +55,17 @@ public class MeFragment extends Fragment implements View.OnClickListener {
         username.setText(MyApplication.sharedPreferences.getString(Constants.LOGIN_ACCOUNT,
                 null));
         headImage = (ImageView) view.findViewById(R.id.headView);
-        LeanchatUser curUser = AVUser.getCurrentUser(LeanchatUser.class);
-        String avatarUrl = curUser.getAvatarUrl();
-        if (avatarUrl == null) {
-            try {
-                JSONObject object = new JSONObject(curUser.toString());
-                JSONObject serverData = object.getJSONObject("serverData");
-                JSONObject avatar = serverData.getJSONObject("avatar");
-                avatarUrl = avatar.getString("url");
-            } catch (JSONException e) {
-                e.printStackTrace();
+        LeanchatUser.getCurrentUser().fetchInBackground(new GetCallback<AVObject>() {
+            @Override
+            public void done(AVObject avObject, AVException e) {
+                LeanchatUser user = (LeanchatUser) avObject;
+                String  avatarUrl = user.getAvatarUrl();
+                MyAndroidUtil.editXmlByString(
+                        Constants.icon, avatarUrl);
+                ImageLoader.getInstance().displayImage(avatarUrl, headImage,
+                        com.avoscloud.leanchatlib.utils.PhotoUtils.avatarImageOption);
             }
-        }
-        MyAndroidUtil.editXmlByString(
-                Constants.icon, avatarUrl);
-        ImageLoader.getInstance().displayImage(avatarUrl, headImage,
-                com.avoscloud.leanchatlib.utils.PhotoUtils.avatarImageOption);
-
+        });
         money.setOnClickListener(this);
         setting.setOnClickListener(this);
         about.setOnClickListener(this);
@@ -127,4 +119,6 @@ public class MeFragment extends Fragment implements View.OnClickListener {
 
         }
     }
+
+
 }

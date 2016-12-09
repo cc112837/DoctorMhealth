@@ -94,7 +94,7 @@ public class MessageFragment extends Fragment {
     }
 
     public void onEvent(ConversationItemClickEvent event) {
-        Intent intent = new Intent(getActivity(), ChatRoomActivity.class);
+        Intent intent = new Intent(getActivity().getApplicationContext(), ChatRoomActivity.class);
         intent.putExtra(Constants.CONVERSATION_ID, event.conversationId);
         startActivity(intent);
     }

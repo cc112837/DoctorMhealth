@@ -104,7 +104,8 @@ public class ChatRoomActivity extends AVBaseActivity {
 			this.conversation = con;
 			chatFragment.setConversation(con);
 			chatFragment.showUserName(ConversationHelper
-					.typeOfConversation(con) != ConversationType.Single);
+					.typeOfConversation(con) != (ConversationType.Single)||ConversationHelper
+					.typeOfConversation(con) != (ConversationType.Doctor));
 			initActionBar(ConversationHelper.titleOfConversation(con));
 
 			if (ConversationHelper.typeOfConversation(conversation) == ConversationType.Group)
