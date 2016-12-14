@@ -32,7 +32,7 @@ public class MyMoneyActivity extends Activity implements View.OnClickListener {
             switch (msg.what) {
                 case 19:
                     Money money = (Money) msg.obj;
-                    tv_total.setText("¥" + money.getTotalPrice());
+                    tv_total.setText("¥" + String.format("%.2f", money.getTotalPrice()));
                     list.clear();
                     list.addAll(money.getData());
                     moneyAdapter.notifyDataSetChanged();
