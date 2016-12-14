@@ -17,6 +17,8 @@ import com.cc.doctormhealth.constant.Constants;
 import com.cc.doctormhealth.model.ForGetpass;
 import com.cc.doctormhealth.model.UserInfo;
 import com.cc.doctormhealth.utils.MyHttpUtils;
+import com.cc.doctormhealth.utils.Tool;
+import com.cc.doctormhealth.utils.Util;
 import com.lidroid.xutils.HttpUtils;
 import com.lidroid.xutils.http.RequestParams;
 import com.lidroid.xutils.http.ResponseInfo;
@@ -35,6 +37,7 @@ public class RegActivity extends BaseActivity implements View.OnClickListener {
     private String flag;
     private String userPhone;
     private String phonecode;
+    private String forPassOld;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,43 +76,19 @@ public class RegActivity extends BaseActivity implements View.OnClickListener {
                 case 16:
                     final ForGetpass forGetpass = (ForGetpass) msg.obj;
                     if (forGetpass.getStatus().equals("1")) {
-                        RequestParams params = new RequestParams();
-                        params.addBodyParameter("appkey", "17911ed3c824f");
-                        params.addBodyParameter("phone", userPhone);
-                        params.addBodyParameter("zone", "86");
-                        params.addBodyParameter("code", phonecode);
-                        new HttpUtils().send(com.lidroid.xutils.http.client.HttpRequest.HttpMethod.POST, "https://webapi.sms.mob.com/sms/verify",
-                                params, new RequestCallBack<Object>() {
-                                    @Override
-                                    public void onSuccess(ResponseInfo<Object> responseInfo) {
-                                        try {
-                                            JSONObject object = new JSONObject(responseInfo.result.toString());
-                                            String s = object.getString("status");
-                                            if ("200".equals(s)) {
-                                                Intent intent = new Intent(RegActivity.this, CheckActivity.class);
-                                                intent.putExtra("phone", userPhone + "");
-                                                intent.putExtra("flag", flag);
-                                                intent.putExtra("pass", forGetpass.getPassword() + "");
-                                                startActivity(intent);
-                                                finish();
-                                            } else {
-                                                Toast.makeText(RegActivity.this, "验证失败", Toast.LENGTH_LONG).show();
-                                            }
-                                        } catch (JSONException e) {
-                                            e.printStackTrace();
-                                        }
+                        forPassOld = forGetpass.getPassword();
+                        if ("reg".equals(flag)) {
+                            Tool.initToast(RegActivity.this, "该账号已注册过");
+                        } else {
+                            sendMess();
+                        }
 
-
-                                    }
-
-                                    @Override
-                                    public void onFailure(com.lidroid.xutils.exception.HttpException error, String msg) {
-
-                                    }
-
-                                });
                     } else {
-                        Toast.makeText(RegActivity.this, forGetpass.getData(), Toast.LENGTH_LONG).show();
+                        if ("reg".equals(flag)) {
+                            sendMess();
+                        } else {
+                            Tool.initToast(RegActivity.this, "该账号未注册过");
+                        }
                     }
                     break;
             }
@@ -122,97 +101,59 @@ public class RegActivity extends BaseActivity implements View.OnClickListener {
         phonecode = et_code.getText().toString();
         switch (v.getId()) {
             case R.id.Message_btn:
-                if (userPhone.length() != 11) {
-                    Toast.makeText(this, "请输入11位有效手机号码", Toast.LENGTH_SHORT).show();
+                if (Util.getInstance().isMobileNumber(userPhone)) {
+                    String uri = Constants.SERVER_URL + "MhealthDoctorOldPasswordServlet";
+                    UserInfo userInfo = new UserInfo();
+                    userInfo.setPhone(userPhone + "");
+                    MyHttpUtils.handData(handler, 16, uri, userInfo);
                 } else {
-                    SMSSDK.getSupportedCountries();
-                    SMSSDK.getVerificationCode("86", userPhone);
-                    Message_btn.setClickable(false);
-                    Message_btn.setBackgroundColor(Color.GRAY);
-                    Toast.makeText(RegActivity.this, "验证码发送成功，请尽快使用", Toast.LENGTH_SHORT).show();
-                    new CountDownTimer(60000, 1000) {
-                        @Override
-                        public void onTick(long millisUntilFinished) {
-                            Message_btn.setBackgroundResource(R.drawable.btn_default_small_normal_disable);
-                            Message_btn.setText(millisUntilFinished / 1000 + "秒");
-                        }
-
-                        @Override
-                        public void onFinish() {
-                            Message_btn.setClickable(true);
-                            Message_btn.setBackgroundResource(R.drawable.btn_default_small_normal);
-                            Message_btn.setText("重新发送");
-                        }
-                    }.start();
-                    //进行获取验证码操作和倒计时1分钟操作
-                    cn.smssdk.EventHandler eh = new EventHandler() {
-
-                        @Override
-                        public void afterEvent(int event, int result, Object data) {
-
-                            if (result == SMSSDK.RESULT_COMPLETE) {
-                                //回调完成
-                                if (event == SMSSDK.EVENT_SUBMIT_VERIFICATION_CODE) {
-                                    //提交验证码成功
-                                } else if (event == SMSSDK.EVENT_GET_VERIFICATION_CODE) {
-                                } else if (event == SMSSDK.EVENT_GET_SUPPORTED_COUNTRIES) {
-                                    //返回支持发送验证码的国家列表
-                                }
-                            } else {
-                                ((Throwable) data).printStackTrace();
-                            }
-                        }
-                    };
-                    SMSSDK.registerEventHandler(eh); //注册短信回调
+                    Toast.makeText(this, "请输入11位有效手机号码", Toast.LENGTH_SHORT).show();
+                    sendMess();
                 }
                 break;
             case R.id.register_btn:
-                if (userPhone.length() == 11 && phonecode.length() == 4) {
-                    if ("reg".equals(flag)) {
-
-                        RequestParams params = new RequestParams();
-                        params.addBodyParameter("appkey", "17911ed3c824f");
-                        params.addBodyParameter("phone", userPhone);
-                        params.addBodyParameter("zone", "86");
-                        params.addBodyParameter("code", phonecode);
-                        new HttpUtils().send(com.lidroid.xutils.http.client.HttpRequest.HttpMethod.POST, "https://webapi.sms.mob.com/sms/verify",
-                                params, new RequestCallBack<Object>() {
-                                    @Override
-                                    public void onSuccess(ResponseInfo<Object> responseInfo) {
-                                        try {
-                                            JSONObject object = new JSONObject(responseInfo.result.toString());
-                                            String s = object.getString("status");
-                                            if ("200".equals(s)) {
-                                                Intent intent = new Intent(RegActivity.this, CheckActivity.class);
-                                                intent.putExtra("phone", userPhone + "");
-                                                intent.putExtra("flag", flag);
+                if (Util.getInstance().isMobileNumber(userPhone) && phonecode.length() == 4) {
+                    RequestParams params = new RequestParams();
+                    params.addBodyParameter("appkey", "17911ed3c824f");
+                    params.addBodyParameter("phone", userPhone);
+                    params.addBodyParameter("zone", "86");
+                    params.addBodyParameter("code", phonecode);
+                    new HttpUtils().send(com.lidroid.xutils.http.client.HttpRequest.HttpMethod.POST, "https://webapi.sms.mob.com/sms/verify",
+                            params, new RequestCallBack<Object>() {
+                                @Override
+                                public void onSuccess(ResponseInfo<Object> responseInfo) {
+                                    try {
+                                        JSONObject object = new JSONObject(responseInfo.result.toString());
+                                        String s = object.getString("status");
+                                        if ("200".equals(s)) {
+                                            Intent intent = new Intent(RegActivity.this, CheckActivity.class);
+                                            intent.putExtra("phone", userPhone + "");
+                                            intent.putExtra("flag", flag);
+                                            if ("reg".equals(flag)) {
                                                 intent.putExtra("pass", "");
-                                                startActivity(intent);
-                                                finish();
                                             } else {
-                                                Toast.makeText(RegActivity.this, "验证失败", Toast.LENGTH_LONG).show();
+                                                intent.putExtra("pass", "" + forPassOld);
                                             }
-                                        } catch (JSONException e) {
-                                            e.printStackTrace();
+                                            startActivity(intent);
+                                            finish();
+                                        } else {
+                                            Toast.makeText(RegActivity.this, "验证失败", Toast.LENGTH_LONG).show();
                                         }
-
-
+                                    } catch (JSONException e) {
+                                        e.printStackTrace();
                                     }
 
-                                    @Override
-                                    public void onFailure(com.lidroid.xutils.exception.HttpException error, String msg) {
 
-                                    }
+                                }
 
-                                });
-                    } else {
-                        String uri = Constants.SERVER_URL + "MhealthDoctorOldPasswordServlet";
-                        UserInfo userInfo = new UserInfo();
-                        userInfo.setPhone(userPhone + "");
-                        MyHttpUtils.handData(handler, 16, uri, userInfo);
-                    }
+                                @Override
+                                public void onFailure(com.lidroid.xutils.exception.HttpException error, String msg) {
+
+                                }
+
+                            });
                 } else {
-                    Toast.makeText(this, "请确保手机号码和验证码输入正确", Toast.LENGTH_SHORT).show();
+                    Tool.initToast(RegActivity.this, "请确保手机号和验证码正确");
                 }
                 break;
             case R.id.back:
@@ -220,5 +161,47 @@ public class RegActivity extends BaseActivity implements View.OnClickListener {
                 break;
         }
 
+    }
+
+    private void sendMess() {
+        SMSSDK.getSupportedCountries();
+        SMSSDK.getVerificationCode("86", userPhone);
+        Message_btn.setClickable(false);
+        Message_btn.setBackgroundColor(Color.GRAY);
+        Toast.makeText(RegActivity.this, "验证码发送成功，请尽快使用", Toast.LENGTH_SHORT).show();
+        new CountDownTimer(60000, 1000) {
+            @Override
+            public void onTick(long millisUntilFinished) {
+                Message_btn.setBackgroundResource(R.drawable.btn_default_small_normal_disable);
+                Message_btn.setText(millisUntilFinished / 1000 + "秒");
+            }
+
+            @Override
+            public void onFinish() {
+                Message_btn.setClickable(true);
+                Message_btn.setBackgroundResource(R.drawable.btn_default_small_normal);
+                Message_btn.setText("重新发送");
+            }
+        }.start();
+        //进行获取验证码操作和倒计时1分钟操作
+        EventHandler eh = new EventHandler() {
+
+            @Override
+            public void afterEvent(int event, int result, Object data) {
+
+                if (result == SMSSDK.RESULT_COMPLETE) {
+                    //回调完成
+                    if (event == SMSSDK.EVENT_SUBMIT_VERIFICATION_CODE) {
+                        //提交验证码成功
+                    } else if (event == SMSSDK.EVENT_GET_VERIFICATION_CODE) {
+                    } else if (event == SMSSDK.EVENT_GET_SUPPORTED_COUNTRIES) {
+                        //返回支持发送验证码的国家列表
+                    }
+                } else {
+                    ((Throwable) data).printStackTrace();
+                }
+            }
+        };
+        SMSSDK.registerEventHandler(eh); //注册短信回调
     }
 }
