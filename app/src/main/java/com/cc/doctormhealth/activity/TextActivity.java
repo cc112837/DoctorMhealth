@@ -125,8 +125,10 @@ public class TextActivity extends Activity implements View.OnClickListener {
                 String idcard = et_idcard.getText().toString();
                 String hospital = et_hospital.getText().toString();
                 String keshi = et_keshi.getText().toString();
-                if (name == null || idcard == null || hospital == null || keshi == null) {
+                if ("".equals(name)|| "".equals(idcard)||"".equals(hospital)|| "".equals(keshi)) {
                     Toast.makeText(TextActivity.this, "输入不能为空", Toast.LENGTH_LONG).show();
+                }else if(idcard.length()!=18){
+                    Toast.makeText(TextActivity.this, "身份证号输入不符合规范", Toast.LENGTH_LONG).show();
                 } else {
                     User user = new User();
                     user.setMobile(LeanchatUser

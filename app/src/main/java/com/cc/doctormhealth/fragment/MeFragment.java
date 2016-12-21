@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.avos.avoscloud.AVException;
 import com.avos.avoscloud.AVObject;
@@ -21,6 +22,7 @@ import com.cc.doctormhealth.activity.AboutActivity;
 import com.cc.doctormhealth.activity.MyMoneyActivity;
 import com.cc.doctormhealth.activity.PrideActivity;
 import com.cc.doctormhealth.activity.SettingActivity;
+import com.cc.doctormhealth.activity.TextActivity;
 import com.cc.doctormhealth.constant.Constants;
 import com.cc.doctormhealth.utils.MyAndroidUtil;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -59,7 +61,7 @@ public class MeFragment extends Fragment implements View.OnClickListener {
             @Override
             public void done(AVObject avObject, AVException e) {
                 LeanchatUser user = (LeanchatUser) avObject;
-                String  avatarUrl = user.getAvatarUrl();
+                String avatarUrl = user.getAvatarUrl();
                 MyAndroidUtil.editXmlByString(
                         Constants.icon, avatarUrl);
                 ImageLoader.getInstance().displayImage(avatarUrl, headImage,
@@ -106,8 +108,19 @@ public class MeFragment extends Fragment implements View.OnClickListener {
                 startActivity(intent1);
                 break;
             case R.id.money:
-                Intent intent3 = new Intent(getActivity(), MyMoneyActivity.class);
-                startActivity(intent3);
+                String check = MyApplication.sharedPreferences.getString(com.cc.doctormhealth.constant.Constants.LOGIN_CHECK,
+                        null);
+                if ("2".equals(check)) {
+                    Intent intent3 = new Intent(getActivity(), MyMoneyActivity.class);
+                    startActivity(intent3);
+                } else if ("1".equals(check)) {
+                    Toast.makeText(getActivity(), "正在认证资质,请稍等", Toast.LENGTH_LONG);
+                } else if ("3".equals(check)) {
+                    Toast.makeText(getActivity(), "资质认证失败,请重新认证", Toast.LENGTH_LONG);
+                } else {
+                    Intent intent6 = new Intent(getActivity(), TextActivity.class);
+                    startActivity(intent6);
+                }
                 break;
             case R.id.pride:
                 Intent intent2 = new Intent(getActivity(), PrideActivity.class);

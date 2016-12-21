@@ -144,6 +144,7 @@ public class CheckActivity extends Activity {
                         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK
                                 | Intent.FLAG_ACTIVITY_NEW_TASK);
                         startActivity(intent);
+                        Utils.toast("注册成功，请登录");
                         finish();
                     } else {
                         Utils.toast(MyApplication.getInstance().getString(
