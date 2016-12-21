@@ -1,6 +1,8 @@
 package com.cc.doctormhealth.activity;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -8,6 +10,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.cc.doctormhealth.R;
 import com.cc.doctormhealth.adapter.MoneyAdapter;
@@ -66,7 +69,18 @@ public class MyMoneyActivity extends Activity implements View.OnClickListener {
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.tv_aid:
-                //
+                new AlertDialog.Builder(MyMoneyActivity.this).setTitle("提示")
+                        .setMessage("您确定要提交提现申请吗").setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        Toast.makeText(MyMoneyActivity.this,"您的提现申请已经提交，请耐心等待。",Toast.LENGTH_LONG).show();
+                    }
+                }).setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                }).show();
                 break;
             case R.id.leftBtn:
                 finish();
