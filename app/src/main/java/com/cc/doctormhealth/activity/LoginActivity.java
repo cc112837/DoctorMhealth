@@ -118,17 +118,19 @@ public class LoginActivity extends BaseActivity implements TextWatcher {
                     UserReg userReg = (UserReg) msg.obj;
                     if (userReg.getStatus().equals("1")) {
                         Toast.makeText(LoginActivity.this, "登录成功", Toast.LENGTH_LONG).show();
-                        if (userReg.getMember() == 2) {
+                        if (userReg.getMember() == 2||userReg.getMember()==1) {
                             MyAndroidUtil.editXmlByString(Constants.LOGIN_CHECK, userReg.getMember() + "");
                             finishLogin();
                         } else {
+                            if(userReg.getMember()==3){
+                                Toast.makeText(LoginActivity.this,"认证失败，请重新提交认证",Toast.LENGTH_LONG).show();
+                            }
                             MyAndroidUtil.editXmlByString(Constants.LOGIN_CHECK, userReg.getMember() + "");
                             Intent intent = new Intent(LoginActivity.this, TextActivity.class);
                             startActivity(intent);
                         }
                     } else {
                         Toast.makeText(LoginActivity.this, userReg.getData(), Toast.LENGTH_LONG).show();
-
                     }
                     break;
             }

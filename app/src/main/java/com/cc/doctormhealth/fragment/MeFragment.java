@@ -108,15 +108,15 @@ public class MeFragment extends Fragment implements View.OnClickListener {
                 startActivity(intent1);
                 break;
             case R.id.money:
-                String check = MyApplication.sharedPreferences.getString(com.cc.doctormhealth.constant.Constants.LOGIN_CHECK,
+                String check = MyApplication.sharedPreferences.getString(Constants.LOGIN_CHECK,
                         null);
                 if ("2".equals(check)) {
                     Intent intent3 = new Intent(getActivity(), MyMoneyActivity.class);
                     startActivity(intent3);
                 } else if ("1".equals(check)) {
-                    Toast.makeText(getActivity(), "正在认证资质,请稍等", Toast.LENGTH_LONG);
+                    Toast.makeText(getActivity(), "正在认证资质,请稍等", Toast.LENGTH_LONG).show();
                 } else if ("3".equals(check)) {
-                    Toast.makeText(getActivity(), "资质认证失败,请重新认证", Toast.LENGTH_LONG);
+                    Toast.makeText(getActivity(), "资质认证失败,请重新认证", Toast.LENGTH_LONG).show();
                 } else {
                     Intent intent6 = new Intent(getActivity(), TextActivity.class);
                     startActivity(intent6);

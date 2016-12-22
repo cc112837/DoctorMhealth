@@ -1,5 +1,6 @@
 package com.cc.doctormhealth.utils;
 
+import android.annotation.TargetApi;
 import android.app.AlertDialog;
 import android.app.Notification;
 import android.app.NotificationManager;
@@ -9,6 +10,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences.Editor;
+import android.os.Build;
 
 import com.cc.doctormhealth.MyApplication;
 import com.cc.doctormhealth.R;
@@ -87,6 +89,7 @@ public class MyAndroidUtil {
 		manger.cancelAll();   
 	}
 	
+	@TargetApi(Build.VERSION_CODES.JELLY_BEAN)
 	public static void showNoti(String notiMsg){
 			myNoti.tickerText = notiMsg;
 		

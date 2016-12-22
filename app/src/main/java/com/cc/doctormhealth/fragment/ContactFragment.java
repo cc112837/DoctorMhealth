@@ -97,9 +97,9 @@ public class ContactFragment extends Fragment {
                 if ("2".equals(check)) {
                     startActivity(new Intent(getActivity(), SearchActivity.class));
                 } else if ("1".equals(check)) {
-                    Toast.makeText(getActivity(), "正在认证资质,请稍等", Toast.LENGTH_LONG);
+                    Toast.makeText(getActivity(), "正在认证资质,请稍等", Toast.LENGTH_LONG).show();
                 } else if ("3".equals(check)) {
-                    Toast.makeText(getActivity(), "资质认证失败,请重新认证", Toast.LENGTH_LONG);
+                    Toast.makeText(getActivity(), "资质认证失败,请重新认证", Toast.LENGTH_LONG).show();
                 } else {
                     Intent intent = new Intent(getActivity(), TextActivity.class);
                     startActivity(intent);
