@@ -11,7 +11,7 @@ import com.avoscloud.leanchatlib.R;
 import com.avoscloud.leanchatlib.controller.MessageHelper;
 import com.avoscloud.leanchatlib.utils.LocalCacheUtils;
 import com.avoscloud.leanchatlib.view.PlayButton;
-import com.avoscloud.leanchatlib.viewholder.ChatItemHolder;
+
 
 /**
  * Created by wli on 15/9/17.

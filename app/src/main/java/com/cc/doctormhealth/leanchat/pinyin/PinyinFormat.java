@@ -1,4 +1,4 @@
-package com.cc.doctormhealth.leanchat.pinyin;
+package com.cc.doctormhealth.LeanChat.pinyin;
 
 /**
  * 拼音格式类

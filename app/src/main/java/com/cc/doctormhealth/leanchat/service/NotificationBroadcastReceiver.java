@@ -1,4 +1,4 @@
-package com.cc.doctormhealth.leanchat.service;
+package com.cc.doctormhealth.LeanChat.service;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -6,12 +6,13 @@ import android.content.Intent;
 
 import com.avoscloud.leanchatlib.controller.ChatManager;
 import com.avoscloud.leanchatlib.utils.Constants;
+import com.cc.doctormhealth.LeanChat.activity.ChatRoomActivity;
 import com.cc.doctormhealth.activity.LoginActivity;
 import com.cc.doctormhealth.activity.NewFriendActivity;
-import com.cc.doctormhealth.leanchat.activity.ChatRoomActivity;
+
 
 /**
- *
+ * Created by wli on 15/9/8.
  * 因为 notification 点击时，控制权不在 app，此时如果 app 被 kill 或者上下文改变后，
  * 有可能对 notification 的响应会做相应的变化，所以此处将所有 notification 都发送至此类，
  * 然后由此类做分发。

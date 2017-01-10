@@ -1,4 +1,4 @@
-package com.cc.doctormhealth.leanchat.util;
+package com.cc.doctormhealth.LeanChat.util;
 
 /**
  * Java汉字转换为拼音

@@ -1,4 +1,4 @@
-package com.cc.doctormhealth.leanchat.model;
+package com.cc.doctormhealth.LeanChat.model;
 
 import com.avoscloud.leanchatlib.model.LeanchatUser;
 

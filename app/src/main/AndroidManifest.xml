@@ -54,7 +54,7 @@
         android:theme="@style/AppTheme">
         <activity android:name=".activity.LoginActivity" />
 
-        <receiver android:name=".leanchat.service.MHealthDReceiver">
+        <receiver android:name=".LeanChat.service.MHealthUReceiver">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
                 <action android:name="android.intent.action.USER_PRESENT" />
@@ -71,7 +71,7 @@
                 <action android:name="android.intent.action.USER_PRESENT" />
             </intent-filter>
         </receiver>
-        <receiver android:name=".leanchat.service.NotificationBroadcastReceiver">
+        <receiver android:name=".LeanChat.service.NotificationBroadcastReceiver">
             <intent-filter>
                 <action android:name="com.avoscloud.chat.intent.mhealthdclient_notification" />
             </intent-filter>
@@ -85,10 +85,10 @@
         <activity android:name=".activity.ChangePwdActivity" />
         <activity android:name=".activity.NotiNewsActivity" />
         <activity
-            android:name=".leanchat.activity.ChatRoomActivity"
+            android:name=".LeanChat.activity.ChatRoomActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".leanchat.activity.ImageBrowserActivity"
+            android:name=".LeanChat.activity.ImageBrowserActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name="com.mob.tools.MobUIShell"
@@ -97,7 +97,7 @@
             android:theme="@android:style/Theme.Translucent.NoTitleBar"
             android:windowSoftInputMode="stateHidden|adjustResize">
             <intent-filter>
-                <data android:scheme="tencent1105190833" />
+                <data android:scheme="tencent1105828737" />
 
                 <action android:name="android.intent.action.VIEW" />
 

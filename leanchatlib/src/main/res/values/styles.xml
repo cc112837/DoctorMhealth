@@ -27,7 +27,14 @@
         <item name="android:windowFullscreen">true</item>
     </style>
 
-
+    <style name="chat_avatar">
+        <item name="android:layout_width">@dimen/chat_style_avatar_userHead</item>
+        <item name="android:layout_height">@dimen/chat_style_avatar_userHead</item>
+        <item name="android:clickable">true</item>
+        <item name="android:visibility">visible</item>
+        <item name="android:layout_gravity">bottom</item>
+        <item name="android:src">@drawable/chat_default_user_avatar</item>
+    </style>
     <!-- divider -->
     <style name="DividerLine">
         <item name="android:background">@color/divider_line_color</item>
@@ -185,13 +192,5 @@
     <style name="chat_play_btn">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
-    </style>
-    <style name="chat_avatar">
-        <item name="android:layout_width">@dimen/chat_style_avatar_userHead</item>
-        <item name="android:layout_height">@dimen/chat_style_avatar_userHead</item>
-        <item name="android:clickable">true</item>
-        <item name="android:visibility">visible</item>
-        <item name="android:layout_gravity">bottom</item>
-        <item name="android:src">@drawable/chat_default_user_avatar</item>
     </style>
 </resources>

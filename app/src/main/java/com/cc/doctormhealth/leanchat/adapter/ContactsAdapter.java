@@ -1,10 +1,10 @@
-package com.cc.doctormhealth.leanchat.adapter;
+package com.cc.doctormhealth.LeanChat.adapter;
 
 import android.text.TextUtils;
 
 import com.avoscloud.leanchatlib.adapter.HeaderListAdapter;
 import com.avoscloud.leanchatlib.model.LeanchatUser;
-import com.cc.doctormhealth.leanchat.viewholder.ContactItemHolder;
+import com.cc.doctormhealth.LeanChat.viewholder.ContactItemHolder;
 
 import java.text.Collator;
 import java.util.ArrayList;
@@ -45,6 +45,8 @@ public class ContactsAdapter extends
 				ContactItem item = new ContactItem();
 				item.user = user;
 				item.sortContent = user.getUsername();
+//				PinyinHelper.convertToPinyinString(user.getUsername(),"",
+//				 PinyinFormat.WITHOUT_TONE);
 				contactList.add(item);
 			}
 		}
@@ -78,6 +80,10 @@ public class ContactsAdapter extends
 					.charAt(0));
 			if (!lastCharcter.equals(curChar)) {
 				map.put(curChar, i);
+
+//				 Log.e("sortContent", list.get(i).sortContent);
+//				 Log.e("username",
+//				 list.get(i).user.getUsername()+"?????????????????????upIndex");
 			}
 			lastCharcter = curChar;
 		}
@@ -101,6 +107,9 @@ public class ContactsAdapter extends
 					item.initialVisible = true;
 					lastInitial = ' ';
 				}
+//				 Log.e("sortContent", item.sortContent);
+//				 Log.e("sortContent", item.initialVisible+"");
+
 			}
 		}
 	}

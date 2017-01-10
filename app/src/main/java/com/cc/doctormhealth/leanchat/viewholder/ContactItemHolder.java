@@ -1,4 +1,4 @@
-package com.cc.doctormhealth.leanchat.viewholder;
+package com.cc.doctormhealth.LeanChat.viewholder;
 
 import android.content.Context;
 import android.view.View;
@@ -7,10 +7,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.avoscloud.leanchatlib.viewholder.CommonViewHolder;
+import com.cc.doctormhealth.LeanChat.adapter.ContactsAdapter;
+import com.cc.doctormhealth.LeanChat.event.ContactItemClickEvent;
+import com.cc.doctormhealth.LeanChat.event.ContactItemLongClickEvent;
 import com.cc.doctormhealth.R;
-import com.cc.doctormhealth.leanchat.adapter.ContactsAdapter;
-import com.cc.doctormhealth.leanchat.event.ContactItemClickEvent;
-import com.cc.doctormhealth.leanchat.event.ContactItemLongClickEvent;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
 import de.greenrobot.event.EventBus;

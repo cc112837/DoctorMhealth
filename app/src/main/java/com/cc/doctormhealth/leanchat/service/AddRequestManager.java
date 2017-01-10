@@ -1,4 +1,4 @@
-package com.cc.doctormhealth.leanchat.service;
+package com.cc.doctormhealth.LeanChat.service;
 
 import android.content.Context;
 
@@ -10,11 +10,11 @@ import com.avos.avoscloud.FollowCallback;
 import com.avos.avoscloud.SaveCallback;
 import com.avoscloud.leanchatlib.model.LeanchatUser;
 import com.avoscloud.leanchatlib.utils.LogUtils;
+import com.cc.doctormhealth.LeanChat.model.AddRequest;
+import com.cc.doctormhealth.LeanChat.util.SimpleNetTask;
+import com.cc.doctormhealth.LeanChat.util.Utils;
 import com.cc.doctormhealth.MyApplication;
 import com.cc.doctormhealth.R;
-import com.cc.doctormhealth.leanchat.model.AddRequest;
-import com.cc.doctormhealth.leanchat.util.SimpleNetTask;
-import com.cc.doctormhealth.leanchat.util.Utils;
 
 import java.util.List;
 
@@ -123,7 +123,7 @@ public class AddRequestManager {
 
     public static void addFriend(String friendId, final SaveCallback saveCallback) {
       LeanchatUser user = LeanchatUser.getCurrentUser();
-    user.followInBackground(friendId, new FollowCallback() {
+      user.followInBackground(friendId, new FollowCallback() {
       @Override
       public void done(AVObject object, AVException e) {
         if (saveCallback != null) {
@@ -172,7 +172,8 @@ public class AddRequestManager {
 
       @Override
       protected void onSucceed() {
-        PushManager.getInstance().pushMessage(user.getObjectId(), ctx.getString(R.string.push_add_request),
+        //// TODO: 2016/3/7 (修改推送的内容) 
+        PushManager.getInstance().pushMessage(user.getObjectId(),(LeanchatUser.getCurrentUser().getUsername()+"请求加你为好友").toString(),
           ctx.getString(R.string.invitation_action));
         Utils.toast(R.string.contact_sendRequestSucceed);
       }

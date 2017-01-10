@@ -24,6 +24,7 @@ import com.avoscloud.leanchatlib.event.InputBottomBarEvent;
 import com.avoscloud.leanchatlib.event.InputBottomBarLocationClickEvent;
 import com.avoscloud.leanchatlib.event.InputBottomBarRecordEvent;
 import com.avoscloud.leanchatlib.event.InputBottomBarTextEvent;
+import com.avoscloud.leanchatlib.event.RecyclerClickEvent;
 import com.avoscloud.leanchatlib.utils.SoftInputUtils;
 import com.avoscloud.leanchatlib.view.EmotionEditText;
 import com.avoscloud.leanchatlib.view.RecordButton;
@@ -147,11 +148,12 @@ public class InputBottomBar extends LinearLayout {
       @Override
       public void onClick(View v) {
         boolean showActionView =
-          (GONE == moreLayout.getVisibility() || GONE == actionLayout.getVisibility());
+                (GONE == moreLayout.getVisibility() || GONE == actionLayout.getVisibility());
         moreLayout.setVisibility(showActionView ? VISIBLE : GONE);
         actionLayout.setVisibility(showActionView ? VISIBLE : GONE);
         emotionLayout.setVisibility(View.GONE);
         SoftInputUtils.hideSoftInput(getContext(), contentEditText);
+        EventBus.getDefault().post(new RecyclerClickEvent());
       }
     });
 
@@ -159,11 +161,12 @@ public class InputBottomBar extends LinearLayout {
       @Override
       public void onClick(View v) {
         boolean showEmotionView =
-          (GONE == moreLayout.getVisibility() || GONE == emotionLayout.getVisibility());
+                (GONE == moreLayout.getVisibility() || GONE == emotionLayout.getVisibility());
         moreLayout.setVisibility(showEmotionView ? VISIBLE : GONE);
         emotionLayout.setVisibility(showEmotionView ? VISIBLE : GONE);
         actionLayout.setVisibility(View.GONE);
         SoftInputUtils.hideSoftInput(getContext(), contentEditText);
+        EventBus.getDefault().post(new RecyclerClickEvent());
       }
     });
 
@@ -181,6 +184,17 @@ public class InputBottomBar extends LinearLayout {
         showTextLayout();
       }
     });
+    //// TODO: 2016/5/19(修改键盘遮挡问题)
+    OnFocusChangeListener mFocusChangedListener = new OnFocusChangeListener() {
+      @Override
+      public void onFocusChange(View v, boolean hasFocus) {
+        if(hasFocus){
+          moreLayout.setVisibility(View.GONE);
+          EventBus.getDefault().post(new RecyclerClickEvent());
+        }
+      }
+    };
+    contentEditText.setOnFocusChangeListener(mFocusChangedListener);
 
     voiceBtn.setOnClickListener(new OnClickListener() {
       @Override
@@ -207,7 +221,7 @@ public class InputBottomBar extends LinearLayout {
         }, MIN_INTERVAL_SEND_MESSAGE);
 
         EventBus.getDefault().post(
-          new InputBottomBarTextEvent(InputBottomBarEvent.INPUTBOTTOMBAR_SEND_TEXT_ACTION, content, getTag()));
+                new InputBottomBarTextEvent(InputBottomBarEvent.INPUTBOTTOMBAR_SEND_TEXT_ACTION, content, getTag()));
       }
     });
 
@@ -232,6 +246,7 @@ public class InputBottomBar extends LinearLayout {
       }
     });
   }
+
 
   /**
    * 初始化 emotionPager
@@ -282,7 +297,7 @@ public class InputBottomBar extends LinearLayout {
       @Override
       public void onFinishedRecord(final String audioPath, int secs) {
         EventBus.getDefault().post(
-          new InputBottomBarRecordEvent(InputBottomBarEvent.INPUTBOTTOMBAR_SEND_AUDIO_ACTION, audioPath, secs, getTag()));
+                new InputBottomBarRecordEvent(InputBottomBarEvent.INPUTBOTTOMBAR_SEND_AUDIO_ACTION, audioPath, secs, getTag()));
       }
 
       @Override
@@ -322,7 +337,8 @@ public class InputBottomBar extends LinearLayout {
   private void setEditTextChangeListener() {
     contentEditText.addTextChangedListener(new TextWatcher() {
       @Override
-      public void beforeTextChanged(CharSequence charSequence, int i, int i2, int i3) {}
+      public void beforeTextChanged(CharSequence charSequence, int i, int i2, int i3) {
+      }
 
       @Override
       public void onTextChanged(CharSequence charSequence, int i, int i2, int i3) {
@@ -333,7 +349,8 @@ public class InputBottomBar extends LinearLayout {
       }
 
       @Override
-      public void afterTextChanged(Editable editable) {}
+      public void afterTextChanged(Editable editable) {
+      }
     });
   }
 }

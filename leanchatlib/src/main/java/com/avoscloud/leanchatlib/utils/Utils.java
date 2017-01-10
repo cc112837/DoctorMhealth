@@ -1,13 +1,15 @@
 package com.avoscloud.leanchatlib.utils;
 
+import android.app.Activity;
+import android.app.ProgressDialog;
+
+import com.avoscloud.leanchatlib.R;
+
+import org.ocpsoft.prettytime.PrettyTime;
+
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Random;
-
-import org.ocpsoft.prettytime.PrettyTime;
-import android.app.Activity;
-import android.app.ProgressDialog;
-import com.avoscloud.leanchatlib.R;
 
 /**
  * Created by lzw on 15/4/27.

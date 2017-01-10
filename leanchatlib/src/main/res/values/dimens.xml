@@ -26,8 +26,11 @@
     <dimen name="textview_height_big">45dp</dimen>
 
 
+
+
+    <dimen name="chat_horizontal_margin">15dp</dimen>
+    <!-- 以下需要再整理 -->
     <dimen name="chat_BottomHeight">50dp</dimen>
-    <dimen name="chat_style_avatar_userHead">45dp</dimen>
     <dimen name="chat_ItemMarginTop">5dp</dimen>
     <dimen name="chat_ContentMaxWidth">200dp</dimen>
     <dimen name="chat_item_base_left_marginToUsername">5dp</dimen>
@@ -36,11 +39,10 @@
     <dimen name="chat_MaxNameWidth">50dp</dimen>
     <dimen name="chat_ImageWidth">150dp</dimen>
     <dimen name="chat_BottomBtnSize">30dp</dimen>
-    <dimen name="chat_avatarSize">50dp</dimen>
     <dimen name="chat_playBtnWidth">30dp</dimen>
+    <dimen name="chat_style_avatar_userHead">45dp</dimen>
+    <dimen name="chat_avatarSize">50dp</dimen>
 
-    <dimen name="chat_horizontal_margin">15dp</dimen>
-    <dimen name="chat_horizontal_big_margin">40dp</dimen>
 
 
 </resources>

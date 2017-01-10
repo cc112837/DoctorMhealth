@@ -1,4 +1,4 @@
-package com.cc.doctormhealth.leanchat.viewholder;
+package com.cc.doctormhealth.LeanChat.viewholder;
 
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,10 +14,10 @@ import com.avoscloud.leanchatlib.model.LeanchatUser;
 import com.avoscloud.leanchatlib.model.Room;
 import com.avoscloud.leanchatlib.utils.PhotoUtils;
 import com.avoscloud.leanchatlib.viewholder.CommonViewHolder;
+import com.cc.doctormhealth.LeanChat.event.ConversationItemClickEvent;
+import com.cc.doctormhealth.LeanChat.service.CacheService;
+import com.cc.doctormhealth.LeanChat.service.ConversationManager;
 import com.cc.doctormhealth.R;
-import com.cc.doctormhealth.leanchat.event.ConversationItemClickEvent;
-import com.cc.doctormhealth.leanchat.service.CacheService;
-import com.cc.doctormhealth.leanchat.service.ConversationManager;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
 import java.text.SimpleDateFormat;

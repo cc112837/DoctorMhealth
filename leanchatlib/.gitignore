@@ -8,4 +8,4 @@
 /captures
 .idea
 gradle
-src/androidTest
+/src/androidTest

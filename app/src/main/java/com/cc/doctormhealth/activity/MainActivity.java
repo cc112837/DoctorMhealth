@@ -15,12 +15,12 @@ import android.widget.TextView;
 
 import com.avos.avoscloud.AVUser;
 import com.avoscloud.leanchatlib.model.LeanchatUser;
+import com.cc.doctormhealth.LeanChat.service.CacheService;
 import com.cc.doctormhealth.R;
 import com.cc.doctormhealth.fragment.ChangeFragmentHelper;
 import com.cc.doctormhealth.fragment.ContactFragment;
 import com.cc.doctormhealth.fragment.MeFragment;
 import com.cc.doctormhealth.fragment.MessageFragment;
-import com.cc.doctormhealth.leanchat.service.CacheService;
 import com.cc.doctormhealth.utils.MyAndroidUtil;
 import com.cc.doctormhealth.utils.Tool;
 
