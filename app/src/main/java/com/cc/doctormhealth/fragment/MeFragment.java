@@ -87,13 +87,13 @@ public class MeFragment extends Fragment implements View.OnClickListener {
         OnekeyShare oks = new OnekeyShare();
         oks.disableSSOWhenAuthorize();
         oks.setTitle("一点就医");
-        oks.setTitleUrl("http://dd.myapp.com/16891/AD6CA13CA709A7611A7A0268722A760D.apk");
+        oks.setTitleUrl("http://www.wandoujia.com/apps/com.cc.doctormhealth/download");
         oks.setText("一点就医");
-        oks.setImageUrl("http://f1.sharesdk.cn/imgs/2014/02/26/owWpLZo_638x960.jpg");
-        oks.setUrl("http://dd.myapp.com/16891/AD6CA13CA709A7611A7A0268722A760D.apk");
+        oks.setImageUrl("http://img.wdjimg.com/mms/icon/v1/2/d0/84112fbdf7feb7e9ece19eec1888ad02_256_256.png");
+        oks.setUrl("http://www.wandoujia.com/apps/com.cc.doctormhealth/download");
         oks.setComment("一点就医");
         oks.setSite(getString(R.string.app_name));
-        oks.setSiteUrl("http://dd.myapp.com/16891/AD6CA13CA709A7611A7A0268722A760D.apk");
+        oks.setSiteUrl("http://www.wandoujia.com/apps/com.cc.doctormhealth/download");
         oks.show(getContext());
     }
 
