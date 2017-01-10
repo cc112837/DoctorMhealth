@@ -1,4 +1,4 @@
-package com.cc.doctormhealth.leanchat.adapter;
+package com.cc.doctormhealth.LeanChat.adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;
