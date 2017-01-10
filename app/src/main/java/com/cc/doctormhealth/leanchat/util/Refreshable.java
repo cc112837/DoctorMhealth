@@ -1,4 +1,4 @@
-package com.cc.doctormhealth.leanchat.util;
+package com.cc.doctormhealth.LeanChat.util;
 
 /**
  * Created by lzw on 15/2/27.

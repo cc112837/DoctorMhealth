@@ -17,13 +17,13 @@ import com.avos.avoscloud.FollowCallback;
 import com.avoscloud.leanchatlib.model.LeanchatUser;
 import com.avoscloud.leanchatlib.utils.Constants;
 import com.avoscloud.leanchatlib.view.ViewHolder;
+import com.cc.doctormhealth.LeanChat.activity.BaseActivityOfLeanCloud;
+import com.cc.doctormhealth.LeanChat.adapter.BaseListAdapter;
+import com.cc.doctormhealth.LeanChat.service.AddRequestManager;
+import com.cc.doctormhealth.LeanChat.service.CacheService;
+import com.cc.doctormhealth.LeanChat.view.BaseListView;
 import com.cc.doctormhealth.MyApplication;
 import com.cc.doctormhealth.R;
-import com.cc.doctormhealth.leanchat.activity.BaseActivityOfLeanCloud;
-import com.cc.doctormhealth.leanchat.adapter.BaseListAdapter;
-import com.cc.doctormhealth.leanchat.service.AddRequestManager;
-import com.cc.doctormhealth.leanchat.service.CacheService;
-import com.cc.doctormhealth.leanchat.view.BaseListView;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
 import java.util.ArrayList;

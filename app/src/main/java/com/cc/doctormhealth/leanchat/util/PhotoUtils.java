@@ -1,4 +1,4 @@
-package com.cc.doctormhealth.leanchat.util;
+package com.cc.doctormhealth.LeanChat.util;
 
 import android.graphics.Bitmap;
 import android.graphics.Bitmap.Config;

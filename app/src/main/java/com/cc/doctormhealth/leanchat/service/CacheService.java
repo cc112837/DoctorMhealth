@@ -1,4 +1,4 @@
-package com.cc.doctormhealth.leanchat.service;
+package com.cc.doctormhealth.LeanChat.service;
 
 import com.avos.avoscloud.AVException;
 import com.avos.avoscloud.AVQuery;

@@ -1,19 +1,20 @@
-package com.cc.doctormhealth.leanchat.view;
+package com.cc.doctormhealth.LeanChat.view;
 
 import android.content.Context;
 import android.util.AttributeSet;
 import android.view.View;
 import android.widget.AdapterView;
-
+import com.cc.doctormhealth.LeanChat.adapter.BaseListAdapter;
+import com.cc.doctormhealth.LeanChat.util.Logger;
+import com.cc.doctormhealth.LeanChat.util.SimpleNetTask;
+import com.cc.doctormhealth.LeanChat.util.Utils;
 import com.cc.doctormhealth.R;
-import com.cc.doctormhealth.leanchat.adapter.BaseListAdapter;
-import com.cc.doctormhealth.leanchat.util.Logger;
-import com.cc.doctormhealth.leanchat.util.SimpleNetTask;
-import com.cc.doctormhealth.leanchat.util.Utils;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicBoolean;
+
+
 
 
 /**

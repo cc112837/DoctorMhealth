@@ -1,6 +1,7 @@
-package com.cc.doctormhealth.leanchat.service;
+package com.cc.doctormhealth.LeanChat.service;
 
 import android.graphics.Bitmap;
+
 import com.avos.avoscloud.AVException;
 import com.avos.avoscloud.im.v2.AVIMClient;
 import com.avos.avoscloud.im.v2.AVIMConversation;
@@ -17,10 +18,10 @@ import com.avoscloud.leanchatlib.model.ConversationType;
 import com.avoscloud.leanchatlib.model.Room;
 import com.avoscloud.leanchatlib.utils.AVIMConversationCacheUtils;
 import com.avoscloud.leanchatlib.utils.Constants;
+import com.cc.doctormhealth.LeanChat.event.ConversationChangeEvent;
+import com.cc.doctormhealth.LeanChat.util.Logger;
 import com.cc.doctormhealth.MyApplication;
 import com.cc.doctormhealth.R;
-import com.cc.doctormhealth.leanchat.event.ConversationChangeEvent;
-import com.cc.doctormhealth.leanchat.util.Logger;
 
 import java.util.ArrayList;
 import java.util.Arrays;

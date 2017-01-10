@@ -24,11 +24,11 @@ import com.avoscloud.leanchatlib.model.ConversationType;
 import com.avoscloud.leanchatlib.model.Room;
 import com.avoscloud.leanchatlib.utils.AVUserCacheUtils;
 import com.avoscloud.leanchatlib.utils.Constants;
+import com.cc.doctormhealth.LeanChat.activity.ChatRoomActivity;
+import com.cc.doctormhealth.LeanChat.adapter.ConversationListAdapter;
+import com.cc.doctormhealth.LeanChat.event.ConversationItemClickEvent;
+import com.cc.doctormhealth.LeanChat.service.ConversationManager;
 import com.cc.doctormhealth.R;
-import com.cc.doctormhealth.leanchat.activity.ChatRoomActivity;
-import com.cc.doctormhealth.leanchat.adapter.ConversationListAdapter;
-import com.cc.doctormhealth.leanchat.event.ConversationItemClickEvent;
-import com.cc.doctormhealth.leanchat.service.ConversationManager;
 
 import java.util.ArrayList;
 import java.util.Collections;

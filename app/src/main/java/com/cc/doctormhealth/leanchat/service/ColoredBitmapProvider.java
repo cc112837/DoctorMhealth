@@ -1,10 +1,11 @@
-package com.cc.doctormhealth.leanchat.service;
+package com.cc.doctormhealth.LeanChat.service;
 
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.util.LruCache;
+
 import com.avoscloud.leanchatlib.utils.LogUtils;
-import com.cc.doctormhealth.leanchat.util.PhotoUtils;
+import com.cc.doctormhealth.LeanChat.util.PhotoUtils;
 
 import java.util.Random;
 

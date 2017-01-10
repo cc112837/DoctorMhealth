@@ -1,4 +1,4 @@
-package com.cc.doctormhealth.leanchat.util;
+package com.cc.doctormhealth.LeanChat.util;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -33,7 +33,6 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-
 
 public class Utils {
 
@@ -304,7 +303,6 @@ public class Utils {
     }
     return dialog;
   }
-
 
   public static void closeQuietly(Closeable closeable) {
     try {

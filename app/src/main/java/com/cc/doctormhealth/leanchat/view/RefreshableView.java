@@ -1,4 +1,4 @@
-package com.cc.doctormhealth.leanchat.view;
+package com.cc.doctormhealth.LeanChat.view;
 
 import android.content.Context;
 import android.os.AsyncTask;
@@ -15,6 +15,7 @@ import android.widget.TextView;
 
 import com.avoscloud.leanchatlib.utils.LogUtils;
 import com.cc.doctormhealth.R;
+
 
 /**
  * Created by lzw on 14-4-23.
