@@ -4,6 +4,8 @@ import android.annotation.SuppressLint;
 import android.app.ActionBar;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.res.Configuration;
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.view.MenuItem;
@@ -25,7 +27,14 @@ import de.greenrobot.event.EventBus;
     super.onCreate(savedInstanceState);
     EventBus.getDefault().register(this);
   }
-
+  @Override
+  public Resources getResources() {
+    Resources res = super.getResources();
+    Configuration config=new Configuration();
+    config.setToDefaults();
+    res.updateConfiguration(config, res.getDisplayMetrics());
+    return res;
+  }
   @Override
   public boolean onOptionsItemSelected(MenuItem item) {
     switch (item.getItemId()) {

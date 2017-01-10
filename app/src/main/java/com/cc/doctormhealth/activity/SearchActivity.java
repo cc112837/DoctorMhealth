@@ -10,10 +10,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.avos.avoscloud.AVException;
-import com.avos.avoscloud.AVObject;
 import com.avos.avoscloud.AVQuery;
 import com.avos.avoscloud.AVUser;
-import com.avos.avoscloud.FollowCallback;
 import com.avoscloud.leanchatlib.model.LeanchatUser;
 import com.avoscloud.leanchatlib.utils.Constants;
 import com.avoscloud.leanchatlib.view.ViewHolder;
@@ -40,7 +38,6 @@ public class SearchActivity extends BaseActivityOfLeanCloud {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        // TODO Auto-generated method stub
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
         init();
@@ -81,11 +78,6 @@ public class SearchActivity extends BaseActivityOfLeanCloud {
             public void onAddButtonClick(LeanchatUser user) {
                 AddRequestManager.getInstance().createAddRequestInBackground(
                         SearchActivity.this, user);
-                AVUser.getCurrentUser().followInBackground(user.getObjectId(), new FollowCallback() {
-                    @Override
-                    public void done(AVObject object, AVException e) {
-                    }
-                });
             }
         });
         listView.onRefresh();

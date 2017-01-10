@@ -1,4 +1,4 @@
-package com.cc.doctormhealth.leanchat.view;
+package com.cc.doctormhealth.LeanChat.view;
 
 import android.content.Context;
 import android.util.AttributeSet;
@@ -12,6 +12,7 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 
 import com.cc.doctormhealth.R;
+
 
 public class XListViewHeader extends LinearLayout {
   public final static int STATE_NORMAL = 0;
@@ -60,7 +61,7 @@ public class XListViewHeader extends LinearLayout {
   }
 
   public void setState(int state) {
-    if (state == mState) return;
+    if (state == mState) return ;
 
     if (state == STATE_REFRESHING) {  // 显示进度
       mArrowImageView.clearAnimation();

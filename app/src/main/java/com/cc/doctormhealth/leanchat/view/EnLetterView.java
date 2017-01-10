@@ -1,4 +1,4 @@
-package com.cc.doctormhealth.leanchat.view;
+package com.cc.doctormhealth.LeanChat.view;
 
 import android.content.Context;
 import android.graphics.Canvas;
@@ -11,8 +11,8 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.TextView;
 
+import com.cc.doctormhealth.LeanChat.util.PixelUtils;
 import com.cc.doctormhealth.R;
-import com.cc.doctormhealth.leanchat.util.PixelUtils;
 
 
 public class EnLetterView extends View {

@@ -66,7 +66,7 @@
             android:textSize="14sp" />
     </LinearLayout>
 
-    <com.cc.doctormhealth.leanchat.view.BaseListView
+    <com.cc.doctormhealth.LeanChat.view.BaseListView
         android:id="@+id/searchList"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

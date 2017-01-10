@@ -1,4 +1,4 @@
-package com.cc.doctormhealth.leanchat.view;
+package com.cc.doctormhealth.LeanChat.view;
 
 import android.content.Context;
 import android.util.AttributeSet;
@@ -7,7 +7,7 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.cc.doctormhealth.leanchat.event.MemberLetterEvent;
+import com.cc.doctormhealth.LeanChat.event.MemberLetterEvent;
 
 import java.util.ArrayList;
 import java.util.List;

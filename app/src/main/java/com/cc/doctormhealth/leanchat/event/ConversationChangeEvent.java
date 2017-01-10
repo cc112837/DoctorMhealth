@@ -1,4 +1,4 @@
-package com.cc.doctormhealth.leanchat.event;
+package com.cc.doctormhealth.LeanChat.event;
 
 import com.avos.avoscloud.im.v2.AVIMConversation;
 
