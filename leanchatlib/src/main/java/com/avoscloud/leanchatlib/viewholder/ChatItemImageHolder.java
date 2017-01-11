@@ -14,6 +14,9 @@ import com.avoscloud.leanchatlib.event.ImageItemClickEvent;
 import com.avoscloud.leanchatlib.utils.PhotoUtils;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
+import java.io.File;
+import java.lang.reflect.Field;
+
 import de.greenrobot.event.EventBus;
 
 /**

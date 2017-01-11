@@ -7,7 +7,6 @@ import android.widget.LinearLayout;
 
 import com.avoscloud.leanchatlib.R;
 
-
 /**
  * Created by wli on 15/11/26.
  */

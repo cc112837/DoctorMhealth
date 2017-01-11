@@ -3,16 +3,16 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/common_blue"
+    android:background="@color/blue"
     android:fitsSystemWindows="true"
     android:orientation="vertical"
-    tools:context="com.wzy.mhealth.AboutActivity">
+    tools:context="com.cc.doctormhealth.activity.AboutActivity">
 
     <RelativeLayout
         android:id="@+id/title1"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:background="@color/common_blue"
+        android:background="@color/blue"
         android:gravity="center_vertical">
 
         <TextView

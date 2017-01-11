@@ -2,43 +2,45 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fitsSystemWindows="true"
     android:background="@color/blue"
+    android:fitsSystemWindows="true"
     android:orientation="vertical">
 
 
     <FrameLayout
         android:id="@+id/titlebar"
         android:layout_width="fill_parent"
-        android:background="@color/blue"
         android:layout_height="45dp"
-        android:orientation="horizontal" >
+        android:background="@color/blue"
+        android:orientation="horizontal">
 
 
         <ImageView
             android:id="@+id/leftBtn"
             android:layout_width="40dp"
             android:layout_height="40dp"
+            android:layout_gravity="center_vertical"
             android:layout_marginLeft="10dp"
             android:background="@drawable/chat_common_base_header_back_btn"
-            android:layout_gravity="center_vertical"
-            android:scaleType="fitCenter"/>
+            android:scaleType="fitCenter" />
 
         <TextView
             android:id="@+id/titleView"
             style="@style/white20Text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/contact_new_friends"
+            android:layout_gravity="center"
             android:gravity="center"
-            android:layout_gravity="center" />
+            android:text="@string/contact_new_friends" />
 
     </FrameLayout>
+
     <LinearLayout
         android:layout_width="match_parent"
-        android:background="@color/contact_base_bg"
-        android:layout_height="match_parent">
-        <com.cc.doctormhealth.leanchat.view.BaseListView
+        android:layout_height="match_parent"
+        android:background="@color/contact_base_bg">
+
+        <com.cc.doctormhealth.LeanChat.view.BaseListView
             android:id="@+id/newfriendList"
             android:layout_width="match_parent"
             android:layout_height="match_parent"

@@ -19,9 +19,7 @@ import com.avoscloud.leanchatlib.utils.AVUserCacheUtils;
 import com.avoscloud.leanchatlib.utils.PhotoUtils;
 import com.avoscloud.leanchatlib.utils.Utils;
 import com.nostra13.universalimageloader.core.ImageLoader;
-
 import java.util.Arrays;
-
 import de.greenrobot.event.EventBus;
 
 /**

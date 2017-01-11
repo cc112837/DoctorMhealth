@@ -198,6 +198,15 @@ public class ContactFragment extends Fragment {
                 ctx.startActivity(intent);
             }
         });
+        View groupView = headerView.findViewById(R.id.layout_group);
+        groupView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // TODO: 2017/1/10
+//                Intent intent = new Intent(ctx, ConversationGroupListActivity.class);
+//                ctx.startActivity(intent);
+            }
+        });
     }
 
     private void updateNewRequestBadge() {
