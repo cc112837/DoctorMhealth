@@ -77,7 +77,8 @@
             </intent-filter>
         </receiver>
 
-        <activity android:name="com.avos.avoscloud.feedback.ThreadActivity" />
+        <activity android:name="com.avos.avoscloud.feedback.ThreadActivity"
+            />
         <activity android:name=".activity.MainActivity" />
         <activity android:name=".activity.RegActivity" />
         <activity android:name=".activity.SearchActivity" />
