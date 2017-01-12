@@ -13,29 +13,39 @@ import android.widget.FrameLayout;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
+import com.avos.avoscloud.AVException;
 import com.avos.avoscloud.AVUser;
+import com.avoscloud.leanchatlib.event.ImTypeMessageEvent;
 import com.avoscloud.leanchatlib.model.LeanchatUser;
+import com.avoscloud.leanchatlib.model.Room;
 import com.cc.doctormhealth.LeanChat.service.CacheService;
+import com.cc.doctormhealth.LeanChat.service.ConversationManager;
 import com.cc.doctormhealth.R;
 import com.cc.doctormhealth.fragment.ChangeFragmentHelper;
 import com.cc.doctormhealth.fragment.ContactFragment;
 import com.cc.doctormhealth.fragment.MeFragment;
 import com.cc.doctormhealth.fragment.MessageFragment;
+import com.cc.doctormhealth.fragment.NewsFragment;
+import com.cc.doctormhealth.fragment.OederDoctorFragment;
 import com.cc.doctormhealth.utils.MyAndroidUtil;
 import com.cc.doctormhealth.utils.Tool;
+
+import java.util.List;
+
+import de.greenrobot.event.EventBus;
 
 public class MainActivity extends AppCompatActivity {
 
     private TextView countView;
     private long exitTime = 0; // 两次按返回键退出用
     private Fragment fragment;
-    String check;
-
+    private ConversationManager conversationManager = ConversationManager.getInstance();
     @Override
     protected void onCreate(Bundle arg0) {
         super.onCreate(arg0);
         setContentView(R.layout.activity_main);
         initView();
+        EventBus.getDefault().register(this);
         Fragment fragment = new MessageFragment();
         ChangeFragmentHelper helper = new ChangeFragmentHelper();
         helper.setTargetFragment(fragment);
@@ -64,6 +74,12 @@ public class MainActivity extends AppCompatActivity {
                 switch (checkedId) {
                     case R.id.main_relation:
                         fragment = new MessageFragment();
+                        break;
+                    case R.id.main_oeder:
+                        fragment=new OederDoctorFragment();
+                        break;
+                    case R.id.main_news:
+                        fragment=new NewsFragment();
                         break;
                     case R.id.main_discover:
                         fragment = new ContactFragment();
@@ -115,30 +131,33 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onDestroy() {
+        EventBus.getDefault().unregister(this);
         super.onDestroy();
     }
 
     public void updateCount() {
-        // 更新界面
-        int count = 0;//= NewMsgDbHelper.getInstance(getApplicationContext()).getMsgCount();
-        if (count > 0) {
-            countView.setVisibility(View.VISIBLE);
-            countView.setText("" + count);
-        } else {
-            countView.setVisibility(View.GONE);
-        }
+        conversationManager.findAndCacheRooms(new Room.MultiRoomsCallback() {
+            @Override
+            public void done(List<Room> roomList, AVException exception) {
+                if (exception == null) {
+                    int count = 0;
+                    for (Room room : roomList)
+                        count += room.getUnreadCount();
+
+                    if (count > 0) {
+                        countView.setVisibility(View.VISIBLE);
+                        countView.setText("" + count);
+                    } else
+                        countView.setVisibility(View.INVISIBLE);
+                }
+            }
+        });
+
     }
 
-    public void updateCount(int count) {
-        // 更新界面//= NewMsgDbHelper.getInstance(getApplicationContext()).getMsgCount();
-        if (count > 0) {
-            countView.setVisibility(View.VISIBLE);
-            countView.setText("" + count);
-        } else {
-            countView.setVisibility(View.GONE);
-        }
+    public void onEvent(ImTypeMessageEvent event) {
+        updateCount();
     }
-
 
     public void changeFragment(ChangeFragmentHelper helper) {
 

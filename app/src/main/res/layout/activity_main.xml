@@ -6,11 +6,12 @@
     android:orientation="vertical">
 
     <LinearLayout
+        android:id="@+id/ll_show"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/blue"
-        android:id="@+id/ll_show"
         android:orientation="vertical">
+
 
         <FrameLayout
             android:id="@+id/main_container"
@@ -22,7 +23,7 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="1px"
-            android:background="#737373" />
+            android:background="@color/dark_grey" />
 
         <RadioGroup
             android:id="@+id/main_tabBar"
@@ -30,8 +31,27 @@
             android:layout_height="60dp"
             android:background="#fff"
             android:orientation="horizontal"
-            android:paddingLeft="15dp"
-            android:paddingRight="15dp">
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp">
+
+            <RadioButton
+                android:id="@+id/main_oeder"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="2dp"
+                android:layout_marginTop="8dp"
+                android:layout_weight="1"
+                android:background="@color/white"
+                android:button="@null"
+                android:drawableTop="@drawable/selector_order"
+                android:gravity="center"
+                android:text="预约"
+                android:textColor="@drawable/selector_textcolor"
+                android:textSize="12sp" />
+
+            <TextView
+                android:layout_width="15dp"
+                android:layout_height="15dp" />
 
             <RadioButton
                 android:id="@+id/main_relation"
@@ -40,6 +60,7 @@
                 android:layout_marginBottom="2dp"
                 android:layout_marginTop="8dp"
                 android:layout_weight="1"
+                android:background="@color/white"
                 android:button="@null"
                 android:checked="true"
                 android:drawableTop="@drawable/selector_message"
@@ -52,12 +73,30 @@
                 android:id="@+id/countView"
                 android:layout_width="15dp"
                 android:layout_height="15dp"
-                android:layout_gravity="clip_vertical"
+                android:layout_gravity="right"
                 android:background="@drawable/shape_dot"
                 android:gravity="center"
                 android:textColor="@color/white"
-                android:textSize="10sp"
-                android:visibility="invisible" />
+                android:textSize="10sp" />
+
+            <RadioButton
+                android:id="@+id/main_news"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="2dp"
+                android:layout_marginTop="8dp"
+                android:layout_weight="1"
+                android:background="@color/white"
+                android:button="@null"
+                android:drawableTop="@drawable/selector_news"
+                android:gravity="center"
+                android:text="资讯"
+                android:textColor="@drawable/selector_textcolor"
+                android:textSize="12sp" />
+
+            <TextView
+                android:layout_width="15dp"
+                android:layout_height="15dp" />
 
             <RadioButton
                 android:id="@+id/main_discover"
@@ -66,6 +105,7 @@
                 android:layout_marginBottom="2dp"
                 android:layout_marginTop="8dp"
                 android:layout_weight="1"
+                android:background="@color/white"
                 android:button="@null"
                 android:drawableTop="@drawable/selector_youquan"
                 android:gravity="center"
@@ -75,8 +115,7 @@
 
             <TextView
                 android:layout_width="15dp"
-                android:layout_height="15dp"
-                android:visibility="invisible" />
+                android:layout_height="15dp" />
 
             <RadioButton
                 android:id="@+id/main_person"
@@ -85,6 +124,7 @@
                 android:layout_marginBottom="2dp"
                 android:layout_marginTop="8dp"
                 android:layout_weight="1"
+                android:background="@color/white"
                 android:button="@null"
                 android:checked="false"
                 android:drawableTop="@drawable/selector_me"

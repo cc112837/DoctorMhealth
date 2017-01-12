@@ -66,7 +66,7 @@ public class MeFragment extends Fragment implements View.OnClickListener {
                 MyAndroidUtil.editXmlByString(
                         Constants.icon, avatarUrl);
                 ImageLoader.getInstance().displayImage(avatarUrl, headImage,
-                        com.avoscloud.leanchatlib.utils.PhotoUtils.avatarImageOption);
+                        com.avoscloud.leanchatlib.utils.PhotoUtils.avatarImageOptions);
             }
         });
         money.setOnClickListener(this);
