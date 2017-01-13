@@ -24,6 +24,9 @@ import com.avos.avoscloud.FindCallback;
 import com.avos.avoscloud.SaveCallback;
 import com.avoscloud.leanchatlib.event.MemberLetterEvent;
 import com.avoscloud.leanchatlib.utils.Constants;
+import com.cc.doctormhealth.MyApplication;
+import com.cc.doctormhealth.R;
+import com.cc.doctormhealth.activity.TextActivity;
 import com.cc.doctormhealth.leanchat.activity.ChatRoomActivity;
 import com.cc.doctormhealth.leanchat.activity.ConversationGroupListActivity;
 import com.cc.doctormhealth.leanchat.adapter.ContactsAdapter;
@@ -36,9 +39,6 @@ import com.cc.doctormhealth.leanchat.friends.ContactAddFriendActivity;
 import com.cc.doctormhealth.leanchat.friends.ContactNewFriendActivity;
 import com.cc.doctormhealth.leanchat.friends.FriendsManager;
 import com.cc.doctormhealth.leanchat.model.LeanchatUser;
-import com.cc.doctormhealth.MyApplication;
-import com.cc.doctormhealth.R;
-import com.cc.doctormhealth.activity.TextActivity;
 
 import java.util.List;
 
@@ -55,6 +55,8 @@ public class ContactFragment extends BaseFragment {
 
     @Bind(R.id.activity_square_members_rv_list)
     protected RecyclerView recyclerView;
+    @Bind(R.id.rightBtn)
+    protected ImageView rightBtn;
 
     private View headerView;
     ImageView msgTipsView;
@@ -143,12 +145,9 @@ public class ContactFragment extends BaseFragment {
     }
 
     private void initHeader() {
-        headerLayout.showTitle(MyApplication.ctx.getString(R.string.contact));
-        headerLayout.showRightImageButton(R.drawable.base_action_bar_add_bg_selector, new View.OnClickListener() {
-
+        rightBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 String check = MyApplication.sharedPreferences.getString(com.cc.doctormhealth.constant.Constants.LOGIN_CHECK,
                         null);
                 if ("2".equals(check)) {

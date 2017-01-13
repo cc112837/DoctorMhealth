@@ -2,31 +2,65 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/common_blue"
+    android:fitsSystemWindows="true"
     android:orientation="vertical">
 
-    <include layout="@layout/common_header_layout" />
-
     <RelativeLayout
+        android:id="@+id/title"
+        android:layout_width="fill_parent"
+        android:layout_height="45dp"
+        android:background="@color/common_blue"
+        android:gravity="center_vertical">
+
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:gravity="center"
+            android:text="友圈"
+            android:textColor="#ffffff"
+            android:textSize="18sp" />
+
+        <ImageView
+            android:id="@+id/rightBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginRight="15dip"
+            android:src="@mipmap/add" />
+    </RelativeLayout>
+
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-        <android.support.v4.widget.SwipeRefreshLayout
-            android:id="@+id/activity_square_members_srl_list"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        android:orientation="vertical">
+
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/activity_square_members_rv_list"
+            <android.support.v4.widget.SwipeRefreshLayout
+                android:id="@+id/activity_square_members_srl_list"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"/>
-        </android.support.v4.widget.SwipeRefreshLayout>
+                android:layout_height="match_parent">
 
-        <com.avoscloud.leanchatlib.view.LetterView
-            android:id="@+id/activity_square_members_letterview"
-            android:layout_width="20dp"
-            android:layout_height="match_parent"
-            android:layout_alignParentRight="true">
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/activity_square_members_rv_list"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+            </android.support.v4.widget.SwipeRefreshLayout>
 
-        </com.avoscloud.leanchatlib.view.LetterView>
+            <com.avoscloud.leanchatlib.view.LetterView
+                android:id="@+id/activity_square_members_letterview"
+                android:layout_width="20dp"
+                android:layout_height="match_parent"
+                android:layout_alignParentRight="true">
 
-    </RelativeLayout>
+            </com.avoscloud.leanchatlib.view.LetterView>
+
+        </RelativeLayout>
+    </LinearLayout>
 </LinearLayout>

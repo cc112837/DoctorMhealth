@@ -71,7 +71,6 @@ public class MessageFragment extends BaseFragment {
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        headerLayout.showTitle(R.string.conversation_messages);
         updateConversationList();
     }
 
