@@ -5,7 +5,7 @@ package com.avoscloud.leanchatlib.model;
  * Created by lzw on 14/11/18.
  */
 public enum ConversationType {
-  Single(0), Group(1),Doctor(2);
+  Single(0), Group(1);
   /**
    * 创建的时候直接设置 type 字段
    */
@@ -23,7 +23,7 @@ public enum ConversationType {
   }
 
   public static ConversationType fromInt(int i) {
-    if (i < 3) {
+    if (i < 2) {
       return values()[i];
     } else {
       return Group;

@@ -8,8 +8,8 @@ android {
         applicationId "com.cc.doctormhealth"
         minSdkVersion 16
         targetSdkVersion 23
-        versionCode 1
-        versionName "1.0"
+        versionCode 2
+        versionName "1.1"
     }
     packagingOptions {
         exclude 'META-INF/LICENSE.txt'
@@ -34,10 +34,9 @@ dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     compile name: 'SMSSDK-2.0.2', ext: 'aar'
     compile project(':onekeyshare')
-    compile project(':leanchatlib')
     compile 'com.android.support:appcompat-v7:23.4.0'
     compile 'com.google.code.gson:gson:2.2.4'
     compile 'com.jiechic.library:xUtils:2.6.14'
     compile 'com.android.support:support-v4:23.4.0'
-    testCompile 'junit:junit:4.12'
+    compile project(':leanchatlib')
 }

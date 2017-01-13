@@ -17,7 +17,7 @@ import com.avos.avoscloud.im.v2.AVIMClient;
 import com.avos.avoscloud.im.v2.AVIMException;
 import com.avos.avoscloud.im.v2.callback.AVIMClientCallback;
 import com.avoscloud.leanchatlib.controller.ChatManager;
-import com.cc.doctormhealth.LeanChat.service.PushManager;
+import com.cc.doctormhealth.leanchat.service.PushManager;
 import com.cc.doctormhealth.R;
 
 

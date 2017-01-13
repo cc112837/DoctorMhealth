@@ -1,4 +1,4 @@
-package com.cc.doctormhealth.LeanChat.pinyin;
+package com.cc.doctormhealth.leanchat.pinyin;
 
 import java.io.IOException;
 import java.io.InputStream;

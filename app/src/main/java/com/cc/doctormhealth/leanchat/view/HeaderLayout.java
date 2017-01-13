@@ -1,4 +1,4 @@
-package com.cc.doctormhealth.LeanChat.view;
+package com.cc.doctormhealth.leanchat.view;
 
 import android.app.Activity;
 import android.content.Context;

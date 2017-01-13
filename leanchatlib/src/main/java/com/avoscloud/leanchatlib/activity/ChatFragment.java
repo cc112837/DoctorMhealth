@@ -1,13 +1,7 @@
 package com.avoscloud.leanchatlib.activity;
 
-import java.io.File;
-import java.io.IOException;
-import java.util.List;
-
-import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.app.Activity;
-import android.app.Fragment;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Build;
@@ -22,7 +16,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
-import com.avos.avoscloud.AVException;
 import com.avos.avoscloud.im.v2.AVIMConversation;
 import com.avos.avoscloud.im.v2.AVIMException;
 import com.avos.avoscloud.im.v2.AVIMMessage;
@@ -34,8 +27,6 @@ import com.avos.avoscloud.im.v2.messages.AVIMImageMessage;
 import com.avos.avoscloud.im.v2.messages.AVIMTextMessage;
 import com.avoscloud.leanchatlib.R;
 import com.avoscloud.leanchatlib.adapter.MultipleItemAdapter;
-import com.avoscloud.leanchatlib.controller.ChatManager;
-import com.avoscloud.leanchatlib.controller.MessageAgent;
 import com.avoscloud.leanchatlib.event.ImTypeMessageEvent;
 import com.avoscloud.leanchatlib.event.ImTypeMessageResendEvent;
 import com.avoscloud.leanchatlib.event.InputBottomBarEvent;
@@ -45,20 +36,23 @@ import com.avoscloud.leanchatlib.utils.NotificationUtils;
 import com.avoscloud.leanchatlib.utils.PathUtils;
 import com.avoscloud.leanchatlib.utils.ProviderPathUtils;
 
+import java.io.File;
+import java.io.IOException;
+import java.util.List;
+
 import de.greenrobot.event.EventBus;
 
 /**
  * Created by wli on 15/8/27.
  * 将聊天相关的封装到此 Fragment 里边，只需要通过 setConversation 传入 Conversation 即可
  */
-@SuppressLint("NewApi") public class ChatFragment extends Fragment {
+public class ChatFragment extends android.support.v4.app.Fragment {
 
   private static final int TAKE_CAMERA_REQUEST = 2;
   private static final int GALLERY_REQUEST = 0;
   private static final int GALLERY_KITKAT_REQUEST = 3;
 
   protected AVIMConversation imConversation;
-  protected MessageAgent messageAgent;
 
   protected MultipleItemAdapter itemAdapter;
   protected RecyclerView recyclerView;
@@ -66,12 +60,14 @@ import de.greenrobot.event.EventBus;
   protected SwipeRefreshLayout refreshLayout;
   protected InputBottomBar inputBottomBar;
 
-  protected String localCameraPath = PathUtils.getPicturePathByCurrentTime();
+  protected String localCameraPath;
 
   @Nullable
   @Override
   public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
     View view = inflater.inflate(R.layout.fragment_chat, container, false);
+
+    localCameraPath = PathUtils.getPicturePathByCurrentTime(getContext());
 
     recyclerView = (RecyclerView) view.findViewById(R.id.fragment_chat_rv_chat);
     refreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.fragment_chat_srl_pullrefresh);
@@ -98,21 +94,18 @@ import de.greenrobot.event.EventBus;
           refreshLayout.setRefreshing(false);
         } else {
           imConversation.queryMessages(message.getMessageId(), message.getTimestamp(), 20, new AVIMMessagesQueryCallback() {
+            @Override
+            public void done(List<AVIMMessage> list, AVIMException e) {
+              refreshLayout.setRefreshing(false);
+              if (filterException(e)) {
+                if (null != list && list.size() > 0) {
+                  itemAdapter.addMessageList(list);
+                  itemAdapter.notifyDataSetChanged();
 
-
-			@Override
-			public void done(List<AVIMMessage> list, AVIMException e) {
-				// TODO Auto-generated method stub
-				 refreshLayout.setRefreshing(false);
-	              if (filterException(e)) {
-	                if (null != list && list.size() > 0) {
-	                  itemAdapter.addMessageList(list);
-	                  itemAdapter.notifyDataSetChanged();
-
-	                  layoutManager.scrollToPositionWithOffset(list.size() - 1, 0);
-	                }
-	              }
-			}
+                  layoutManager.scrollToPositionWithOffset(list.size() - 1, 0);
+                }
+              }
+            }
           });
         }
       }
@@ -147,7 +140,6 @@ import de.greenrobot.event.EventBus;
     inputBottomBar.setTag(imConversation.getConversationId());
     fetchMessages();
     NotificationUtils.addTag(conversation.getConversationId());
-    messageAgent = new MessageAgent(conversation);
   }
 
   public void showUserName(boolean isShow) {
@@ -159,17 +151,15 @@ import de.greenrobot.event.EventBus;
    */
   private void fetchMessages() {
     imConversation.queryMessages(new AVIMMessagesQueryCallback() {
-
-	@Override
-	public void done(List<AVIMMessage> list, AVIMException e) {
-		// TODO Auto-generated method stub
-		 if (filterException(e)) {
-	          itemAdapter.setMessageList(list);
-	          recyclerView.setAdapter(itemAdapter);
-	          itemAdapter.notifyDataSetChanged();
-	          scrollToBottom();
-	        }
-	}
+      @Override
+      public void done(List<AVIMMessage> list, AVIMException e) {
+        if (filterException(e)) {
+          itemAdapter.setMessageList(list);
+          recyclerView.setAdapter(itemAdapter);
+          itemAdapter.notifyDataSetChanged();
+          scrollToBottom();
+        }
+      }
     });
   }
 
@@ -207,12 +197,10 @@ import de.greenrobot.event.EventBus;
       if (AVIMMessage.AVIMMessageStatus.AVIMMessageStatusFailed == event.message.getMessageStatus()
         && imConversation.getConversationId().equals(event.message.getConversationId())) {
         imConversation.sendMessage(event.message, new AVIMConversationCallback() {
-
-		@Override
-		public void done(AVIMException arg0) {
-			// TODO Auto-generated method stub
-			itemAdapter.notifyDataSetChanged();
-		}
+          @Override
+          public void done(AVIMException e) {
+            itemAdapter.notifyDataSetChanged();
+          }
         });
         itemAdapter.notifyDataSetChanged();
       }
@@ -342,7 +330,6 @@ import de.greenrobot.event.EventBus;
     }
   }
 
-  //TODO messageAgent
   private void sendText(String content) {
     AVIMTextMessage message = new AVIMTextMessage();
     message.setText(content);
@@ -373,13 +360,10 @@ import de.greenrobot.event.EventBus;
     itemAdapter.notifyDataSetChanged();
     scrollToBottom();
     imConversation.sendMessage(message, new AVIMConversationCallback() {
-
-	@Override
-	public void done(AVIMException arg0) {
-		// TODO Auto-generated method stub
-        ChatManager.getInstance().getRoomsTable().insertRoom(imConversation.getConversationId());
-		itemAdapter.notifyDataSetChanged();
-	}
+      @Override
+      public void done(AVIMException e) {
+        itemAdapter.notifyDataSetChanged();
+      }
     });
   }
 }

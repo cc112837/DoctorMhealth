@@ -1,4 +1,4 @@
-package com.cc.doctormhealth.LeanChat.viewholder;
+package com.cc.doctormhealth.leanchat.viewholder;
 
 import android.content.Context;
 import android.view.View;
@@ -7,9 +7,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.avoscloud.leanchatlib.viewholder.CommonViewHolder;
-import com.cc.doctormhealth.LeanChat.adapter.ContactsAdapter;
-import com.cc.doctormhealth.LeanChat.event.ContactItemClickEvent;
-import com.cc.doctormhealth.LeanChat.event.ContactItemLongClickEvent;
+import com.cc.doctormhealth.leanchat.adapter.ContactsAdapter;
+import com.cc.doctormhealth.leanchat.event.ContactItemClickEvent;
+import com.cc.doctormhealth.leanchat.event.ContactItemLongClickEvent;
 import com.cc.doctormhealth.R;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
@@ -35,7 +35,7 @@ public class ContactItemHolder extends CommonViewHolder<ContactsAdapter.ContactI
     alpha = (TextView)itemView.findViewById(R.id.alpha);
     nameView = (TextView)itemView.findViewById(R.id.tv_friend_name);
     avatarView = (ImageView)itemView.findViewById(R.id.img_friend_avatar);
-    itemView.setVisibility(View.GONE);
+
     itemView.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View v) {
@@ -60,7 +60,6 @@ public class ContactItemHolder extends CommonViewHolder<ContactsAdapter.ContactI
     ImageLoader.getInstance().displayImage(memberItem.user.getAvatarUrl(),
       avatarView, com.avoscloud.leanchatlib.utils.PhotoUtils.avatarImageOptions);
     nameView.setText(memberItem.user.getUsername());
-    itemView.setVisibility(View.VISIBLE);
   }
 
   public static ViewHolderCreator HOLDER_CREATOR = new ViewHolderCreator<ContactItemHolder>() {

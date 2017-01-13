@@ -1,4 +1,4 @@
-package com.cc.doctormhealth.LeanChat.service;
+package com.cc.doctormhealth.leanchat.service;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -14,10 +14,9 @@ import com.avos.avoscloud.AVException;
 import com.avos.avoscloud.AVObject;
 import com.avos.avoscloud.AVQuery;
 import com.avoscloud.leanchatlib.utils.LogUtils;
-import com.cc.doctormhealth.LeanChat.model.UpdateInfo;
-import com.cc.doctormhealth.LeanChat.util.Logger;
-import com.cc.doctormhealth.LeanChat.util.NetAsyncTask;
-import com.cc.doctormhealth.LeanChat.util.Utils;
+import com.cc.doctormhealth.leanchat.model.UpdateInfo;
+import com.cc.doctormhealth.leanchat.util.NetAsyncTask;
+import com.cc.doctormhealth.leanchat.util.Utils;
 import com.cc.doctormhealth.R;
 
 import java.util.List;
@@ -78,7 +77,7 @@ public class UpdateService {
         } catch (AVException e) {
           LogUtils.logException(e);
         }
-        Logger.d("createUpdateInfo");
+        LogUtils.d("createUpdateInfo");
       }
     }).start();
   }

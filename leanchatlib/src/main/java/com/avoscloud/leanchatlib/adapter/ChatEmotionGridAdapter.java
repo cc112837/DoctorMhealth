@@ -18,7 +18,7 @@ import java.util.List;
  */
 public class ChatEmotionGridAdapter extends BaseAdapter {
   private Context context;
-  private List<String> datas = new ArrayList<String>();
+  private List<String> datas = new ArrayList<>();
 
   public ChatEmotionGridAdapter(Context ctx) {
     this.context = ctx;

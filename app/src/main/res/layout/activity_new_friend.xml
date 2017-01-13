@@ -40,7 +40,7 @@
         android:layout_height="match_parent"
         android:background="@color/contact_base_bg">
 
-        <com.cc.doctormhealth.LeanChat.view.BaseListView
+        <com.cc.doctormhealth.leanchat.view.BaseListView
             android:id="@+id/newfriendList"
             android:layout_width="match_parent"
             android:layout_height="match_parent"

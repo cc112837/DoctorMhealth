@@ -1,10 +1,11 @@
 package com.avoscloud.leanchatlib.controller;
 
-import com.avos.avoscloud.AVUser;
+import android.text.TextUtils;
+
 import com.avos.avoscloud.im.v2.AVIMConversation;
 import com.avoscloud.leanchatlib.model.ConversationType;
-import com.avoscloud.leanchatlib.utils.AVUserCacheUtils;
 import com.avoscloud.leanchatlib.utils.LogUtils;
+import com.avoscloud.leanchatlib.utils.ThirdPartUserUtils;
 
 import java.util.List;
 
@@ -29,7 +30,7 @@ public class ConversationHelper {
     }
 
     int typeInt = (Integer) type;
-    if (typeInt == ConversationType.Single.getValue()||typeInt == ConversationType.Doctor.getValue()) {
+    if (typeInt == ConversationType.Single.getValue()) {
       if (conversation.getMembers().size() != 2 ||
           conversation.getMembers().contains(ChatManager.getInstance().getSelfId()) == false) {
         LogUtils.d("invalid reason : oneToOne conversation not correct");
@@ -64,7 +65,7 @@ public class ConversationHelper {
    */
   public static String otherIdOfConversation(AVIMConversation conversation) {
     if (isValidConversation(conversation)) {
-      if (typeOfConversation(conversation) == ConversationType.Single||typeOfConversation(conversation) == ConversationType.Doctor) {
+      if (typeOfConversation(conversation) == ConversationType.Single) {
         List<String> members = conversation.getMembers();
         if (members.size() == 2) {
           if (members.get(0).equals(ChatManager.getInstance().getSelfId())) {
@@ -81,15 +82,10 @@ public class ConversationHelper {
 
   public static String nameOfConversation(AVIMConversation conversation) {
     if (isValidConversation(conversation)) {
-      if (typeOfConversation(conversation) == ConversationType.Single||typeOfConversation(conversation) == ConversationType.Doctor) {
+      if (typeOfConversation(conversation) == ConversationType.Single) {
         String otherId = otherIdOfConversation(conversation);
-        AVUser user = AVUserCacheUtils.getCachedUser(otherId);
-        if (user != null) {
-          return user.getUsername();
-        } else {
-          LogUtils.e("use is null");
-          return "对话";
-        }
+        String userName = ThirdPartUserUtils.getInstance().getUserName(otherId);
+        return (TextUtils.isEmpty(userName) ? "对话" : userName);
       } else {
         return conversation.getName();
       }
@@ -100,7 +96,7 @@ public class ConversationHelper {
 
   public static String titleOfConversation(AVIMConversation conversation) {
     if (isValidConversation(conversation)) {
-      if (typeOfConversation(conversation) == ConversationType.Single||typeOfConversation(conversation) == ConversationType.Doctor) {
+      if (typeOfConversation(conversation) == ConversationType.Single) {
         return nameOfConversation(conversation);
       } else {
         List<String> members = conversation.getMembers();

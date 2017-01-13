@@ -1,7 +1,7 @@
 package com.avoscloud.leanchatlib.controller;
 
-import android.annotation.SuppressLint;
 import android.content.ContentValues;
+import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.text.TextUtils;
@@ -13,8 +13,8 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
- * 最近对话的列表，
- * Created by lzw on 15/2/12.这里称之为 Rooms
+ * 最近对话的列表，这里称之为 Rooms
+ * Created by lzw on 15/2/12.
  */
 public class RoomsTable {
   private static final String ROOMS_TABLE = "rooms";
@@ -39,16 +39,16 @@ public class RoomsTable {
   }
 
   private DBHelper dbHelper;
-  private static Map<String, RoomsTable> roomsTableInstances = new ConcurrentHashMap<String, RoomsTable>();
+  private static Map<String, RoomsTable> roomsTableInstances = new ConcurrentHashMap<>();
 
   private RoomsTable(DBHelper dbHelper) {
     this.dbHelper = dbHelper;
   }
 
-  public synchronized static RoomsTable getInstanceByUserId(String userId) {
+  public synchronized static RoomsTable getInstanceByUserId(Context context, String userId) {
     RoomsTable roomsTable = roomsTableInstances.get(userId);
     if (roomsTable == null) {
-      roomsTable = new RoomsTable(new DBHelper(ChatManager.getContext(), userId));
+      roomsTable = new RoomsTable(new DBHelper(context.getApplicationContext(), userId));
     }
     return roomsTable;
   }
@@ -73,12 +73,13 @@ public class RoomsTable {
   public List<Room> selectRooms() {
     SQLiteDatabase db = dbHelper.getReadableDatabase();
     Cursor c = db.query(ROOMS_TABLE, null, null, null, null, null, null);
-    List<Room> rooms = new ArrayList<Room>();
+    List<Room> rooms = new ArrayList<>();
     while (c.moveToNext()) {
       Room room = createRoomByCursor(c);
       rooms.add(room);
     }
     c.close();
+    db.close();
     return rooms;
   }
 
@@ -89,7 +90,7 @@ public class RoomsTable {
     return room;
   }
 
-  @SuppressLint("NewApi") public void insertRoom(String convid) {
+  public void insertRoom(String convid) {
     SQLiteDatabase db = dbHelper.getWritableDatabase();
     ContentValues cv = new ContentValues();
     cv.put(ROOM_CONVID, convid);

@@ -1,4 +1,4 @@
-package com.cc.doctormhealth.LeanChat.pinyin;
+package com.cc.doctormhealth.leanchat.pinyin;
 
 import java.util.Iterator;
 import java.util.Map.Entry;

@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    android:versionCode="2"
+    android:versionName="1.1"
     package="com.cc.doctormhealth">
 
     <uses-permission android:name="android.permission.READ_CONTACTS" />
@@ -54,7 +56,7 @@
         android:theme="@style/AppTheme">
         <activity android:name=".activity.LoginActivity" />
 
-        <receiver android:name=".LeanChat.service.MHealthUReceiver">
+        <receiver android:name="com.cc.doctormhealth.leanchat.service.LeanchatReceiver">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
                 <action android:name="android.intent.action.USER_PRESENT" />
@@ -65,31 +67,36 @@
 
         <service android:name="com.avos.avoscloud.PushService" />
 
+
+        <receiver android:name="leanchat.service.NotificationBroadcastReceiver">
+            <intent-filter>
+                <action android:name="com.avoscloud.chat.intent.client_notification" />
+            </intent-filter>
+        </receiver>
+
+
         <receiver android:name="com.avos.avoscloud.AVBroadcastReceiver">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
                 <action android:name="android.intent.action.USER_PRESENT" />
             </intent-filter>
         </receiver>
-        <receiver android:name=".LeanChat.service.NotificationBroadcastReceiver">
+        <receiver android:name=".leanchat.service.NotificationBroadcastReceiver">
             <intent-filter>
                 <action android:name="com.avoscloud.chat.intent.mhealthdclient_notification" />
             </intent-filter>
         </receiver>
 
-        <activity android:name="com.avos.avoscloud.feedback.ThreadActivity"
-            />
+        <activity android:name="com.avos.avoscloud.feedback.ThreadActivity" />
         <activity android:name=".activity.MainActivity" />
         <activity android:name=".activity.RegActivity" />
-        <activity android:name=".activity.SearchActivity" />
-        <activity android:name=".activity.NewFriendActivity" />
         <activity android:name=".activity.ChangePwdActivity" />
         <activity android:name=".activity.NotiNewsActivity" />
         <activity
-            android:name=".LeanChat.activity.ChatRoomActivity"
+            android:name=".leanchat.activity.ChatRoomActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".LeanChat.activity.ImageBrowserActivity"
+            android:name=".leanchat.activity.ImageBrowserActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name="com.mob.tools.MobUIShell"
@@ -111,6 +118,14 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
+        <activity android:name=".leanchat.activity.UpdateContentActivity"/>
+        <activity android:name=".leanchat.activity.ConversationDetailActivity"/>
+        <activity android:name=".leanchat.activity.ConversationGroupListActivity"/>
+        <activity android:name=".leanchat.activity.ConversationAddMembersActivity"/>
+        <activity android:name=".leanchat.friends.ContactPersonInfoActivity"/>
+        <activity android:name=".leanchat.friends.ContactNewFriendActivity"/>
+        <activity android:name=".leanchat.friends.ContactAddFriendActivity"/>
+        <activity android:name=".leanchat.activity.BaseActivityOfLeanCloud"/>
         <activity android:name=".activity.MyMoneyActivity" />
         <activity android:name=".activity.AboutActivity" />
         <activity android:name=".activity.ServicePriActivity" />

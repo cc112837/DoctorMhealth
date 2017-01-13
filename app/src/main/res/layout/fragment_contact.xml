@@ -3,39 +3,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
-    <FrameLayout
-        android:id="@+id/titlebar"
-        android:layout_width="fill_parent"
-        android:layout_height="50dp"
-        android:background="@color/blue"
-        android:orientation="horizontal">
 
-
-        <TextView
-            android:id="@+id/titleView"
-            style="@style/white20Text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:gravity="center"
-            android:text="友圈" />
-
-        <ImageView
-            android:id="@+id/rightBtn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="right|center_vertical"
-            android:layout_marginRight="15dip"
-            android:src="@mipmap/add"
-            />
-
-
-    </FrameLayout>
+    <include layout="@layout/common_header_layout" />
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-
         <android.support.v4.widget.SwipeRefreshLayout
             android:id="@+id/activity_square_members_srl_list"
             android:layout_width="match_parent"
@@ -44,16 +17,16 @@
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/activity_square_members_rv_list"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" />
+                android:layout_height="match_parent"/>
         </android.support.v4.widget.SwipeRefreshLayout>
 
-        <com.cc.doctormhealth.LeanChat.view.LetterView
+        <com.avoscloud.leanchatlib.view.LetterView
             android:id="@+id/activity_square_members_letterview"
             android:layout_width="20dp"
             android:layout_height="match_parent"
             android:layout_alignParentRight="true">
 
-        </com.cc.doctormhealth.LeanChat.view.LetterView>
+        </com.avoscloud.leanchatlib.view.LetterView>
 
     </RelativeLayout>
 </LinearLayout>

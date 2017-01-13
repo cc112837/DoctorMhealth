@@ -1,12 +1,13 @@
-package com.cc.doctormhealth.LeanChat.service;
+package com.cc.doctormhealth.leanchat.service;
 
 import android.content.Context;
+import android.text.TextUtils;
 
 import com.avos.avoscloud.AVInstallation;
 import com.avos.avoscloud.AVPush;
 import com.avos.avoscloud.AVQuery;
-import com.avos.avoscloud.AVUser;
 import com.avos.avoscloud.PushService;
+import com.cc.doctormhealth.leanchat.model.LeanchatUser;
 import com.cc.doctormhealth.activity.LoginActivity;
 
 import java.util.HashMap;
@@ -21,7 +22,6 @@ public class PushManager {
   private final static String AVOS_PUSH_ACTION = "action";
   public static final String INSTALLATION_CHANNELS = "channels";
   private static PushManager pushManager;
-  
   private Context context;
 
   public synchronized static PushManager getInstance() {
@@ -38,15 +38,16 @@ public class PushManager {
   }
 
   private void subscribeCurrentUserChannel() {
-    if (AVUser.getCurrentUser() != null) {
-      PushService.subscribe(context, AVUser.getCurrentUser().getObjectId(),
-          LoginActivity.class);
+    String currentUserId = LeanchatUser.getCurrentUserId();
+    if (!TextUtils.isEmpty(currentUserId)) {
+      PushService.subscribe(context, currentUserId, LoginActivity.class);
     }
   }
 
   public void unsubscribeCurrentUserChannel() {
-    if (AVUser.getCurrentUser() != null) {
-      PushService.unsubscribe(context, AVUser.getCurrentUser().getObjectId());
+    String currentUserId = LeanchatUser.getCurrentUserId();
+    if (!TextUtils.isEmpty(currentUserId)) {
+      PushService.unsubscribe(context, currentUserId);
     }
   }
 

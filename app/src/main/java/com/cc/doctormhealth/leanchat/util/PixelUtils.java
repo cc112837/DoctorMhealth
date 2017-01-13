@@ -1,4 +1,4 @@
-package com.cc.doctormhealth.LeanChat.util;
+package com.cc.doctormhealth.leanchat.util;
 
 import android.content.res.Resources;
 

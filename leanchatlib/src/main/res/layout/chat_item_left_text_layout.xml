@@ -5,6 +5,5 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:background="@drawable/chat_left_qp"
-    android:textSize="18sp"
     android:textColor="@android:color/black"
     android:gravity="center_vertical"/>

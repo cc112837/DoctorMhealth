@@ -1,4 +1,4 @@
-package com.cc.doctormhealth.LeanChat.event;
+package com.cc.doctormhealth.leanchat.event;
 
 /**
  * Created by wli on 15/11/26.

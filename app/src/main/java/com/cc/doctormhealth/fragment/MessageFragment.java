@@ -1,33 +1,31 @@
 package com.cc.doctormhealth.fragment;
 
-import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ListView;
-import android.widget.TextView;
 
 import com.avos.avoscloud.AVException;
 import com.avos.avoscloud.im.v2.AVIMConversation;
 import com.avos.avoscloud.im.v2.AVIMException;
 import com.avos.avoscloud.im.v2.AVIMMessage;
 import com.avos.avoscloud.im.v2.callback.AVIMSingleMessageQueryCallback;
-import com.avoscloud.leanchatlib.controller.ChatManager;
 import com.avoscloud.leanchatlib.controller.ConversationHelper;
+import com.avoscloud.leanchatlib.event.ConnectionChangeEvent;
+import com.avoscloud.leanchatlib.event.ConversationItemClickEvent;
 import com.avoscloud.leanchatlib.event.ImTypeMessageEvent;
 import com.avoscloud.leanchatlib.model.ConversationType;
 import com.avoscloud.leanchatlib.model.Room;
-import com.avoscloud.leanchatlib.utils.AVUserCacheUtils;
 import com.avoscloud.leanchatlib.utils.Constants;
-import com.cc.doctormhealth.LeanChat.activity.ChatRoomActivity;
-import com.cc.doctormhealth.LeanChat.adapter.ConversationListAdapter;
-import com.cc.doctormhealth.LeanChat.event.ConversationItemClickEvent;
-import com.cc.doctormhealth.LeanChat.service.ConversationManager;
+import com.avoscloud.leanchatlib.utils.ConversationManager;
+import com.cc.doctormhealth.leanchat.activity.ChatRoomActivity;
+import com.cc.doctormhealth.leanchat.adapter.ConversationListAdapter;
+import com.cc.doctormhealth.leanchat.model.LeanchatUser;
+import com.cc.doctormhealth.leanchat.util.UserCacheUtils;
 import com.cc.doctormhealth.R;
 
 import java.util.ArrayList;
@@ -35,54 +33,61 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
+import butterknife.Bind;
+import butterknife.ButterKnife;
 import de.greenrobot.event.EventBus;
 
-public class MessageFragment extends Fragment {
-    private TextView titleView;
+public class MessageFragment extends BaseFragment {
+
+    @Bind(R.id.im_client_state_view)
     View imClientStateView;
 
-    protected ListView listView;
-    protected List<Room> list;
-    protected ConversationListAdapter itemAdapter;
+    @Bind(R.id.fragment_conversation_srl_pullrefresh)
+    protected SwipeRefreshLayout refreshLayout;
+
+    @Bind(R.id.fragment_conversation_srl_view)
+    protected RecyclerView recyclerView;
+
+    protected ConversationListAdapter<Room> itemAdapter;
+    protected LinearLayoutManager layoutManager;
 
     private boolean hidden;
     private ConversationManager conversationManager;
 
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_message, container, false);
+        ButterKnife.bind(this, view);
         conversationManager = ConversationManager.getInstance();
-        imClientStateView = View.inflate(getActivity(), R.layout.chat_client_state_view, null);
-        listView = (ListView) view.findViewById(R.id.fragment_conversation_srl_view);
-        itemAdapter = new ConversationListAdapter(getActivity());
-        listView.setAdapter(itemAdapter);
-        listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
-            @Override
-            public boolean onItemLongClick(AdapterView<?> parent, View view, final int position, long id) {
-                new AlertDialog.Builder(getActivity()).setTitle("你确定删除吗")
-                        .setMessage("你确定删除吗").setPositiveButton("确定", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        ChatManager.getInstance().getRoomsTable()
-                                .deleteRoom(itemAdapter.getItem(position).getConversationId());
-                        itemAdapter.remove(itemAdapter.getItem(position));
-                        itemAdapter.notifyDataSetChanged();
-
-                    }
-                }).setNegativeButton("取消", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.dismiss();
-                    }
-                }).show();
-
-                return false;
-            }
-        });
-
+        refreshLayout.setEnabled(false);
+        layoutManager = new LinearLayoutManager(getActivity());
+        recyclerView.setLayoutManager(layoutManager);
+        itemAdapter = new ConversationListAdapter<Room>();
+        recyclerView.setAdapter(itemAdapter);
         EventBus.getDefault().register(this);
-        updateConversationList();
         return view;
+    }
+
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        headerLayout.showTitle(R.string.conversation_messages);
+        updateConversationList();
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        EventBus.getDefault().unregister(this);
+    }
+
+    @Override
+    public void onHiddenChanged(boolean hidden) {
+        super.onHiddenChanged(hidden);
+        this.hidden = hidden;
+        if (!hidden) {
+            updateConversationList();
+        }
     }
 
     @Override
@@ -94,7 +99,7 @@ public class MessageFragment extends Fragment {
     }
 
     public void onEvent(ConversationItemClickEvent event) {
-        Intent intent = new Intent(getActivity().getApplicationContext(), ChatRoomActivity.class);
+        Intent intent = new Intent(getActivity(), ChatRoomActivity.class);
         intent.putExtra(Constants.CONVERSATION_ID, event.conversationId);
         startActivity(intent);
     }
@@ -107,14 +112,13 @@ public class MessageFragment extends Fragment {
         conversationManager.findAndCacheRooms(new Room.MultiRoomsCallback() {
             @Override
             public void done(List<Room> roomList, AVException exception) {
-                if (exception == null) {
+                if (filterException(exception)) {
 
                     updateLastMessage(roomList);
                     cacheRelatedUsers(roomList);
 
                     List<Room> sortedRooms = sortRooms(roomList);
-                    itemAdapter.clear();
-                    itemAdapter.addAll(sortedRooms);
+                    itemAdapter.setDataList(sortedRooms);
                     itemAdapter.notifyDataSetChanged();
                 }
             }
@@ -125,38 +129,34 @@ public class MessageFragment extends Fragment {
         for (final Room room : roomList) {
             AVIMConversation conversation = room.getConversation();
             if (null != conversation) {
-                conversation
-                        .getLastMessage(new AVIMSingleMessageQueryCallback() {
-                            @Override
-                            public void done(AVIMMessage avimMessage,
-                                             AVIMException e) {
-                                if (e == null && null != avimMessage) {
-                                    room.setLastMessage(avimMessage);
-                                    int index = roomList.indexOf(room);
-                                    itemAdapter.notifyDataSetChanged();
-                                }
-                            }
-                        });
+                conversation.getLastMessage(new AVIMSingleMessageQueryCallback() {
+                    @Override
+                    public void done(AVIMMessage avimMessage, AVIMException e) {
+                        if (filterException(e) && null != avimMessage) {
+                            room.setLastMessage(avimMessage);
+                            int index = roomList.indexOf(room);
+                            itemAdapter.notifyItemChanged(index);
+                        }
+                    }
+                });
             }
         }
     }
 
     private void cacheRelatedUsers(List<Room> rooms) {
         List<String> needCacheUsers = new ArrayList<String>();
-        for (Room room : rooms) {
+        for(Room room : rooms) {
             AVIMConversation conversation = room.getConversation();
-            if (ConversationHelper.typeOfConversation(conversation) == ConversationType.Single||ConversationHelper.typeOfConversation(conversation) == ConversationType.Doctor) {
-                needCacheUsers.add(ConversationHelper
-                        .otherIdOfConversation(conversation));
+            if (ConversationHelper.typeOfConversation(conversation) == ConversationType.Single) {
+                needCacheUsers.add(ConversationHelper.otherIdOfConversation(conversation));
             }
         }
-        AVUserCacheUtils.cacheUsers(needCacheUsers,
-                new AVUserCacheUtils.CacheUserCallback() {
-                    @Override
-                    public void done(Exception e) {
-                        itemAdapter.notifyDataSetChanged();
-                    }
-                });
+        UserCacheUtils.fetchUsers(needCacheUsers, new UserCacheUtils.CacheUserCallback() {
+            @Override
+            public void done(List<LeanchatUser> userList, Exception e) {
+                itemAdapter.notifyDataSetChanged();
+            }
+        });
     }
 
     private List<Room> sortRooms(final List<Room> roomList) {
@@ -166,8 +166,7 @@ public class MessageFragment extends Fragment {
             Collections.sort(sortedList, new Comparator<Room>() {
                 @Override
                 public int compare(Room lhs, Room rhs) {
-                    long value = lhs.getLastModifyTime()
-                            - rhs.getLastModifyTime();
+                    long value = lhs.getLastModifyTime() - rhs.getLastModifyTime();
                     if (value > 0) {
                         return -1;
                     } else if (value < 0) {
@@ -181,8 +180,7 @@ public class MessageFragment extends Fragment {
         return sortedList;
     }
 
-    public void onConnectionChanged(boolean connect) {
-        imClientStateView.setVisibility(connect ? View.GONE : View.VISIBLE);
+    public void onEvent(ConnectionChangeEvent event) {
+        imClientStateView.setVisibility(event.isConnect ? View.GONE : View.VISIBLE);
     }
-
 }

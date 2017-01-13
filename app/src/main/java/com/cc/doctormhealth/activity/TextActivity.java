@@ -18,7 +18,7 @@ import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.avoscloud.leanchatlib.model.LeanchatUser;
+import com.cc.doctormhealth.leanchat.model.LeanchatUser;
 import com.cc.doctormhealth.MyApplication;
 import com.cc.doctormhealth.R;
 import com.cc.doctormhealth.constant.Constants;

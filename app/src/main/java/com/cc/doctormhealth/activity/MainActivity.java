@@ -14,12 +14,11 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import com.avos.avoscloud.AVException;
-import com.avos.avoscloud.AVUser;
 import com.avoscloud.leanchatlib.event.ImTypeMessageEvent;
-import com.avoscloud.leanchatlib.model.LeanchatUser;
 import com.avoscloud.leanchatlib.model.Room;
-import com.cc.doctormhealth.LeanChat.service.CacheService;
-import com.cc.doctormhealth.LeanChat.service.ConversationManager;
+import com.avoscloud.leanchatlib.utils.ConversationManager;
+import com.cc.doctormhealth.leanchat.model.LeanchatUser;
+import com.cc.doctormhealth.leanchat.util.UserCacheUtils;
 import com.cc.doctormhealth.R;
 import com.cc.doctormhealth.fragment.ChangeFragmentHelper;
 import com.cc.doctormhealth.fragment.ContactFragment;
@@ -52,7 +51,7 @@ public class MainActivity extends AppCompatActivity {
         helper.setIsClearStackBack(true);
         changeFragment(helper);
         updateCount();
-        CacheService.registerUser(AVUser.getCurrentUser(LeanchatUser.class));
+        UserCacheUtils.cacheUser(LeanchatUser.getCurrentUser());
     }
 
 
@@ -125,6 +124,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         MyAndroidUtil.clearNoti();
+        updateCount();
         super.onResume();
     }
 
@@ -143,7 +143,6 @@ public class MainActivity extends AppCompatActivity {
                     int count = 0;
                     for (Room room : roomList)
                         count += room.getUnreadCount();
-
                     if (count > 0) {
                         countView.setVisibility(View.VISIBLE);
                         countView.setText("" + count);

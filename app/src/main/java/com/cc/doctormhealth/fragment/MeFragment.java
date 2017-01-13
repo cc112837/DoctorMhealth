@@ -15,7 +15,7 @@ import android.widget.Toast;
 import com.avos.avoscloud.AVException;
 import com.avos.avoscloud.AVObject;
 import com.avos.avoscloud.GetCallback;
-import com.avoscloud.leanchatlib.model.LeanchatUser;
+import com.cc.doctormhealth.leanchat.model.LeanchatUser;
 import com.cc.doctormhealth.MyApplication;
 import com.cc.doctormhealth.R;
 import com.cc.doctormhealth.activity.AboutActivity;
