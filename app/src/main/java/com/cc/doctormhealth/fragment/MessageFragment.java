@@ -146,7 +146,7 @@ public class MessageFragment extends BaseFragment {
         List<String> needCacheUsers = new ArrayList<String>();
         for(Room room : rooms) {
             AVIMConversation conversation = room.getConversation();
-            if (ConversationHelper.typeOfConversation(conversation) == ConversationType.Single) {
+            if (ConversationHelper.typeOfConversation(conversation) == ConversationType.Single||ConversationHelper.typeOfConversation(conversation) == ConversationType.Doctor) {
                 needCacheUsers.add(ConversationHelper.otherIdOfConversation(conversation));
             }
         }
