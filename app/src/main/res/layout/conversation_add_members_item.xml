@@ -5,6 +5,7 @@
     android:layout_height="wrap_content"
     android:descendantFocusability="blocksDescendants"
     android:gravity="center_vertical"
+    android:background="@drawable/contact_person_info_mid_bg"
     android:orientation="horizontal"
     android:padding="10dp">
 
