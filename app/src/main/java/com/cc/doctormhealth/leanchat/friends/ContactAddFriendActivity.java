@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageView;
 
 import com.avos.avoscloud.AVException;
 import com.avos.avoscloud.AVQuery;
@@ -22,6 +23,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.Bind;
+import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 /**
@@ -34,6 +36,8 @@ public class ContactAddFriendActivity extends AVBaseActivity {
 
     @Bind(R.id.searchNameEdit)
     EditText searchNameEdit;
+    @Bind(R.id.leftBtn)
+    ImageView leftBtn;
 
     private HeaderListAdapter<LeanchatUser> adapter;
     private String searchName = "";
@@ -42,6 +46,7 @@ public class ContactAddFriendActivity extends AVBaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.contact_add_friend_activity);
+        ButterKnife.bind(this);
         init();
         recyclerView.refreshData();
     }
@@ -70,6 +75,7 @@ public class ContactAddFriendActivity extends AVBaseActivity {
         friendIds.add(user.getObjectId());
         q.whereNotContainedIn(Constants.OBJECT_ID, friendIds);
         q.orderByDescending(Constants.UPDATED_AT);
+        q.whereEqualTo("property", "doctor");
         q.setCachePolicy(AVQuery.CachePolicy.NETWORK_ELSE_CACHE);
         q.findInBackground(new FindCallback<LeanchatUser>() {
             @Override
@@ -84,5 +90,10 @@ public class ContactAddFriendActivity extends AVBaseActivity {
     public void search(View view) {
         searchName = searchNameEdit.getText().toString();
         recyclerView.refreshData();
+    }
+
+    @OnClick(R.id.leftBtn)
+    public void onClick() {
+        finish();
     }
 }

@@ -7,6 +7,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ImageView;
 
 import com.avos.avoscloud.AVException;
 import com.avos.avoscloud.FindCallback;
@@ -31,12 +32,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.Bind;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 
 public class ConversationAddMembersActivity extends AVBaseActivity {
 
     @Bind(R.id.member_add_rv_list)
     protected RecyclerView recyclerView;
+    @Bind(R.id.leftBtn)
+    protected ImageView leftBtn;
 
     private LinearLayoutManager layoutManager;
     private MemeberAddAdapter adapter;
@@ -48,6 +53,7 @@ public class ConversationAddMembersActivity extends AVBaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.conversation_add_members_layout);
+        ButterKnife.bind(this);
         String conversationId = getIntent().getStringExtra(Constants.CONVERSATION_ID);
         conversation = AVIMClient.getInstance(ChatManager.getInstance().getSelfId()).getConversation(conversationId);
 
@@ -111,7 +117,7 @@ public class ConversationAddMembersActivity extends AVBaseActivity {
                     @Override
                     public void done(final AVIMConversation conversation, AVIMException e) {
                         if (filterException(e)) {
-                            Intent intent = new Intent(ConversationAddMembersActivity.this, com.cc.doctormhealth.leanchat.activity.ChatRoomActivity.class);
+                            Intent intent = new Intent(ConversationAddMembersActivity.this, ChatRoomActivity.class);
                             intent.putExtra(Constants.CONVERSATION_ID, conversation.getConversationId());
                             startActivity(intent);
                             finish();
@@ -132,5 +138,10 @@ public class ConversationAddMembersActivity extends AVBaseActivity {
                 });
             }
         }
+    }
+
+    @OnClick(R.id.leftBtn)
+    public void onClick() {
+        finish();
     }
 }
