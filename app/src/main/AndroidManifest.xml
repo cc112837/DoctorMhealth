@@ -96,9 +96,6 @@
             android:name=".leanchat.activity.ChatRoomActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".leanchat.activity.ImageBrowserActivity"
-            android:screenOrientation="portrait" />
-        <activity
             android:name="com.mob.tools.MobUIShell"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:screenOrientation="portrait"
@@ -125,7 +122,6 @@
         <activity android:name=".leanchat.friends.ContactPersonInfoActivity"/>
         <activity android:name=".leanchat.friends.ContactNewFriendActivity"/>
         <activity android:name=".leanchat.friends.ContactAddFriendActivity"/>
-        <activity android:name=".leanchat.activity.BaseActivityOfLeanCloud"/>
         <activity android:name=".activity.MyMoneyActivity" />
         <activity android:name=".activity.AboutActivity" />
         <activity android:name=".activity.ServicePriActivity" />
