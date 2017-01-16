@@ -21,7 +21,6 @@ import com.avoscloud.leanchatlib.adapter.ChatEmotionGridAdapter;
 import com.avoscloud.leanchatlib.adapter.ChatEmotionPagerAdapter;
 import com.avoscloud.leanchatlib.controller.EmotionHelper;
 import com.avoscloud.leanchatlib.event.InputBottomBarEvent;
-import com.avoscloud.leanchatlib.event.InputBottomBarLocationClickEvent;
 import com.avoscloud.leanchatlib.event.InputBottomBarRecordEvent;
 import com.avoscloud.leanchatlib.event.InputBottomBarTextEvent;
 import com.avoscloud.leanchatlib.utils.SoftInputUtils;
@@ -93,7 +92,7 @@ public class InputBottomBar extends LinearLayout {
    */
   private View actionLayout;
   private View cameraBtn;
-  private View locationBtn;
+//  private View locationBtn;
   private View pictureBtn;
 
   /**
@@ -136,7 +135,7 @@ public class InputBottomBar extends LinearLayout {
 
     actionLayout = findViewById(R.id.input_bar_layout_action);
     cameraBtn = findViewById(R.id.input_bar_btn_camera);
-    locationBtn = findViewById(R.id.input_bar_btn_location);
+//    locationBtn = findViewById(R.id.input_bar_btn_location);
     pictureBtn = findViewById(R.id.input_bar_btn_picture);
 
     setEditTextChangeListener();
@@ -225,12 +224,12 @@ public class InputBottomBar extends LinearLayout {
       }
     });
 
-    locationBtn.setOnClickListener(new OnClickListener() {
-      @Override
-      public void onClick(View v) {
-        EventBus.getDefault().post(new InputBottomBarLocationClickEvent(InputBottomBarEvent.INPUTBOTTOMBAR_LOCATION_ACTION, getTag()));
-      }
-    });
+//    locationBtn.setOnClickListener(new OnClickListener() {
+//      @Override
+//      public void onClick(View v) {
+//        EventBus.getDefault().post(new InputBottomBarLocationClickEvent(InputBottomBarEvent.INPUTBOTTOMBAR_LOCATION_ACTION, getTag()));
+//      }
+//    });
   }
 
   /**
