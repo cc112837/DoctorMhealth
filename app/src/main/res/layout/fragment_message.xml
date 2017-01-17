@@ -21,6 +21,16 @@
             android:gravity="center"
             android:text="消息" />
 
+        <ImageView
+            android:id="@+id/iv_see"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:scaleType="fitXY"
+            android:layout_gravity="center_vertical"
+            android:padding="10dp"
+            android:src="@mipmap/scan_white_icon" />
+
+
     </FrameLayout>
 
     <LinearLayout

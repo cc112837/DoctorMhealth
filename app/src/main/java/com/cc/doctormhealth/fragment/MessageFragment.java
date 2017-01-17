@@ -8,6 +8,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
 import com.avos.avoscloud.AVException;
 import com.avos.avoscloud.im.v2.AVIMConversation;
@@ -22,11 +23,11 @@ import com.avoscloud.leanchatlib.model.ConversationType;
 import com.avoscloud.leanchatlib.model.Room;
 import com.avoscloud.leanchatlib.utils.Constants;
 import com.avoscloud.leanchatlib.utils.ConversationManager;
+import com.cc.doctormhealth.R;
 import com.cc.doctormhealth.leanchat.activity.ChatRoomActivity;
 import com.cc.doctormhealth.leanchat.adapter.ConversationListAdapter;
 import com.cc.doctormhealth.leanchat.model.LeanchatUser;
 import com.cc.doctormhealth.leanchat.util.UserCacheUtils;
-import com.cc.doctormhealth.R;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -35,6 +36,7 @@ import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import de.greenrobot.event.EventBus;
 
 public class MessageFragment extends BaseFragment {
@@ -50,6 +52,8 @@ public class MessageFragment extends BaseFragment {
 
     protected ConversationListAdapter<Room> itemAdapter;
     protected LinearLayoutManager layoutManager;
+    @Bind(R.id.iv_see)
+    ImageView ivSee;
 
     private boolean hidden;
     private ConversationManager conversationManager;
@@ -78,6 +82,7 @@ public class MessageFragment extends BaseFragment {
     public void onDestroyView() {
         super.onDestroyView();
         EventBus.getDefault().unregister(this);
+        ButterKnife.unbind(this);
     }
 
     @Override
@@ -144,9 +149,9 @@ public class MessageFragment extends BaseFragment {
 
     private void cacheRelatedUsers(List<Room> rooms) {
         List<String> needCacheUsers = new ArrayList<String>();
-        for(Room room : rooms) {
+        for (Room room : rooms) {
             AVIMConversation conversation = room.getConversation();
-            if (ConversationHelper.typeOfConversation(conversation) == ConversationType.Single||ConversationHelper.typeOfConversation(conversation) == ConversationType.Doctor) {
+            if (ConversationHelper.typeOfConversation(conversation) == ConversationType.Single || ConversationHelper.typeOfConversation(conversation) == ConversationType.Doctor) {
                 needCacheUsers.add(ConversationHelper.otherIdOfConversation(conversation));
             }
         }
@@ -181,5 +186,10 @@ public class MessageFragment extends BaseFragment {
 
     public void onEvent(ConnectionChangeEvent event) {
         imClientStateView.setVisibility(event.isConnect ? View.GONE : View.VISIBLE);
+    }
+
+    @OnClick(R.id.iv_see)
+    public void onClick() {
+
     }
 }
