@@ -17,15 +17,13 @@ import com.avos.avoscloud.AVException;
 import com.avoscloud.leanchatlib.event.ImTypeMessageEvent;
 import com.avoscloud.leanchatlib.model.Room;
 import com.avoscloud.leanchatlib.utils.ConversationManager;
-import com.cc.doctormhealth.leanchat.model.LeanchatUser;
-import com.cc.doctormhealth.leanchat.util.UserCacheUtils;
 import com.cc.doctormhealth.R;
 import com.cc.doctormhealth.fragment.ChangeFragmentHelper;
 import com.cc.doctormhealth.fragment.ContactFragment;
 import com.cc.doctormhealth.fragment.MeFragment;
 import com.cc.doctormhealth.fragment.MessageFragment;
-import com.cc.doctormhealth.fragment.NewsFragment;
-import com.cc.doctormhealth.fragment.OederDoctorFragment;
+import com.cc.doctormhealth.leanchat.model.LeanchatUser;
+import com.cc.doctormhealth.leanchat.util.UserCacheUtils;
 import com.cc.doctormhealth.utils.MyAndroidUtil;
 import com.cc.doctormhealth.utils.Tool;
 
@@ -73,12 +71,6 @@ public class MainActivity extends AppCompatActivity {
                 switch (checkedId) {
                     case R.id.main_relation:
                         fragment = new MessageFragment();
-                        break;
-                    case R.id.main_oeder:
-                        fragment=new OederDoctorFragment();
-                        break;
-                    case R.id.main_news:
-                        fragment=new NewsFragment();
                         break;
                     case R.id.main_discover:
                         fragment = new ContactFragment();

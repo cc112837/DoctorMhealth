@@ -35,25 +35,6 @@
             android:paddingRight="5dp">
 
             <RadioButton
-                android:id="@+id/main_oeder"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_marginBottom="2dp"
-                android:layout_marginTop="8dp"
-                android:layout_weight="1"
-                android:background="@color/white"
-                android:button="@null"
-                android:drawableTop="@drawable/selector_order"
-                android:gravity="center"
-                android:text="预约"
-                android:textColor="@drawable/selector_textcolor"
-                android:textSize="12sp" />
-
-            <TextView
-                android:layout_width="15dp"
-                android:layout_height="15dp" />
-
-            <RadioButton
                 android:id="@+id/main_relation"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
@@ -79,24 +60,6 @@
                 android:textColor="@color/white"
                 android:textSize="10sp" />
 
-            <RadioButton
-                android:id="@+id/main_news"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_marginBottom="2dp"
-                android:layout_marginTop="8dp"
-                android:layout_weight="1"
-                android:background="@color/white"
-                android:button="@null"
-                android:drawableTop="@drawable/selector_news"
-                android:gravity="center"
-                android:text="资讯"
-                android:textColor="@drawable/selector_textcolor"
-                android:textSize="12sp" />
-
-            <TextView
-                android:layout_width="15dp"
-                android:layout_height="15dp" />
 
             <RadioButton
                 android:id="@+id/main_discover"
