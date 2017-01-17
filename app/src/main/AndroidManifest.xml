@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.cc.doctormhealth"
     android:versionCode="2"
-    android:versionName="1.1"
-    package="com.cc.doctormhealth">
+    android:versionName="1.1">
 
     <uses-permission android:name="android.permission.READ_CONTACTS" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
@@ -56,7 +56,7 @@
         android:theme="@style/AppTheme">
         <activity android:name=".activity.LoginActivity" />
 
-        <receiver android:name="com.cc.doctormhealth.leanchat.service.LeanchatReceiver">
+        <receiver android:name=".leanchat.service.LeanchatReceiver">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
                 <action android:name="android.intent.action.USER_PRESENT" />
@@ -66,15 +66,13 @@
         </receiver>
 
         <service android:name="com.avos.avoscloud.PushService" />
-
+        <activity android:name=".activity.CaptureActivity" />
 
         <receiver android:name="leanchat.service.NotificationBroadcastReceiver">
             <intent-filter>
                 <action android:name="com.avoscloud.chat.intent.client_notification" />
             </intent-filter>
         </receiver>
-
-
         <receiver android:name="com.avos.avoscloud.AVBroadcastReceiver">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
@@ -115,13 +113,13 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-        <activity android:name=".leanchat.activity.UpdateContentActivity"/>
-        <activity android:name=".leanchat.activity.ConversationDetailActivity"/>
-        <activity android:name=".leanchat.activity.ConversationGroupListActivity"/>
-        <activity android:name=".leanchat.activity.ConversationAddMembersActivity"/>
-        <activity android:name=".leanchat.friends.ContactPersonInfoActivity"/>
-        <activity android:name=".leanchat.friends.ContactNewFriendActivity"/>
-        <activity android:name=".leanchat.friends.ContactAddFriendActivity"/>
+        <activity android:name=".leanchat.activity.UpdateContentActivity" />
+        <activity android:name=".leanchat.activity.ConversationDetailActivity" />
+        <activity android:name=".leanchat.activity.ConversationGroupListActivity" />
+        <activity android:name=".leanchat.activity.ConversationAddMembersActivity" />
+        <activity android:name=".leanchat.friends.ContactPersonInfoActivity" />
+        <activity android:name=".leanchat.friends.ContactNewFriendActivity" />
+        <activity android:name=".leanchat.friends.ContactAddFriendActivity" />
         <activity android:name=".activity.MyMoneyActivity" />
         <activity android:name=".activity.AboutActivity" />
         <activity android:name=".activity.ServicePriActivity" />
@@ -136,6 +134,7 @@
         </activity>
         <activity android:name=".activity.SettingActivity" />
         <activity android:name=".activity.PrideActivity" />
+        <activity android:name=".activity.ScanresultActivity"></activity>
     </application>
 
 </manifest>

@@ -34,6 +34,7 @@ dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     compile name: 'SMSSDK-2.0.2', ext: 'aar'
     compile project(':onekeyshare')
+    compile files('libs/zxing.jar')
     compile 'com.android.support:appcompat-v7:23.4.0'
     compile 'com.google.code.gson:gson:2.2.4'
     compile 'com.jiechic.library:xUtils:2.6.14'
