@@ -31,10 +31,10 @@
             android:src="@mipmap/scan_white_icon" />
     </FrameLayout>
 
-    <com.bigkoo.convenientbanner.ConvenientBanner xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/convenientBanner"
-        android:layout_width="match_parent"
-        android:layout_height="180dp"
-        app:canLoop="true" />
 
+
+    <ListView
+        android:id="@+id/lv_show"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"></ListView>
 </LinearLayout>

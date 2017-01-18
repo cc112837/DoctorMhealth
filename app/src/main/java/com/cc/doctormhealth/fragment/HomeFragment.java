@@ -9,11 +9,18 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.ListView;
 
 import com.bigkoo.convenientbanner.ConvenientBanner;
+import com.bigkoo.convenientbanner.holder.CBViewHolderCreator;
 import com.cc.doctormhealth.R;
 import com.cc.doctormhealth.activity.CaptureActivity;
 import com.cc.doctormhealth.activity.ScanresultActivity;
+import com.cc.doctormhealth.model.BannerItem;
+import com.cc.doctormhealth.view.LocalImageHolderView;
+
+import java.util.ArrayList;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -22,8 +29,11 @@ import butterknife.OnClick;
 public class HomeFragment extends Fragment {
     @Bind(R.id.iv_see)
     ImageView ivSee;
-    @Bind(R.id.convenientBanner)
     ConvenientBanner convenientBanner;
+    @Bind(R.id.lv_show)
+    ListView lvShow;
+    LinearLayout ll_1,ll_2,ll_3,ll_4;
+    private ArrayList<BannerItem> localImages = new ArrayList<>();
 
 
     @Override
@@ -31,8 +41,37 @@ public class HomeFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
         ButterKnife.bind(this, view);
+        init();
         return view;
     }
+
+    private void init() {
+        View headview = LayoutInflater.from(getContext()).inflate(R.layout.home_header, null);
+        ll_1=(LinearLayout) headview.findViewById(R.id.ll_1);
+        ll_2=(LinearLayout) headview.findViewById(R.id.ll_2);
+        ll_3=(LinearLayout) headview.findViewById(R.id.ll_3);
+        ll_4=(LinearLayout) headview.findViewById(R.id.ll_4);
+        convenientBanner = (ConvenientBanner) headview.findViewById(R.id.convenientBanner);
+        for (int i = 0; i < 2; i++) {
+            BannerItem bannerItem = new BannerItem();
+            bannerItem.setTitle("1");
+            bannerItem.setUrl("");
+            bannerItem.setId("");
+            localImages.add(bannerItem);
+        }
+        convenientBanner.setPages(
+                new CBViewHolderCreator<LocalImageHolderView>() {
+                    @Override
+                    public LocalImageHolderView createHolder() {
+                        return new LocalImageHolderView();
+                    }
+                }, localImages)
+                //设置两个点图片作为翻页指示器，不设置则没有指示器，可以根据自己需求自行配合自己的指示器,不需要圆点指示器可用不设
+                .setPageIndicator(new int[]{R.mipmap.dots_gray, R.mipmap.dot_white})
+                //设置指示器的方向
+                .setPageIndicatorAlign(ConvenientBanner.PageIndicatorAlign.ALIGN_PARENT_RIGHT);
+    }
+
     @Override
 
     public void onResume() {
@@ -53,6 +92,7 @@ public class HomeFragment extends Fragment {
         convenientBanner.stopTurning();
 
     }
+
     @OnClick(R.id.iv_see)
     public void onClick() {
         Intent intent = new Intent(getActivity(), CaptureActivity.class);
