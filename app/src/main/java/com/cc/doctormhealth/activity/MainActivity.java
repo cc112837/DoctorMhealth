@@ -20,8 +20,8 @@ import com.avoscloud.leanchatlib.utils.ConversationManager;
 import com.cc.doctormhealth.R;
 import com.cc.doctormhealth.fragment.ChangeFragmentHelper;
 import com.cc.doctormhealth.fragment.ContactFragment;
+import com.cc.doctormhealth.fragment.HomeFragment;
 import com.cc.doctormhealth.fragment.MeFragment;
-import com.cc.doctormhealth.fragment.MessageFragment;
 import com.cc.doctormhealth.leanchat.model.LeanchatUser;
 import com.cc.doctormhealth.leanchat.util.UserCacheUtils;
 import com.cc.doctormhealth.utils.MyAndroidUtil;
@@ -43,7 +43,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         initView();
         EventBus.getDefault().register(this);
-        Fragment fragment = new MessageFragment();
+        Fragment fragment = new HomeFragment();
         ChangeFragmentHelper helper = new ChangeFragmentHelper();
         helper.setTargetFragment(fragment);
         helper.setIsClearStackBack(true);
@@ -70,7 +70,7 @@ public class MainActivity extends AppCompatActivity {
             public void onCheckedChanged(RadioGroup group, int checkedId) {
                 switch (checkedId) {
                     case R.id.main_relation:
-                        fragment = new MessageFragment();
+                        fragment = new HomeFragment();
                         break;
                     case R.id.main_discover:
                         fragment = new ContactFragment();

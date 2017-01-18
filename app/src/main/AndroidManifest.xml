@@ -66,6 +66,7 @@
         </receiver>
 
         <service android:name="com.avos.avoscloud.PushService" />
+
         <activity android:name=".activity.CaptureActivity" />
 
         <receiver android:name="leanchat.service.NotificationBroadcastReceiver">
@@ -134,7 +135,8 @@
         </activity>
         <activity android:name=".activity.SettingActivity" />
         <activity android:name=".activity.PrideActivity" />
-        <activity android:name=".activity.ScanresultActivity"></activity>
+        <activity android:name=".activity.ScanresultActivity" />
+        <activity android:name=".activity.MessageActivity"></activity>
     </application>
 
 </manifest>
