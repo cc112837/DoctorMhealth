@@ -123,13 +123,7 @@
     </style>
 
     <style name="Animations" />
-    <style name="BaseAppTheme" parent="Theme.AppCompat.Light.NoActionBar">
-        <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/blue</item>
-        <item name="colorPrimaryDark">@color/blue</item>
-        <item name="colorAccent">@color/blue</item>
-    </style>
-    <style name="AppTheme" parent="@style/BaseAppTheme"/>
+
     <!--
         Theme customizations available in newer API levels can go in
         res/values-vXX/styles.xml, while customizations related to

@@ -9,7 +9,6 @@ import com.avoscloud.leanchatlib.viewholder.CommonViewHolder;
 
 /**
  * Created by wli on 15/11/25.
- * 现在还仅仅支持单类型 item，多类型 item 稍后在重构
  */
 public class HeaderListAdapter<T> extends CommonListAdapter<T> {
 

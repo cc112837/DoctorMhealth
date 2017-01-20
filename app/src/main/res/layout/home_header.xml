@@ -8,7 +8,7 @@
         android:layout_height="180dp"
         app:canLoop="true" />
 
-    <view
+    <TextView
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:background="@color/grey_bg" />
@@ -42,7 +42,7 @@
 
         </LinearLayout>
 
-        <view
+        <TextView
             android:layout_width="1px"
             android:layout_height="match_parent"
             android:background="@color/grey_bg" />
@@ -70,7 +70,7 @@
                 android:textSize="15sp" />
         </LinearLayout>
 
-        <view
+        <TextView
             android:layout_width="1px"
             android:layout_height="match_parent"
             android:background="@color/grey_bg" />
@@ -99,7 +99,7 @@
         </LinearLayout>
     </LinearLayout>
 
-    <view
+    <TextView
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:background="@color/grey_bg" />
@@ -131,13 +131,13 @@
                 android:text="标题1"
                 android:textSize="15sp" />
 
-            <view
+            <TextView
                 android:layout_width="match_parent"
                 android:layout_height="1px"
                 android:background="@color/grey_bg" />
         </LinearLayout>
 
-        <view
+        <TextView
             android:layout_width="1px"
             android:layout_height="match_parent"
             android:background="@color/grey_bg" />

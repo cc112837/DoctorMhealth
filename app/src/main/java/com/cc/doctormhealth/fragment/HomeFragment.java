@@ -11,28 +11,41 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.TextView;
 
+import com.avos.avoscloud.AVException;
+import com.avoscloud.leanchatlib.event.ImTypeMessageEvent;
+import com.avoscloud.leanchatlib.model.Room;
+import com.avoscloud.leanchatlib.utils.ConversationManager;
 import com.bigkoo.convenientbanner.ConvenientBanner;
 import com.bigkoo.convenientbanner.holder.CBViewHolderCreator;
 import com.cc.doctormhealth.R;
 import com.cc.doctormhealth.activity.CaptureActivity;
+import com.cc.doctormhealth.activity.MessageActivity;
 import com.cc.doctormhealth.activity.ScanresultActivity;
 import com.cc.doctormhealth.model.BannerItem;
 import com.cc.doctormhealth.view.LocalImageHolderView;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class HomeFragment extends Fragment {
-    @Bind(R.id.iv_see)
-    ImageView ivSee;
+    private ConversationManager conversationManager = ConversationManager.getInstance();
     ConvenientBanner convenientBanner;
     @Bind(R.id.lv_show)
     ListView lvShow;
-    LinearLayout ll_1,ll_2,ll_3,ll_4;
+    LinearLayout ll_1, ll_2, ll_3, ll_4;
+
+    @Bind(R.id.iv_see)
+    ImageView ivSee;
+    @Bind(R.id.iv_meg)
+    ImageView ivMeg;
+    @Bind(R.id.tv_count)
+    TextView tvCount;
     private ArrayList<BannerItem> localImages = new ArrayList<>();
 
 
@@ -47,10 +60,10 @@ public class HomeFragment extends Fragment {
 
     private void init() {
         View headview = LayoutInflater.from(getContext()).inflate(R.layout.home_header, null);
-        ll_1=(LinearLayout) headview.findViewById(R.id.ll_1);
-        ll_2=(LinearLayout) headview.findViewById(R.id.ll_2);
-        ll_3=(LinearLayout) headview.findViewById(R.id.ll_3);
-        ll_4=(LinearLayout) headview.findViewById(R.id.ll_4);
+        ll_1 = (LinearLayout) headview.findViewById(R.id.ll_1);
+        ll_2 = (LinearLayout) headview.findViewById(R.id.ll_2);
+        ll_3 = (LinearLayout) headview.findViewById(R.id.ll_3);
+        ll_4 = (LinearLayout) headview.findViewById(R.id.ll_4);
         convenientBanner = (ConvenientBanner) headview.findViewById(R.id.convenientBanner);
         for (int i = 0; i < 2; i++) {
             BannerItem bannerItem = new BannerItem();
@@ -70,6 +83,7 @@ public class HomeFragment extends Fragment {
                 .setPageIndicator(new int[]{R.mipmap.dots_gray, R.mipmap.dot_white})
                 //设置指示器的方向
                 .setPageIndicatorAlign(ConvenientBanner.PageIndicatorAlign.ALIGN_PARENT_RIGHT);
+        lvShow.addHeaderView(headview);
     }
 
     @Override
@@ -93,11 +107,6 @@ public class HomeFragment extends Fragment {
 
     }
 
-    @OnClick(R.id.iv_see)
-    public void onClick() {
-        Intent intent = new Intent(getActivity(), CaptureActivity.class);
-        startActivityForResult(intent, 0);
-    }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -175,5 +184,43 @@ public class HomeFragment extends Fragment {
     public void onDestroyView() {
         super.onDestroyView();
         ButterKnife.unbind(this);
+    }
+
+
+    public void updateCount() {
+        conversationManager.findAndCacheRooms(new Room.MultiRoomsCallback() {
+            @Override
+            public void done(List<Room> roomList, AVException exception) {
+                if (exception == null) {
+                    int count = 0;
+                    for (Room room : roomList)
+                        count += room.getUnreadCount();
+                    if (count > 0) {
+                        tvCount.setVisibility(View.VISIBLE);
+                        tvCount.setText("" + count);
+                    } else
+                        tvCount.setVisibility(View.INVISIBLE);
+                }
+            }
+        });
+
+    }
+
+    public void onEvent(ImTypeMessageEvent event) {
+        updateCount();
+    }
+    @OnClick({R.id.iv_see, R.id.iv_meg})
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.iv_see:
+
+                Intent intent = new Intent(getActivity(), CaptureActivity.class);
+                startActivityForResult(intent, 0);
+                break;
+            case R.id.iv_meg:
+                Intent intent1 = new Intent(getActivity(), MessageActivity.class);
+                startActivity(intent1);
+                break;
+        }
     }
 }

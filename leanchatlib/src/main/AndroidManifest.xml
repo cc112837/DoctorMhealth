@@ -3,7 +3,8 @@
 
     <application android:allowBackup="true">
 
-        <activity android:name=".activity.AVChatActivity" />
+        <activity android:name=".activity.AVChatActivity"
+            />
         <activity android:name=".activity.ImageBrowserActivity" />
     </application>
 

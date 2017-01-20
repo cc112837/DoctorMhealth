@@ -93,6 +93,7 @@
         <activity android:name=".activity.NotiNewsActivity" />
         <activity
             android:name=".leanchat.activity.ChatRoomActivity"
+            android:theme="@style/AVActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name="com.mob.tools.MobUIShell"

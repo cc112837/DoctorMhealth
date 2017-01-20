@@ -3,8 +3,6 @@ package com.avoscloud.leanchatlib.activity;
 import android.app.ActionBar;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.ImageView;
 
 import com.avos.avoscloud.im.v2.AVIMClient;
 import com.avos.avoscloud.im.v2.AVIMConversation;
@@ -24,19 +22,12 @@ public class AVChatActivity extends AVBaseActivity {
 
     protected ChatFragment chatFragment;
     protected AVIMConversation conversation;
-    public ImageView leftBtn;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat);
-        leftBtn=(ImageView) findViewById(R.id.leftBtn);
-        leftBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
         chatFragment = (ChatFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_chat);
         initByIntent(getIntent());
     }

@@ -2,7 +2,9 @@ package com.cc.doctormhealth.leanchat.adapter;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.ViewGroup;
+
 import com.avoscloud.leanchatlib.viewholder.ConversationItemHolder;
+
 import java.util.ArrayList;
 import java.util.List;
 

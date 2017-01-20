@@ -60,7 +60,7 @@ public class ConversationItemHolder extends CommonViewHolder {
     final Room room = (Room) o;
     AVIMConversation conversation = room.getConversation();
     if (null != conversation) {
-      if (ConversationHelper.typeOfConversation(conversation) == ConversationType.Single) {
+      if (ConversationHelper.typeOfConversation(conversation) == ConversationType.Single||ConversationHelper.typeOfConversation(conversation) == ConversationType.Doctor) {
         String userId = ConversationHelper.otherIdOfConversation(conversation);
         String avatar = ThirdPartUserUtils.getInstance().getUserAvatar(userId);
         ImageLoader.getInstance().displayImage(avatar, avatarView, PhotoUtils.avatarImageOptions);
