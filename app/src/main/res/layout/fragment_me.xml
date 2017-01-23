@@ -43,7 +43,7 @@
                 android:background="@color/grey_e" />
 
             <LinearLayout
-                android:id="@+id/RelativeLayout_up"
+                android:id="@+id/layout_up"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/white"

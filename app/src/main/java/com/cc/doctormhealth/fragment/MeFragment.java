@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -19,6 +20,7 @@ import com.avoscloud.leanchatlib.model.LeanchatUser;
 import com.cc.doctormhealth.MyApplication;
 import com.cc.doctormhealth.R;
 import com.cc.doctormhealth.activity.AboutActivity;
+import com.cc.doctormhealth.activity.BarCodeActivity;
 import com.cc.doctormhealth.activity.MyMoneyActivity;
 import com.cc.doctormhealth.activity.PrideActivity;
 import com.cc.doctormhealth.activity.SettingActivity;
@@ -40,7 +42,7 @@ public class MeFragment extends Fragment implements View.OnClickListener {
 
     RelativeLayout setting, about, pride, share, money;
     TextView username;
-
+    LinearLayout layout_up;
     ImageView headImage;
 
 
@@ -50,6 +52,7 @@ public class MeFragment extends Fragment implements View.OnClickListener {
         View view = inflater.inflate(R.layout.fragment_me, container, false);
         ShareSDK.initSDK(getContext());
         setting = (RelativeLayout) view.findViewById(R.id.setting);
+        layout_up=(LinearLayout) view.findViewById(R.id.layout_up);
         about = (RelativeLayout) view.findViewById(R.id.about);
         pride = (RelativeLayout) view.findViewById(R.id.pride);
         money = (RelativeLayout) view.findViewById(R.id.money);
@@ -74,6 +77,7 @@ public class MeFragment extends Fragment implements View.OnClickListener {
         about.setOnClickListener(this);
         pride.setOnClickListener(this);
         share.setOnClickListener(this);
+        layout_up.setOnClickListener(this);
         return view;
     }
 
@@ -107,6 +111,10 @@ public class MeFragment extends Fragment implements View.OnClickListener {
             case R.id.setting:
                 Intent intent1 = new Intent(getActivity(), SettingActivity.class);
                 startActivity(intent1);
+                break;
+            case R.id.layout_up:
+                Intent intenttt=new Intent(getActivity(), BarCodeActivity.class);
+                startActivity(intenttt);
                 break;
             case R.id.money:
                 String check = MyApplication.sharedPreferences.getString(Constants.LOGIN_CHECK,

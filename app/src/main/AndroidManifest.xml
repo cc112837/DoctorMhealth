@@ -85,7 +85,8 @@
                 <action android:name="com.avoscloud.chat.intent.mhealthdclient_notification" />
             </intent-filter>
         </receiver>
-        <activity android:name=".activity.SearchActivity"/>
+
+        <activity android:name=".activity.SearchActivity" />
         <activity android:name="com.avos.avoscloud.feedback.ThreadActivity" />
         <activity android:name=".activity.MainActivity" />
         <activity android:name=".activity.RegActivity" />
@@ -114,7 +115,6 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-
         <activity android:name=".activity.MyMoneyActivity" />
         <activity android:name=".activity.AboutActivity" />
         <activity android:name=".activity.ServicePriActivity" />
@@ -127,12 +127,13 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".leanchat.activity.ImageBrowserActivity"/>
+        <activity android:name=".leanchat.activity.ImageBrowserActivity" />
         <activity android:name=".activity.SettingActivity" />
         <activity android:name=".activity.PrideActivity" />
         <activity android:name=".activity.ScanresultActivity" />
-        <activity android:name=".activity.NewFriendActivity"/>
-        <activity android:name=".activity.MessageActivity"></activity>
+        <activity android:name=".activity.NewFriendActivity" />
+        <activity android:name=".activity.MessageActivity" />
+        <activity android:name=".activity.BarCodeActivity"></activity>
     </application>
 
 </manifest>

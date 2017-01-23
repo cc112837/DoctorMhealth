@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/blue"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical"
+    tools:context="com.cc.doctormhealth.activity.AboutActivity">
+
+    <RelativeLayout
+        android:id="@+id/title1"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/blue"
+        android:gravity="center_vertical">
+
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="我的二维码"
+            android:textColor="#ffffff"
+            android:textSize="18sp" />
+
+        <ImageView
+            android:id="@+id/leftBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="45dp"
+            android:layout_gravity="center_vertical"
+            android:padding="10dp"
+            android:src="@mipmap/btn_back" />
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/black">
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:layout_marginBottom="80dp"
+            android:layout_marginTop="100dp"
+            android:background="@color/white" >
+
+            <ImageView
+                android:id="@+id/iv_qr_image"
+                android:scaleType="fitXY"
+                android:layout_width="300dp"
+                android:layout_height="300dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:layout_marginTop="10dp"
+                android:layout_centerHorizontal="true"
+                />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/iv_qr_image"
+                android:gravity="center"
+                android:layout_marginBottom="20dp"
+                android:text="扫一扫上面的二维码"
+                android:textColor="@color/black"
+                android:textSize="14sp" />
+        </RelativeLayout>
+    </LinearLayout>
+</LinearLayout>
