@@ -83,7 +83,6 @@ public class ContactFragment extends D3Fragment {
 
     public void onPause() {
         super.onPause();
-        AVAnalytics.onFragmentEnd("friend-list-fragment");
     }
 
     @Override
@@ -121,9 +120,9 @@ public class ContactFragment extends D3Fragment {
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+        EventBus.getDefault().register(this);
         initHeaderView();
         refresh();
-        EventBus.getDefault().register(this);
         myGetMenber();
         rightBtn.setOnClickListener(new View.OnClickListener() {
 
