@@ -28,7 +28,7 @@ public class Room {
 
     AVIMConversation conversation = getConversation();
     if (null != conversation && null != conversation.getUpdatedAt()) {
-      return conversation.getUpdatedAt().getTime();
+      return (conversation).getUpdatedAt().getTime();
     }
 
     return 0;

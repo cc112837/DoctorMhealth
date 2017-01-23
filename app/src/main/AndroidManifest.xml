@@ -56,7 +56,7 @@
         android:theme="@style/AppTheme">
         <activity android:name=".activity.LoginActivity" />
 
-        <receiver android:name=".leanchat.service.LeanchatReceiver">
+        <receiver android:name=".leanchat.service.MHealthUReceiver">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
                 <action android:name="android.intent.action.USER_PRESENT" />
@@ -85,7 +85,7 @@
                 <action android:name="com.avoscloud.chat.intent.mhealthdclient_notification" />
             </intent-filter>
         </receiver>
-
+        <activity android:name=".activity.SearchActivity"/>
         <activity android:name="com.avos.avoscloud.feedback.ThreadActivity" />
         <activity android:name=".activity.MainActivity" />
         <activity android:name=".activity.RegActivity" />
@@ -93,7 +93,6 @@
         <activity android:name=".activity.NotiNewsActivity" />
         <activity
             android:name=".leanchat.activity.ChatRoomActivity"
-            android:theme="@style/AVActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name="com.mob.tools.MobUIShell"
@@ -115,13 +114,7 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-        <activity android:name=".leanchat.activity.UpdateContentActivity" />
-        <activity android:name=".leanchat.activity.ConversationDetailActivity" />
-        <activity android:name=".leanchat.activity.ConversationGroupListActivity" />
-        <activity android:name=".leanchat.activity.ConversationAddMembersActivity" />
-        <activity android:name=".leanchat.friends.ContactPersonInfoActivity" />
-        <activity android:name=".leanchat.friends.ContactNewFriendActivity" />
-        <activity android:name=".leanchat.friends.ContactAddFriendActivity" />
+
         <activity android:name=".activity.MyMoneyActivity" />
         <activity android:name=".activity.AboutActivity" />
         <activity android:name=".activity.ServicePriActivity" />
@@ -134,9 +127,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".leanchat.activity.ImageBrowserActivity"/>
         <activity android:name=".activity.SettingActivity" />
         <activity android:name=".activity.PrideActivity" />
         <activity android:name=".activity.ScanresultActivity" />
+        <activity android:name=".activity.NewFriendActivity"/>
         <activity android:name=".activity.MessageActivity"></activity>
     </application>
 

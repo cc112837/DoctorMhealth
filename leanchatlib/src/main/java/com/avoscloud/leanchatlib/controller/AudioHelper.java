@@ -1,6 +1,7 @@
 package com.avoscloud.leanchatlib.controller;
 
 import android.media.MediaPlayer;
+
 import com.avoscloud.leanchatlib.utils.LogUtils;
 
 import java.io.IOException;
@@ -64,6 +65,11 @@ public class AudioHelper {
     try {
       mediaPlayer.setDataSource(path);
       mediaPlayer.prepare();
+//      //// TODO: 2016/2/5
+//      File file = new File(path);
+//      FileInputStream fis = new FileInputStream(file);
+//      mediaPlayer.setDataSource(fis.getFD());
+//      mediaPlayer.prepare();
       mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
         @Override
         public void onCompletion(MediaPlayer mp) {

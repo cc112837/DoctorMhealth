@@ -5,11 +5,12 @@ import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
 import com.avos.avoscloud.AVGeoPoint;
+import com.avoscloud.leanchatlib.model.LeanchatUser;
 import com.avoscloud.leanchatlib.utils.Constants;
-import com.avoscloud.leanchatlib.utils.LogUtils;
-import com.cc.doctormhealth.leanchat.model.LeanchatUser;
 import com.cc.doctormhealth.MyApplication;
 import com.cc.doctormhealth.R;
+import com.cc.doctormhealth.leanchat.util.Logger;
+
 
 /**
  * Created by lzw on 14-6-19.
@@ -34,7 +35,7 @@ public class PreferenceMap {
     this.cxt = cxt.getApplicationContext();
     pref = PreferenceManager.getDefaultSharedPreferences(cxt);
     editor = pref.edit();
-    LogUtils.d("PreferenceMap init no specific user");
+    Logger.d("PreferenceMap init no specific user");
   }
 
   public PreferenceMap(Context cxt, String prefName) {
@@ -45,7 +46,7 @@ public class PreferenceMap {
 
   public static PreferenceMap getCurUserPrefDao(Context ctx) {
     if (currentUserPreferenceMap == null) {
-      currentUserPreferenceMap = new PreferenceMap(ctx.getApplicationContext(), LeanchatUser.getCurrentUserId());
+      currentUserPreferenceMap = new PreferenceMap(ctx.getApplicationContext(), LeanchatUser.getCurrentUser().getObjectId());
     }
     return currentUserPreferenceMap;
   }
@@ -100,7 +101,7 @@ public class PreferenceMap {
 
   public boolean isNotifyWhenNews() {
     return pref.getBoolean(NOTIFY_WHEN_NEWS,
-        MyApplication.ctx.getResources().getBoolean(R.bool.defaultNotifyWhenNews));
+        MyApplication.getInstance().getResources().getBoolean(R.bool.defaultNotifyWhenNews));
   }
 
   public void setNotifyWhenNews(boolean notifyWhenNews) {
@@ -108,7 +109,7 @@ public class PreferenceMap {
   }
 
   boolean getBooleanByResId(int resId) {
-    return MyApplication.ctx.getResources().getBoolean(resId);
+    return MyApplication.getInstance().getResources().getBoolean(resId);
   }
 
   public boolean isVoiceNotify() {

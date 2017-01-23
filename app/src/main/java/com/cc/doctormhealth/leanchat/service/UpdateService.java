@@ -14,10 +14,11 @@ import com.avos.avoscloud.AVException;
 import com.avos.avoscloud.AVObject;
 import com.avos.avoscloud.AVQuery;
 import com.avoscloud.leanchatlib.utils.LogUtils;
+import com.cc.doctormhealth.R;
 import com.cc.doctormhealth.leanchat.model.UpdateInfo;
+import com.cc.doctormhealth.leanchat.util.Logger;
 import com.cc.doctormhealth.leanchat.util.NetAsyncTask;
 import com.cc.doctormhealth.leanchat.util.Utils;
-import com.cc.doctormhealth.R;
 
 import java.util.List;
 
@@ -77,7 +78,7 @@ public class UpdateService {
         } catch (AVException e) {
           LogUtils.logException(e);
         }
-        LogUtils.d("createUpdateInfo");
+        Logger.d("createUpdateInfo");
       }
     }).start();
   }

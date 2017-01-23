@@ -23,8 +23,8 @@ import com.avos.avoscloud.im.v2.AVIMClient;
 import com.avos.avoscloud.im.v2.AVIMException;
 import com.avos.avoscloud.im.v2.callback.AVIMClientCallback;
 import com.avoscloud.leanchatlib.controller.ChatManager;
+import com.avoscloud.leanchatlib.model.LeanchatUser;
 import com.avoscloud.leanchatlib.utils.PhotoUtils;
-import com.cc.doctormhealth.leanchat.model.LeanchatUser;
 import com.cc.doctormhealth.MyApplication;
 import com.cc.doctormhealth.R;
 import com.cc.doctormhealth.constant.Constants;
@@ -34,8 +34,6 @@ import com.cc.doctormhealth.utils.MyAndroidUtil;
 import com.cc.doctormhealth.utils.MyHttpUtils;
 import com.cc.doctormhealth.utils.Tool;
 import com.nostra13.universalimageloader.core.ImageLoader;
-
-import static com.cc.doctormhealth.leanchat.util.Utils.filterException;
 
 public class LoginActivity extends BaseActivity implements TextWatcher {
 
@@ -176,16 +174,22 @@ public class LoginActivity extends BaseActivity implements TextWatcher {
     }
 
     private void finishLogin() {
-        ChatManager.getInstance().openClient(this, LeanchatUser.getCurrentUserId(), new AVIMClientCallback() {
+        AVIMClient currentClient = AVIMClient.getInstance("android", "Mobile");
+        currentClient.open(new AVIMClientCallback() {
             @Override
             public void done(AVIMClient avimClient, AVIMException e) {
-                if (filterException(e)) {
-                    Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                    startActivity(intent);
-                    finish();
+                if (e == null) {
                 }
             }
         });
+        Constants.USER_NAME = name;
+        ChatManager chatManager = ChatManager.getInstance();
+        chatManager.setupManagerWithUserId(AVUser.getCurrentUser().getObjectId());
+        Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK
+                | Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
+        finish();
     }
 
 

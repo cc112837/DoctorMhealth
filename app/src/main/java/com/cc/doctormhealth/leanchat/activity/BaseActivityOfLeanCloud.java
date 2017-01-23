@@ -11,8 +11,8 @@ import android.view.View;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Toast;
-
 import com.avoscloud.leanchatlib.R;
+import com.avoscloud.leanchatlib.utils.LogUtils;
 
 /**
  * Created by lzw on 14-9-17.

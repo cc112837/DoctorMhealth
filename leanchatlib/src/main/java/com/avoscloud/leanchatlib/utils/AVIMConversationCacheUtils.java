@@ -54,15 +54,18 @@ public class AVIMConversationCacheUtils {
     }
 
     findConversationsByConversationIds(uncachedIds, new AVIMConversationQueryCallback() {
-      @Override
-      public void done(List<AVIMConversation> list, AVIMException e) {
-        if (null == e) {
-          for (AVIMConversation conversation : list) {
-            conversationMap.put(conversation.getConversationId(), conversation);
-          }
-        }
-        callback.done(e);
-      }
+
+
+	@Override
+	public void done(List<AVIMConversation> list, AVIMException e) {
+		// TODO Auto-generated method stub
+		if (null == e) {
+	          for (AVIMConversation conversation : list) {
+	            conversationMap.put(conversation.getConversationId(), conversation);
+	          }
+	        }
+	        callback.done(e);
+	}
     });
   }
 

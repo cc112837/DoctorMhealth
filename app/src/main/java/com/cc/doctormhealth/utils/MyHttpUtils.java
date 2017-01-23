@@ -2,7 +2,7 @@ package com.cc.doctormhealth.utils;
 
 import android.os.Handler;
 
-import com.cc.doctormhealth.leanchat.model.LeanchatUser;
+import com.avoscloud.leanchatlib.model.LeanchatUser;
 import com.cc.doctormhealth.model.ConfirmFile;
 import com.cc.doctormhealth.model.ForGetpass;
 import com.cc.doctormhealth.model.Info;

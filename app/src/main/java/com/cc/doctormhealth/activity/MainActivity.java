@@ -13,18 +13,19 @@ import android.widget.FrameLayout;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
+import com.avos.avoscloud.AVAnalytics;
 import com.avos.avoscloud.AVException;
+import com.avos.avoscloud.AVUser;
 import com.avoscloud.leanchatlib.event.ImTypeMessageEvent;
+import com.avoscloud.leanchatlib.model.LeanchatUser;
 import com.avoscloud.leanchatlib.model.Room;
-import com.avoscloud.leanchatlib.utils.ConversationManager;
 import com.cc.doctormhealth.R;
 import com.cc.doctormhealth.fragment.ChangeFragmentHelper;
 import com.cc.doctormhealth.fragment.ContactFragment;
 import com.cc.doctormhealth.fragment.HomeFragment;
 import com.cc.doctormhealth.fragment.MeFragment;
-import com.cc.doctormhealth.leanchat.model.LeanchatUser;
-import com.cc.doctormhealth.leanchat.util.UserCacheUtils;
-import com.cc.doctormhealth.utils.MyAndroidUtil;
+import com.cc.doctormhealth.leanchat.service.CacheService;
+import com.cc.doctormhealth.leanchat.service.ConversationManager;
 import com.cc.doctormhealth.utils.Tool;
 
 import java.util.List;
@@ -43,13 +44,13 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         initView();
         EventBus.getDefault().register(this);
+        CacheService.registerUser(AVUser.getCurrentUser(LeanchatUser.class));
         Fragment fragment = new HomeFragment();
         ChangeFragmentHelper helper = new ChangeFragmentHelper();
         helper.setTargetFragment(fragment);
         helper.setIsClearStackBack(true);
         changeFragment(helper);
         updateCount();
-        UserCacheUtils.cacheUser(LeanchatUser.getCurrentUser());
     }
 
 
@@ -113,18 +114,23 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    @Override
-    protected void onResume() {
-        MyAndroidUtil.clearNoti();
-        updateCount();
-        super.onResume();
-    }
-
 
     @Override
     protected void onDestroy() {
         EventBus.getDefault().unregister(this);
         super.onDestroy();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        AVAnalytics.onResume(this);
+        updateCount();
+    }
+
+
+    public void onEvent(ImTypeMessageEvent event) {
+        updateCount();
     }
 
     public void updateCount() {
@@ -135,20 +141,18 @@ public class MainActivity extends AppCompatActivity {
                     int count = 0;
                     for (Room room : roomList)
                         count += room.getUnreadCount();
+
                     if (count > 0) {
                         countView.setVisibility(View.VISIBLE);
                         countView.setText("" + count);
                     } else
-                        countView.setVisibility(View.INVISIBLE);
+                        countView.setVisibility(View.GONE);
                 }
             }
         });
 
     }
 
-    public void onEvent(ImTypeMessageEvent event) {
-        updateCount();
-    }
 
     public void changeFragment(ChangeFragmentHelper helper) {
 

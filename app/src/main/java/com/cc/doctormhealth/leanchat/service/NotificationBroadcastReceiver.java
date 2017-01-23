@@ -6,9 +6,10 @@ import android.content.Intent;
 
 import com.avoscloud.leanchatlib.controller.ChatManager;
 import com.avoscloud.leanchatlib.utils.Constants;
-import com.cc.doctormhealth.leanchat.activity.ChatRoomActivity;
-import com.cc.doctormhealth.leanchat.friends.ContactNewFriendActivity;
 import com.cc.doctormhealth.activity.LoginActivity;
+import com.cc.doctormhealth.activity.NewFriendActivity;
+import com.cc.doctormhealth.leanchat.activity.ChatRoomActivity;
+
 
 /**
  * Created by wli on 15/9/8.
@@ -20,7 +21,7 @@ public class NotificationBroadcastReceiver extends BroadcastReceiver {
 
   @Override
   public void onReceive(Context context, Intent intent) {
-    if (!ChatManager.getInstance().isLogin()) {
+    if (ChatManager.getInstance().getImClient() == null) {
       gotoLoginActivity(context);
     } else {
       String tag = intent.getStringExtra(Constants.NOTOFICATION_TAG);
@@ -62,7 +63,7 @@ public class NotificationBroadcastReceiver extends BroadcastReceiver {
   }
 
   private void gotoNewFriendActivity(Context context, Intent intent) {
-    Intent startActivityIntent = new Intent(context, ContactNewFriendActivity.class);
+    Intent startActivityIntent = new Intent(context, NewFriendActivity.class);
     startActivityIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
     context.startActivity(startActivityIntent);
   }

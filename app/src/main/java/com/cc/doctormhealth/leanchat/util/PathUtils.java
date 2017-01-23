@@ -1,12 +1,11 @@
 package com.cc.doctormhealth.leanchat.util;
 
-import android.app.Application;
 import android.os.Environment;
-
 
 import com.cc.doctormhealth.MyApplication;
 
 import java.io.File;
+
 
 /**
  * Created by lzw on 14-9-19.
@@ -20,9 +19,9 @@ public class PathUtils {
 
   private static File getAvailableCacheDir() {
     if (isExternalStorageWritable()) {
-      return MyApplication.ctx.getExternalCacheDir();
+      return MyApplication.getInstance().getExternalCacheDir();
     } else {
-      return MyApplication.ctx.getCacheDir();
+      return MyApplication.getInstance().getCacheDir();
     }
   }
 

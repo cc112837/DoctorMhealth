@@ -1,50 +1,64 @@
-<?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/activity_message"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/common_blue"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
     android:fitsSystemWindows="true"
-    android:orientation="vertical"
-    tools:context="com.cc.doctormhealth.activity.MessageActivity">
+    android:background="@color/common_blue"
+    android:orientation="vertical" >
 
     <FrameLayout
         android:id="@+id/titlebar"
         android:layout_width="fill_parent"
         android:layout_height="45dp"
         android:background="@color/common_blue"
-        android:orientation="horizontal">
-
-
-        <TextView
-            android:id="@+id/titleView"
-            style="@style/white18Text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:gravity="center"
-            android:text="消息" />
+        android:orientation="horizontal" >
 
         <ImageView
             android:id="@+id/leftBtn"
-            android:layout_width="45dp"
-            android:layout_height="45dp"
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:layout_marginLeft="35dip"
+            android:src="@mipmap/btn_back"
+            android:visibility="gone"
+            android:layout_gravity="center_vertical" />
+
+        <ImageView
+            android:id="@+id/leftBtn_back"
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
             android:layout_gravity="center_vertical"
             android:padding="10dp"
-            android:scaleType="fitXY"
             android:src="@mipmap/btn_back" />
+
+        <TextView
+            android:id="@+id/titleView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="消息列表"
+            android:textSize="18sp"
+            android:textColor="#ffffff"
+            android:gravity="center"
+            android:layout_gravity="center" />
+
+
+
+
+
     </FrameLayout>
 
+
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/white"
-        android:orientation="vertical">
-        <fragment
-            android:id="@+id/fragment_chat"
-            android:name="com.cc.doctormhealth.fragment.MessageFragment"
+        android:id="@+id/LinearLayout_view"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_weight="1"
+        android:background="#dad8d9"
+        android:orientation="horizontal" >
+        <include layout="@layout/chat_client_state_view" />
+
+        <ListView
+            android:id="@+id/fragment_conversation_srl_view"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"/>
     </LinearLayout>
+
 </LinearLayout>

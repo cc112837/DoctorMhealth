@@ -8,15 +8,14 @@ import android.os.StrictMode;
 import com.avos.avoscloud.AVOSCloud;
 import com.avos.avoscloud.AVObject;
 import com.avoscloud.leanchatlib.controller.ChatManager;
-import com.avoscloud.leanchatlib.utils.ThirdPartUserUtils;
-import com.cc.doctormhealth.leanchat.friends.AddRequest;
-import com.cc.doctormhealth.leanchat.model.LeanchatUser;
-import com.cc.doctormhealth.leanchat.model.UpdateInfo;
-import com.cc.doctormhealth.leanchat.service.PushManager;
-import com.cc.doctormhealth.leanchat.util.LeanchatUserProvider;
-import com.cc.doctormhealth.leanchat.util.Utils;
+import com.avoscloud.leanchatlib.model.LeanchatUser;
 import com.cc.doctormhealth.constant.Constants;
 import com.cc.doctormhealth.constant.ImgConfig;
+import com.cc.doctormhealth.leanchat.model.AddRequest;
+import com.cc.doctormhealth.leanchat.model.UpdateInfo;
+import com.cc.doctormhealth.leanchat.service.ConversationManager;
+import com.cc.doctormhealth.leanchat.service.PushManager;
+import com.cc.doctormhealth.leanchat.util.Utils;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
@@ -56,13 +55,23 @@ public class MyApplication extends Application implements
         AVOSCloud.setDebugLogEnabled(debug);
 //        AVAnalytics.enableCrashReport(this, !debug);
         initImageLoader(ctx);
+        initChatManager();
         if (MyApplication.debug) {
             openStrictMode();
         }
 
-        ThirdPartUserUtils.setThirdPartUserProvider(new LeanchatUserProvider());
-        ChatManager.getInstance().init(this);
-        ChatManager.getInstance().setDebugEnabled(MyApplication.debug);
+
+    }
+    private void initChatManager() {
+        final ChatManager chatManager = ChatManager.getInstance();
+        chatManager.init(this);
+        if (LeanchatUser.getCurrentUser() != null) {
+            chatManager.setupManagerWithUserId(LeanchatUser.getCurrentUser()
+                    .getObjectId());
+        }
+        chatManager.setConversationEventHandler(ConversationManager
+                .getEventHandler());
+        ChatManager.setDebugEnabled(MyApplication.debug);
     }
 
     public void openStrictMode() {

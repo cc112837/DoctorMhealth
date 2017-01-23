@@ -1,8 +1,10 @@
 package com.cc.doctormhealth.fragment;
 
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -18,45 +20,50 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.avos.avoscloud.AVAnalytics;
 import com.avos.avoscloud.AVException;
+import com.avos.avoscloud.AVFriendship;
+import com.avos.avoscloud.AVFriendshipQuery;
+import com.avos.avoscloud.AVQuery;
+import com.avos.avoscloud.AVUser;
 import com.avos.avoscloud.CountCallback;
 import com.avos.avoscloud.FindCallback;
 import com.avos.avoscloud.SaveCallback;
-import com.avoscloud.leanchatlib.event.MemberLetterEvent;
+import com.avos.avoscloud.callback.AVFriendshipCallback;
+import com.avos.avoscloud.im.v2.AVIMConversation;
+import com.avos.avoscloud.im.v2.AVIMException;
+import com.avos.avoscloud.im.v2.callback.AVIMConversationCreatedCallback;
+import com.avoscloud.leanchatlib.controller.ChatManager;
+import com.avoscloud.leanchatlib.model.LeanchatUser;
 import com.avoscloud.leanchatlib.utils.Constants;
-import com.cc.doctormhealth.MyApplication;
 import com.cc.doctormhealth.R;
-import com.cc.doctormhealth.activity.TextActivity;
+import com.cc.doctormhealth.activity.NewFriendActivity;
+import com.cc.doctormhealth.activity.SearchActivity;
 import com.cc.doctormhealth.leanchat.activity.ChatRoomActivity;
-import com.cc.doctormhealth.leanchat.activity.ConversationGroupListActivity;
 import com.cc.doctormhealth.leanchat.adapter.ContactsAdapter;
 import com.cc.doctormhealth.leanchat.event.ContactItemClickEvent;
 import com.cc.doctormhealth.leanchat.event.ContactItemLongClickEvent;
 import com.cc.doctormhealth.leanchat.event.ContactRefreshEvent;
 import com.cc.doctormhealth.leanchat.event.InvitationEvent;
-import com.cc.doctormhealth.leanchat.friends.AddRequestManager;
-import com.cc.doctormhealth.leanchat.friends.ContactAddFriendActivity;
-import com.cc.doctormhealth.leanchat.friends.ContactNewFriendActivity;
-import com.cc.doctormhealth.leanchat.friends.FriendsManager;
-import com.cc.doctormhealth.leanchat.model.LeanchatUser;
+import com.cc.doctormhealth.leanchat.event.MemberLetterEvent;
+import com.cc.doctormhealth.leanchat.service.AddRequestManager;
+import com.cc.doctormhealth.leanchat.service.CacheService;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.CountDownLatch;
 
-import butterknife.Bind;
-import butterknife.ButterKnife;
 import de.greenrobot.event.EventBus;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class ContactFragment extends BaseFragment {
-    @Bind(R.id.activity_square_members_srl_list)
+public class ContactFragment extends D3Fragment {
+    protected ImageView rightBtn;
+    protected Context ctx;
     protected SwipeRefreshLayout refreshLayout;
 
-    @Bind(R.id.activity_square_members_rv_list)
     protected RecyclerView recyclerView;
-    @Bind(R.id.rightBtn)
-    protected ImageView rightBtn;
 
     private View headerView;
     ImageView msgTipsView;
@@ -66,13 +73,34 @@ public class ContactFragment extends BaseFragment {
 
     private Handler handler = new Handler(Looper.getMainLooper());
 
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+    }
+
+    public void onStart() {
+        super.onStart();
+    }
+
+    public void onPause() {
+        super.onPause();
+        AVAnalytics.onFragmentEnd("friend-list-fragment");
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // TODO Auto-generated method stub
-        View view = inflater.inflate(R.layout.fragment_contact, container, false);
-        headerView = inflater.inflate(R.layout.contact_fragment_header_layout, container, false);
-        ButterKnife.bind(this, view);
+        ctx = getActivity();
+        View view = setContentView(inflater, R.layout.fragment_contact);
+
+        headerView = inflater.inflate(R.layout.contact_fragment_header_layout,
+                container, false);
+        rightBtn = (ImageView) view.findViewById(R.id.rightBtn);
+
+        refreshLayout = (SwipeRefreshLayout) view
+                .findViewById(R.id.activity_square_members_srl_list);
+
+        recyclerView = (RecyclerView) view
+                .findViewById(R.id.activity_square_members_rv_list);
 
         layoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(layoutManager);
@@ -80,13 +108,13 @@ public class ContactFragment extends BaseFragment {
         itemAdapter = new ContactsAdapter();
         itemAdapter.setHeaderView(headerView);
         recyclerView.setAdapter(itemAdapter);
-
-        refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                getMembers(false);
-            }
-        });
+        refreshLayout
+                .setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+                    @Override
+                    public void onRefresh() {
+                        myGetMenber();
+                    }
+                });
         return view;
     }
 
@@ -94,10 +122,16 @@ public class ContactFragment extends BaseFragment {
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         initHeaderView();
-        initHeader();
         refresh();
         EventBus.getDefault().register(this);
-        getMembers(false);
+        myGetMenber();
+        rightBtn.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getActivity(), SearchActivity.class));
+            }
+        });
     }
 
     @Override
@@ -106,9 +140,60 @@ public class ContactFragment extends BaseFragment {
         EventBus.getDefault().unregister(this);
     }
 
+    public void myGetMenber() {
+
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    AVFriendshipQuery query = AVUser
+                            .friendshipQuery(AVUser.getCurrentUser()
+                                    .getObjectId(), LeanchatUser.class);
+                    query.include("followee");
+                    query.include("follower");
+                    query.getInBackground(new AVFriendshipCallback() {
+
+                        @Override
+                        public void done(AVFriendship friendship, AVException e) {
+                            if (e == null) {
+                                List<LeanchatUser> followers = friendship
+                                        .getFollowers(); // 获取粉丝
+                                List<LeanchatUser> followees = friendship
+                                        .getFollowees(); // 获取关注列表
+                                AVUser user = friendship.getUser(); // 获取用户对象本身
+                                final List<LeanchatUser> users = new ArrayList<LeanchatUser>();
+                                List<String> Ids = new ArrayList<String>();
+                                // if(followees)
+                                for (LeanchatUser u : followees)
+                                    if (followees.contains(u)) {
+                                        Ids.add(u.getObjectId());
+                                        users.add(u);
+                                    }
+                                CacheService.setFriendIds(Ids);
+                                handler.post(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        refreshLayout.setRefreshing(false);
+                                        itemAdapter.setUserList(users);
+                                        itemAdapter.notifyDataSetChanged();
+                                    }
+                                });
+                            }
+                        }
+                    });
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }).start();
+
+    }
+
     @Override
     public void onResume() {
         super.onResume();
+        AVAnalytics.onFragmentStart("friend-list-fragment");
         updateNewRequestBadge();
     }
 
@@ -118,88 +203,106 @@ public class ContactFragment extends BaseFragment {
         newView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(ctx, ContactNewFriendActivity.class);
+                Intent intent = new Intent(ctx, NewFriendActivity.class);
                 ctx.startActivity(intent);
             }
         });
+
 
         View groupView = headerView.findViewById(R.id.layout_group);
         groupView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(ctx, ConversationGroupListActivity.class);
-                ctx.startActivity(intent);
-            }
-        });
-    }
-
-    private void getMembers(final boolean isforce) {
-        FriendsManager.fetchFriends(isforce, new FindCallback<LeanchatUser>() {
-            @Override
-            public void done(List<LeanchatUser> list, AVException e) {
-                refreshLayout.setRefreshing(false);
-                itemAdapter.setUserList(list);
-                itemAdapter.notifyDataSetChanged();
-            }
-        });
-    }
-
-    private void initHeader() {
-        rightBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String check = MyApplication.sharedPreferences.getString(com.cc.doctormhealth.constant.Constants.LOGIN_CHECK,
-                        null);
-                if ("2".equals(check)) {
-                    Intent intent = new Intent(ctx, ContactAddFriendActivity.class);
-                    ctx.startActivity(intent);
-                } else if ("1".equals(check)) {
-                    Toast.makeText(getActivity(), "正在认证资质,请稍等", Toast.LENGTH_LONG).show();
-                } else if ("3".equals(check)) {
-                    Toast.makeText(getActivity(), "资质认证失败,请重新认证", Toast.LENGTH_LONG).show();
-                } else {
-                    Intent intent = new Intent(getActivity(), TextActivity.class);
-                    startActivity(intent);
-                }
+                Intent intent = new Intent(getActivity(), ChatRoomActivity.class);
+                intent.putExtra(Constants.MEMBER_ID, "567461f5ddb2084a556f7010");
+                startActivity(intent);
             }
         });
     }
 
     private void updateNewRequestBadge() {
-        msgTipsView.setVisibility(
-                AddRequestManager.getInstance().hasUnreadRequests() ? View.VISIBLE : View.GONE);
+        msgTipsView.setVisibility(AddRequestManager.getInstance()
+                .hasUnreadRequests() ? View.VISIBLE : View.GONE);
     }
 
     private void refresh() {
-        AddRequestManager.getInstance().countUnreadRequests(new CountCallback() {
-            @Override
-            public void done(int i, AVException e) {
-                updateNewRequestBadge();
-            }
-        });
+        AddRequestManager.getInstance().countUnreadRequests(
+                new CountCallback() {
+                    @Override
+                    public void done(int i, AVException e) {
+                        updateNewRequestBadge();
+                    }
+                });
     }
 
     public void showDeleteDialog(final String memberId) {
-        new AlertDialog.Builder(ctx).setMessage(R.string.contact_deleteContact)
-                .setPositiveButton(R.string.common_sure, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        final ProgressDialog dialog1 = showSpinnerDialog();
-                        LeanchatUser.getCurrentUser().removeFriend(memberId, new SaveCallback() {
+        new AlertDialog.Builder(ctx)
+                .setMessage(R.string.contact_deleteContact)
+                .setPositiveButton(R.string.common_sure,
+                        new DialogInterface.OnClickListener() {
                             @Override
-                            public void done(AVException e) {
-                                dialog1.dismiss();
-                                if (filterException(e)) {
-                                    getMembers(true);
+                            public void onClick(DialogInterface dialog,
+                                                int which) {
+                                final ProgressDialog dialog1 = showSpinnerDialog();
+                                AVUser.getCurrentUser(LeanchatUser.class)
+                                        .removeFriend(memberId,
+                                                new SaveCallback() {
+                                                    @Override
+                                                    public void done(
+                                                            AVException e) {
+                                                        dialog1.dismiss();
+                                                        if (e == null) {
+                                                            myGetMenber();
+                                                        }
+                                                    }
+                                                });
+
+                            }
+                        }).setNegativeButton(R.string.chat_common_cancel, null)
+                .show();
+    }
+
+    public static List<LeanchatUser> findFriends(boolean isforce)
+            throws Exception {
+        final List<LeanchatUser> friends = new ArrayList<LeanchatUser>();
+        final AVException[] es = new AVException[1];
+        final CountDownLatch latch = new CountDownLatch(1);
+        LeanchatUser.getCurrentUser(LeanchatUser.class)
+                .findFriendsWithCachePolicy(
+                        isforce ? AVQuery.CachePolicy.NETWORK_ELSE_CACHE
+                                : AVQuery.CachePolicy.CACHE_ELSE_NETWORK,
+                        new FindCallback<LeanchatUser>() {
+                            @Override
+                            public void done(List<LeanchatUser> avUsers,
+                                             AVException e) {
+                                if (e != null) {
+                                    es[0] = e;
+                                } else {
+                                    friends.addAll(avUsers);
                                 }
+                                latch.countDown();
                             }
                         });
-                    }
-                }).setNegativeButton(R.string.chat_common_cancel, null).show();
+        latch.await();
+        if (es[0] != null) {
+            throw es[0];
+        } else {
+            List<String> userIds = new ArrayList<String>();
+            for (AVUser user : friends) {
+                userIds.add(user.getObjectId());
+            }
+            CacheService.setFriendIds(userIds);
+            CacheService.cacheUsers(userIds);
+            List<LeanchatUser> newFriends = new ArrayList<LeanchatUser>();
+            for (LeanchatUser user : friends) {
+                newFriends.add(CacheService.lookupUser(user.getObjectId()));
+            }
+            return newFriends;
+        }
     }
 
     public void onEvent(ContactRefreshEvent event) {
-        getMembers(true);
+        myGetMenber();
     }
 
     public void onEvent(InvitationEvent event) {
@@ -208,9 +311,25 @@ public class ContactFragment extends BaseFragment {
     }
 
     public void onEvent(ContactItemClickEvent event) {
-        Intent intent = new Intent(getActivity(), ChatRoomActivity.class);
-        intent.putExtra(Constants.MEMBER_ID, event.memberId);
-        startActivity(intent);
+        final ChatManager chatManager = ChatManager.getInstance();
+        chatManager.fetchConversationWithUserId(event.memberId,
+                new AVIMConversationCreatedCallback() {
+                    @Override
+                    public void done(AVIMConversation conversation,
+                                     AVIMException e) {
+                        if (e != null) {
+                            Toast.makeText(getActivity(), e.getMessage(),
+                                    Toast.LENGTH_LONG).show();
+                        } else {
+                            Intent intent = new Intent(getActivity(),
+                                    ChatRoomActivity.class);
+                            intent.putExtra(Constants.CONVERSATION_ID,
+                                    conversation.getConversationId());
+                            startActivity(intent);
+                        }
+                    }
+                });
+
     }
 
     public void onEvent(ContactItemLongClickEvent event) {
@@ -218,8 +337,7 @@ public class ContactFragment extends BaseFragment {
     }
 
     /**
-     * 处理 LetterView 发送过来的 MemberLetterEvent
-     * 会通过 MembersAdapter 获取应该要跳转到的位置，然后跳转
+     * 处理 LetterView 发送过来的 MemberLetterEvent 会通过 MembersAdapter 获取应该要跳转到的位置，然后跳转
      */
     public void onEvent(MemberLetterEvent event) {
         Character targetChar = Character.toLowerCase(event.letter);
@@ -230,8 +348,18 @@ public class ContactFragment extends BaseFragment {
             }
         }
     }
-}
 
+    protected ProgressDialog showSpinnerDialog() {
+        ProgressDialog dialog = new ProgressDialog(getActivity());
+        dialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+        dialog.setCancelable(true);
+        dialog.setMessage(getString(R.string.chat_utils_hardLoading));
+        if (!getActivity().isFinishing()) {
+            dialog.show();
+        }
+        return dialog;
+    }
+}
 
 
 

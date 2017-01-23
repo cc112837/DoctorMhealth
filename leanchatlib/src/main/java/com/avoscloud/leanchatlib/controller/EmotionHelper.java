@@ -1,5 +1,6 @@
 package com.avoscloud.leanchatlib.controller;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -17,7 +18,7 @@ import java.util.regex.Pattern;
 /**
  * Created by lzw on 14-9-25.
  */
-public class EmotionHelper {
+@SuppressLint("NewApi") public class EmotionHelper {
   private static final int ONE_PAGE_SIZE = 21;
   public static List<List<String>> emojiGroups;
   private static Pattern pattern;
@@ -87,9 +88,9 @@ public class EmotionHelper {
 
   static {
     int pages = emojiCodes.length / ONE_PAGE_SIZE + (emojiCodes.length % ONE_PAGE_SIZE == 0 ? 0 : 1);
-    emojiGroups = new ArrayList<>();
+    emojiGroups = new ArrayList<List<String>>();
     for (int page = 0; page < pages; page++) {
-      List<String> onePageEmojis = new ArrayList<>();
+      List<String> onePageEmojis = new ArrayList<String>();
       int start = page * ONE_PAGE_SIZE;
       int end = Math.min(page * ONE_PAGE_SIZE + ONE_PAGE_SIZE, emojiCodes.length);
       for (int i = start; i < end; i++) {
@@ -130,10 +131,10 @@ public class EmotionHelper {
     return spannableString;
   }
 
-  public static void isEmojiDrawableAvailable(Context context) {
+  public static void isEmojiDrawableAvailable() {
     for (String emojiCode : emojiCodes) {
       String code = emojiCode.substring(1, emojiCode.length() - 1);
-      Bitmap bitmap = getDrawableByName(context, code);
+      Bitmap bitmap = getDrawableByName(ChatManager.getContext(), code);
       if (bitmap == null) {
         LogUtils.i("not available test " + code);
       }

@@ -16,13 +16,13 @@ import android.widget.TextView;
 import com.avos.avoscloud.AVException;
 import com.avoscloud.leanchatlib.event.ImTypeMessageEvent;
 import com.avoscloud.leanchatlib.model.Room;
-import com.avoscloud.leanchatlib.utils.ConversationManager;
 import com.bigkoo.convenientbanner.ConvenientBanner;
 import com.bigkoo.convenientbanner.holder.CBViewHolderCreator;
 import com.cc.doctormhealth.R;
 import com.cc.doctormhealth.activity.CaptureActivity;
 import com.cc.doctormhealth.activity.MessageActivity;
 import com.cc.doctormhealth.activity.ScanresultActivity;
+import com.cc.doctormhealth.leanchat.service.ConversationManager;
 import com.cc.doctormhealth.model.BannerItem;
 import com.cc.doctormhealth.view.LocalImageHolderView;
 

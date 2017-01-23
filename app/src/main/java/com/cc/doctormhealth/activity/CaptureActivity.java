@@ -17,9 +17,7 @@ import android.view.SurfaceView;
 import com.avos.avoscloud.AVException;
 import com.avos.avoscloud.AVUser;
 import com.avos.avoscloud.FindCallback;
-import com.avoscloud.leanchatlib.utils.Constants;
 import com.cc.doctormhealth.R;
-import com.cc.doctormhealth.leanchat.friends.ContactPersonInfoActivity;
 import com.cc.doctormhealth.zxingdemo.camera.CameraManager;
 import com.cc.doctormhealth.zxingdemo.decoding.CaptureActivityHandler;
 import com.cc.doctormhealth.zxingdemo.decoding.InactivityTimer;
@@ -159,10 +157,10 @@ public class CaptureActivity extends Activity implements Callback {
                         JSONObject s = new JSONObject(String.valueOf(list.get(i)));
                         String objectId=s.getString("objectId");
                         if (result.equals(objectId)) {
-                            Intent intent = new Intent(CaptureActivity.this, ContactPersonInfoActivity.class);
-                            intent.putExtra(Constants.LEANCHAT_USER_ID, objectId);
-                            startActivity(intent);
-                            finish();
+//                            Intent intent = new Intent(CaptureActivity.this, ContactPersonInfoActivity.class);
+//                            intent.putExtra(Constants.LEANCHAT_USER_ID, objectId);
+//                            startActivity(intent);
+//                            finish();
 
                         }
 

@@ -1,49 +1,137 @@
 package com.cc.doctormhealth.leanchat.adapter;
 
-import android.support.v7.widget.RecyclerView;
+import android.annotation.SuppressLint;
+import android.content.Context;
+import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.ImageView;
+import android.widget.TextView;
 
-import com.avoscloud.leanchatlib.viewholder.ConversationItemHolder;
+import com.avos.avoscloud.im.v2.AVIMConversation;
+import com.avos.avoscloud.im.v2.AVIMTypedMessage;
+import com.avoscloud.leanchatlib.controller.ChatManager;
+import com.avoscloud.leanchatlib.controller.ConversationHelper;
+import com.avoscloud.leanchatlib.controller.MessageHelper;
+import com.avoscloud.leanchatlib.model.ConversationType;
+import com.avoscloud.leanchatlib.model.LeanchatUser;
+import com.avoscloud.leanchatlib.model.Room;
+import com.avoscloud.leanchatlib.utils.PhotoUtils;
+import com.cc.doctormhealth.R;
+import com.cc.doctormhealth.leanchat.event.ConversationItemClickEvent;
+import com.cc.doctormhealth.leanchat.service.CacheService;
+import com.cc.doctormhealth.leanchat.service.ConversationManager;
+import com.nostra13.universalimageloader.core.ImageLoader;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
+import de.greenrobot.event.EventBus;
 
 /**
  * Created by wli on 15/10/8.
  */
-public class ConversationListAdapter<T> extends RecyclerView.Adapter<ConversationItemHolder> {
+public class ConversationListAdapter extends ArrayAdapter<Room> {
+    Context ctx;
 
-  private List<T> dataList = new ArrayList<T>();
-
-  public List<T> getDataList() {
-    return dataList;
-  }
-
-  public void setDataList(List<T> datas) {
-    dataList.clear();
-    if (null != datas) {
-      dataList.addAll(datas);
+    public ConversationListAdapter(Context context) {
+        super(context, 0);
+        this.ctx = context;
     }
-  }
 
-  public void addDataList(List<T> datas) {
-    dataList.addAll(0, datas);
-  }
 
-  @Override
-  public ConversationItemHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-    return new ConversationItemHolder(parent);
-  }
+    @SuppressLint("NewApi")
+    public View getView(final int position, View convertView, ViewGroup parent) {
+        ViewHolder vh = new ViewHolder();
+        convertView = LayoutInflater.from(ctx).inflate(R.layout.conversation_item,
+                null);
 
-  @Override
-  public void onBindViewHolder(ConversationItemHolder holder, int position) {
-    if (position >= 0 && position < dataList.size()) {
-      holder.bindData(dataList.get(position));
+        vh.recentAvatarView = (ImageView) convertView
+                .findViewById(R.id.iv_recent_avatar);
+        vh.recentNameView = (TextView) convertView
+                .findViewById(R.id.recent_time_text);
+        vh.recentMsgView = (TextView) convertView
+                .findViewById(R.id.recent_msg_text);
+        vh.recentTimeView = (TextView) convertView
+                .findViewById(R.id.recent_teim_text);
+        vh.recentUnreadView = (TextView) convertView
+                .findViewById(R.id.recent_unread);
+
+
+        final Room room = getItem(position);
+        AVIMConversation conversation = room.getConversation();
+
+        if (ConversationType.Doctor.getValue()==Integer.parseInt(conversation.getAttribute(ConversationType.TYPE_KEY).toString())&&room.getUnreadCount()<1) {
+            if (null!=room.getLastMessage()&&(new Date().getTime() - room.getLastMessage().getTimestamp() > 60  * 60 * 1000)) {
+                ChatManager.getInstance().getRoomsTable()
+                        .deleteRoom(room.getConversationId());
+            }
+        }
+
+        if (null != conversation) {
+
+            vh.recentNameView.setText(ConversationHelper
+                    .nameOfConversation(conversation));
+            if (ConversationHelper.typeOfConversation(conversation) == ConversationType.Single||ConversationHelper.typeOfConversation(conversation) == ConversationType.Doctor) {
+                LeanchatUser user = (LeanchatUser) CacheService
+                        .lookupUser(ConversationHelper.otherIdOfConversation(conversation));
+                if (null != user) {
+                    ImageLoader.getInstance().displayImage(user.getAvatarUrl(),
+                            vh.recentAvatarView, PhotoUtils.avatarImageOptions);
+                    if (user.getUsername().equals("mdoctor"))
+                        vh.recentNameView.setText("一点医生");
+                }
+
+            } else {
+                vh.recentAvatarView.setImageBitmap(ConversationManager
+                        .getConversationIcon(conversation));
+            }
+
+            int num = room.getUnreadCount();
+            if (num > 0) {
+                vh.recentUnreadView.setVisibility(View.VISIBLE);
+                vh.recentUnreadView.setText(num + "");
+            } else {
+                vh.recentUnreadView.setVisibility(View.GONE);
+            }
+
+            if (room.getLastMessage() != null) {
+                Date date = new Date(room.getLastMessage().getTimestamp());
+                SimpleDateFormat format = new SimpleDateFormat("MM-dd HH:mm");
+                vh.recentTimeView.setText(format.format(date));
+                vh.recentMsgView.setText(MessageHelper
+                        .outlineOfMsg((AVIMTypedMessage) room.getLastMessage()));
+            }
+
+            convertView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                    ConversationItemClickEvent itemClickEvent = new ConversationItemClickEvent();
+                    itemClickEvent.conversationId = room.getConversationId();
+                    EventBus.getDefault().post(itemClickEvent);
+                }
+                // }
+            });
+        }
+
+        convertView.setOnLongClickListener(new View.OnLongClickListener() {
+
+            @Override
+            public boolean onLongClick(View v) {
+                return false;
+            }
+        });
+
+        return convertView;
     }
-  }
 
-  @Override
-  public int getItemCount() {
-    return dataList.size();
-  }
+    class ViewHolder {
+        ImageView recentAvatarView;
+        TextView recentNameView;
+        TextView recentMsgView;
+        TextView recentTimeView;
+        TextView recentUnreadView;
+    }
 }

@@ -12,7 +12,7 @@ import android.widget.ImageView;
 import com.avos.avoscloud.AVException;
 import com.avos.avoscloud.AVUser;
 import com.avos.avoscloud.UpdatePasswordCallback;
-import com.cc.doctormhealth.leanchat.model.LeanchatUser;
+import com.avoscloud.leanchatlib.model.LeanchatUser;
 import com.cc.doctormhealth.R;
 import com.cc.doctormhealth.constant.Constants;
 import com.cc.doctormhealth.model.Result;

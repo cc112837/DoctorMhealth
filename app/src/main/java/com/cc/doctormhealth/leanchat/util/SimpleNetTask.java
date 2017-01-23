@@ -2,12 +2,10 @@ package com.cc.doctormhealth.leanchat.util;
 
 import android.content.Context;
 
-import com.cc.doctormhealth.leanchat.util.Utils;
-
 /**
  * Created by lzw on 14-9-27.
  */
-public abstract class SimpleNetTask extends com.cc.doctormhealth.leanchat.util.NetAsyncTask {
+public abstract class SimpleNetTask extends NetAsyncTask {
   protected SimpleNetTask(Context cxt) {
     super(cxt);
   }

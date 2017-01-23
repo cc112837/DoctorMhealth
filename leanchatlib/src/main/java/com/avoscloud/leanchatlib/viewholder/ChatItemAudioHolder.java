@@ -8,9 +8,10 @@ import android.widget.TextView;
 
 import com.avos.avoscloud.im.v2.messages.AVIMAudioMessage;
 import com.avoscloud.leanchatlib.R;
+import com.avoscloud.leanchatlib.controller.MessageHelper;
 import com.avoscloud.leanchatlib.utils.LocalCacheUtils;
-import com.avoscloud.leanchatlib.utils.PathUtils;
 import com.avoscloud.leanchatlib.view.PlayButton;
+import com.avoscloud.leanchatlib.viewholder.ChatItemHolder;
 
 /**
  * Created by wli on 15/9/17.
@@ -46,9 +47,8 @@ public class ChatItemAudioHolder extends ChatItemHolder {
       if (!TextUtils.isEmpty(localFilePath)) {
         playButton.setPath(localFilePath);
       } else {
-        String path = PathUtils.getChatFilePath(getContext(), audioMessage.getMessageId());
-        playButton.setPath(path);
-        LocalCacheUtils.downloadFileAsync(audioMessage.getFileUrl(), path);
+        playButton.setPath(MessageHelper.getFilePath(audioMessage));
+        LocalCacheUtils.downloadFileAsync(audioMessage.getFileUrl(), MessageHelper.getFilePath(audioMessage));
       }
     }
   }

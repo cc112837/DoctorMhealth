@@ -21,6 +21,7 @@ import com.cc.doctormhealth.MyApplication;
 import com.cc.doctormhealth.R;
 
 import java.io.BufferedReader;
+import java.io.Closeable;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -83,7 +84,7 @@ public class Utils {
   }
 
   public static AlertDialog.Builder getBaseDialogBuilder(Activity ctx) {
-    return new AlertDialog.Builder(ctx).setTitle(R.string.chat_utils_tips).setIcon(R.drawable.utils_icon_info_2);
+    return new AlertDialog.Builder(ctx).setTitle(R.string.chat_utils_tips).setIcon(R.mipmap.utils_icon_info_2);
   }
 
   public static String getStrByRawId(Context ctx, int id) throws UnsupportedEncodingException {
@@ -205,11 +206,11 @@ public class Utils {
   }
 
   public static void toast(int id) {
-    toast(MyApplication.ctx, id);
+    toast(MyApplication.getInstance(), id);
   }
 
   public static void toast(String s) {
-    toast(MyApplication.ctx, s);
+    toast(MyApplication.getInstance(), s);
   }
 
   public static void toast(String s, String exceptionMsg) {
@@ -220,7 +221,7 @@ public class Utils {
   }
 
   public static void toast(int resId, String exceptionMsg) {
-    String s = MyApplication.ctx.getString(resId);
+    String s = MyApplication.getInstance().getString(resId);
     toast(s, exceptionMsg);
   }
 
@@ -284,10 +285,10 @@ public class Utils {
   public static String getPrettyDistance(double distance) {
     if (distance < 1000) {
       int metres = (int) distance;
-      return String.valueOf(metres) + MyApplication.ctx.getString(R.string.discover_metres);
+      return String.valueOf(metres) + MyApplication.getInstance().getString(R.string.discover_metres);
     } else {
       String num = String.format("%.1f", distance / 1000);
-      return num + MyApplication.ctx.getString(R.string.utils_kilometres);
+      return num + MyApplication.getInstance().getString(R.string.utils_kilometres);
     }
   }
 
@@ -296,19 +297,18 @@ public class Utils {
     ProgressDialog dialog = new ProgressDialog(activity);
     dialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
     dialog.setCancelable(true);
-    dialog.setMessage(MyApplication.ctx.getString(R.string.chat_utils_hardLoading));
+    dialog.setMessage(MyApplication.getInstance().getString(R.string.chat_utils_hardLoading));
     if (!activity.isFinishing()) {
       dialog.show();
     }
     return dialog;
   }
 
-  public static boolean filterException(Exception e) {
-    if (e != null) {
-      toast(e.getMessage());
-      return false;
-    } else {
-      return true;
+  public static void closeQuietly(Closeable closeable) {
+    try {
+      closeable.close();
+    } catch (Exception e) {
     }
   }
+
 }

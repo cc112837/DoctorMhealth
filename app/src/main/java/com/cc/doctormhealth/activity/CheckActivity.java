@@ -20,12 +20,12 @@ import com.avos.avoscloud.im.v2.AVIMClient;
 import com.avos.avoscloud.im.v2.AVIMException;
 import com.avos.avoscloud.im.v2.callback.AVIMClientCallback;
 import com.avoscloud.leanchatlib.controller.ChatManager;
-import com.cc.doctormhealth.leanchat.model.LeanchatUser;
-import com.cc.doctormhealth.leanchat.service.PushManager;
-import com.cc.doctormhealth.leanchat.util.Utils;
+import com.avoscloud.leanchatlib.model.LeanchatUser;
 import com.cc.doctormhealth.MyApplication;
 import com.cc.doctormhealth.R;
 import com.cc.doctormhealth.constant.Constants;
+import com.cc.doctormhealth.leanchat.service.PushManager;
+import com.cc.doctormhealth.leanchat.util.Utils;
 import com.cc.doctormhealth.model.Result;
 import com.cc.doctormhealth.model.UserInfo;
 import com.cc.doctormhealth.model.UserReg;
@@ -33,7 +33,6 @@ import com.cc.doctormhealth.utils.MyAndroidUtil;
 import com.cc.doctormhealth.utils.MyHttpUtils;
 import com.cc.doctormhealth.utils.Tool;
 
-import static com.cc.doctormhealth.leanchat.util.Utils.filterException;
 
 
 public class CheckActivity extends Activity {
@@ -88,30 +87,26 @@ public class CheckActivity extends Activity {
                                             final AVUser aUser = AVUser.getCurrentUser();
                                             aUser.get("property");
                                             if (aUser.get("property").equals("doctor")) {
-                                                // 第二个参数：登录标记 Tag
-                                                ChatManager.getInstance().openClient(CheckActivity.this, LeanchatUser.getCurrentUserId(), new AVIMClientCallback() {
-                                                    @Override
-                                                    public void done(AVIMClient avimClient, AVIMException e) {
-                                                        if (filterException(e)) {
-                                                            aUser.updatePasswordInBackground(findpass, pass,
-                                                                    new UpdatePasswordCallback() {
 
-                                                                        @Override
-                                                                        public void done(AVException arg0) {
-                                                                            if (arg0 == null) {
-                                                                                String utr = Constants.SERVER_URL + "MhealthDoctorPasswordServlet";
-                                                                                UserInfo user = new UserInfo();
-                                                                                user.setPhone(phone + "");
-                                                                                user.setPass(pass + "");
-                                                                                MyHttpUtils.handData(handler, 17, utr, user);
-                                                                            } else
-                                                                                Tool.initToast(getApplicationContext(),
-                                                                                        "设置密码失败");
-                                                                        }
-                                                                    });
-                                                        }
-                                                    }
-                                                });
+                                                ChatManager chatManager = ChatManager.getInstance();
+                                                chatManager.setupManagerWithUserId(AVUser.getCurrentUser().getObjectId());
+                                                chatManager.openClient(null);
+                                                aUser.updatePasswordInBackground(findpass, pass,
+                                                        new UpdatePasswordCallback() {
+
+                                                            @Override
+                                                            public void done(AVException arg0) {
+                                                                if (arg0 == null) {
+                                                                    String utr = Constants.SERVER_URL + "MhealthDoctorPasswordServlet";
+                                                                    UserInfo user = new UserInfo();
+                                                                    user.setPhone(phone + "");
+                                                                    user.setPass(pass + "");
+                                                                    MyHttpUtils.handData(handler, 17, utr, user);
+                                                                } else
+                                                                    Tool.initToast(getApplicationContext(),
+                                                                            "设置密码失败");
+                                                            }
+                                                        });
 
                                             } else {
                                                 ChatManager chatManager = ChatManager.getInstance();

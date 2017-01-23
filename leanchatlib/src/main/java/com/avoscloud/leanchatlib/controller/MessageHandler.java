@@ -2,8 +2,8 @@ package com.avoscloud.leanchatlib.controller;
 
 import android.content.Context;
 import android.content.Intent;
-import android.text.TextUtils;
 
+import com.avos.avoscloud.AVUser;
 import com.avos.avoscloud.im.v2.AVIMClient;
 import com.avos.avoscloud.im.v2.AVIMConversation;
 import com.avos.avoscloud.im.v2.AVIMTypedMessage;
@@ -12,7 +12,7 @@ import com.avos.avoscloud.im.v2.messages.AVIMTextMessage;
 import com.avoscloud.leanchatlib.R;
 import com.avoscloud.leanchatlib.event.ImTypeMessageEvent;
 import com.avoscloud.leanchatlib.model.ConversationType;
-import com.avoscloud.leanchatlib.utils.ThirdPartUserUtils;
+import com.avoscloud.leanchatlib.utils.AVUserCacheUtils;
 import com.avoscloud.leanchatlib.utils.Constants;
 import com.avoscloud.leanchatlib.utils.LogUtils;
 import com.avoscloud.leanchatlib.utils.NotificationUtils;
@@ -21,16 +21,13 @@ import de.greenrobot.event.EventBus;
 
 /**
  * Created by zhangxiaobo on 15/4/20.
- *  AVIMTypedMessage 的 handler，socket 过来的 AVIMTypedMessage 都会通过此 handler 与应用交互
- *  需要应用主动调用 AVIMMessageManager.registerMessageHandler 来注册
- *  当然，自定义的消息也可以通过这种方式来处理
  */
 public class MessageHandler extends AVIMTypedMessageHandler<AVIMTypedMessage> {
 
   private Context context;
 
   public MessageHandler(Context context) {
-    this.context = context.getApplicationContext();
+    this.context = context;
   }
 
   @Override
@@ -57,8 +54,8 @@ public class MessageHandler extends AVIMTypedMessageHandler<AVIMTypedMessage> {
             sendNotification(message, conversation);
           }
           ChatManager.getInstance().getRoomsTable().increaseUnreadCount(message.getConversationId());
-          sendEvent(message, conversation);
         }
+        sendEvent(message, conversation);
       }
     }
   }
@@ -86,11 +83,11 @@ public class MessageHandler extends AVIMTypedMessageHandler<AVIMTypedMessage> {
       String notificationContent = message instanceof AVIMTextMessage ?
         ((AVIMTextMessage) message).getText() : context.getString(R.string.unspport_message_type);
 
-      String userName = ThirdPartUserUtils.getInstance().getUserName(message.getFrom());
-      String title = (TextUtils.isEmpty(userName) ? "" : userName);
+      AVUser user = AVUserCacheUtils.getCachedUser(message.getFrom());
+      String title = (null != user ? user.getUsername() : "");
 
       Intent intent = new Intent();
-      intent.setAction("com.avoscloud.chat.intent.client_notification");
+      intent.setAction("com.avoscloud.chat.intent.mhealthclient_notification");
       intent.putExtra(Constants.CONVERSATION_ID, conversation.getConversationId());
       intent.putExtra(Constants.MEMBER_ID, message.getFrom());
       if (ConversationHelper.typeOfConversation(conversation) == ConversationType.Single) {
