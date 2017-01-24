@@ -51,7 +51,7 @@
         SortId="3"
         AppId="wx5be800c31e8cad45"
         AppSecret="7ff4f123b00e297888c8de07fe6d5f9d"
-        BypassApproval="true"
+        BypassApproval="false"
         Enable="true" />
 
     <WechatMoments

@@ -133,7 +133,8 @@
         <activity android:name=".activity.ScanresultActivity" />
         <activity android:name=".activity.NewFriendActivity" />
         <activity android:name=".activity.MessageActivity" />
-        <activity android:name=".activity.BarCodeActivity"></activity>
+        <activity android:name=".activity.BarCodeActivity" />
+        <activity android:name=".activity.ContactActivity"></activity>
     </application>
 
 </manifest>
