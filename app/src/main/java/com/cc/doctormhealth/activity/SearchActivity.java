@@ -3,6 +3,8 @@ package com.cc.doctormhealth.activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -49,7 +51,8 @@ public class SearchActivity extends BaseActivityOfLeanCloud implements PlatformA
     private Platform platform_wxFriend;
     private Button searchBtn;
     private AddFriendListAdapter adapter;
-    private LinearLayout ll_phone,ll_qq,ll_wechat;
+    private LinearLayout ll_phone, ll_qq, ll_wechat;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -61,10 +64,13 @@ public class SearchActivity extends BaseActivityOfLeanCloud implements PlatformA
     private void init() {
         searchNameEdit = (EditText) findViewById(R.id.searchNameEdit);
         listView = (BaseListView) findViewById(R.id.searchList);
+        View headerView = LayoutInflater.from(SearchActivity.this).inflate(R.layout.share_item,
+                null);
+        listView.addHeaderView(headerView);
         left = (ImageView) findViewById(R.id.leftBtn);
-        ll_phone=(LinearLayout) findViewById(R.id.ll_phone);
-        ll_qq=(LinearLayout) findViewById(R.id.ll_qq);
-        ll_wechat=(LinearLayout) findViewById(R.id.ll_wechat);
+        ll_phone = (LinearLayout)headerView. findViewById(R.id.ll_phone);
+        ll_qq = (LinearLayout) headerView.findViewById(R.id.ll_qq);
+        ll_wechat = (LinearLayout)headerView. findViewById(R.id.ll_wechat);
         ll_qq.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -92,7 +98,7 @@ public class SearchActivity extends BaseActivityOfLeanCloud implements PlatformA
         ll_wechat.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                HashMap<String, Object> map_wxFriend= new HashMap<String, Object>();
+                HashMap<String, Object> map_wxFriend = new HashMap<String, Object>();
                 map_wxFriend.put("AppId", "wx5be800c31e8cad45");
                 map_wxFriend.put("Enable", true);
                 map_wxFriend.put("BypassApproval", false);
@@ -115,7 +121,7 @@ public class SearchActivity extends BaseActivityOfLeanCloud implements PlatformA
         ll_phone.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent  intent=new Intent(SearchActivity.this,ContactActivity.class);
+                Intent intent = new Intent(SearchActivity.this, ContactActivity.class);
                 startActivity(intent);
             }
         });
@@ -148,6 +154,7 @@ public class SearchActivity extends BaseActivityOfLeanCloud implements PlatformA
         adapter.setClickListener(new AddFriendListAdapter.AddButtonClickListener() {
             @Override
             public void onAddButtonClick(LeanchatUser user) {
+                Log.e("haha",user.getUsername()+"****");
                 AddRequestManager.getInstance().createAddRequestInBackground(
                         SearchActivity.this, user);
 
@@ -178,17 +185,17 @@ public class SearchActivity extends BaseActivityOfLeanCloud implements PlatformA
 
     @Override
     public void onComplete(Platform platform, int i, HashMap<String, Object> hashMap) {
-        Toast.makeText(getContext(),"分享成功",Toast.LENGTH_LONG).show();
+        Toast.makeText(getContext(), "分享成功", Toast.LENGTH_LONG).show();
     }
 
     @Override
     public void onError(Platform platform, int i, Throwable throwable) {
-        Toast.makeText(getContext(),"分享失败",Toast.LENGTH_LONG).show();
+        Toast.makeText(getContext(), "分享失败", Toast.LENGTH_LONG).show();
     }
 
     @Override
     public void onCancel(Platform platform, int i) {
-        Toast.makeText(getContext(),"取消分享",Toast.LENGTH_LONG).show();
+        Toast.makeText(getContext(), "取消分享", Toast.LENGTH_LONG).show();
     }
 
     public static class AddFriendListAdapter extends
@@ -242,6 +249,7 @@ public class SearchActivity extends BaseActivityOfLeanCloud implements PlatformA
         }
 
     }
+
     @Override
     public void onDestroy() {
         super.onDestroy();

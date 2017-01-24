@@ -1,7 +1,6 @@
 package com.cc.doctormhealth.activity;
 
 import android.os.Bundle;
-import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -22,7 +21,6 @@ import de.greenrobot.event.EventBus;
 public class ContactActivity extends AppCompatActivity implements View.OnClickListener {
     private ImageView leftBtn;
     LinearLayoutManager layoutManager;
-    private SwipeRefreshLayout sr_phone;
     private RecyclerView rv_list;
     private LetterView lv_phone;
     private ContactGroupAdapter contactGroupAdapter;
@@ -44,25 +42,17 @@ public class ContactActivity extends AppCompatActivity implements View.OnClickLi
 
     private void init() {
         leftBtn = (ImageView) findViewById(R.id.leftBtn);
-        sr_phone = (SwipeRefreshLayout) findViewById(R.id.sr_phone);
         rv_list = (RecyclerView) findViewById(R.id.rv_list);
         lv_phone = (LetterView) findViewById(R.id.lv_phone);
 
         layoutManager = new LinearLayoutManager(ContactActivity.this);
         rv_list.setLayoutManager(layoutManager);
-        contactGroupAdapter = new ContactGroupAdapter(ContactActivity.this);
+
         ContactInfoService mContactInfoService = new ContactInfoService(this);
         //返回手机联系人对象集合
         contactList = mContactInfoService.getContactList();
-        contactGroupAdapter.setContactList(contactList);
+        contactGroupAdapter = new ContactGroupAdapter(ContactActivity.this,contactList);
         rv_list.setAdapter(contactGroupAdapter);
-        sr_phone
-                .setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-                    @Override
-                    public void onRefresh() {
-
-                    }
-                });
         leftBtn.setOnClickListener(this);
     }
 

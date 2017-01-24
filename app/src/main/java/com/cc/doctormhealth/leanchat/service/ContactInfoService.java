@@ -4,6 +4,8 @@ import android.content.ContentResolver;
 import android.content.Context;
 import android.database.Cursor;
 import android.net.Uri;
+import android.provider.ContactsContract;
+import android.util.Log;
 
 import com.cc.doctormhealth.leanchat.model.ContactBean;
 
@@ -27,33 +29,53 @@ public class ContactInfoService {
     public ContactInfoService(Context context) {
         this.context = context;
     }
-    public List<ContactBean> getContactList(){
 
-        List<ContactBean> mContactBeanList=new ArrayList<>();
-        ContactBean mContactBean=null;
-        ContentResolver mContentResolver=context.getContentResolver();
-        Uri uri=Uri.parse("content://com.android.contacts/raw_contacts");
-        Uri dataUri=Uri.parse("content://com.android.contacts/data");
+    public List<ContactBean> getContactList() {
 
-        Cursor cursor =mContentResolver.query(uri,null,null,null,null);
-        while (cursor.moveToNext()){
-            mContactBean=new ContactBean();
-            String id=cursor.getString(cursor.getColumnIndex("_id"));
-            String title=cursor.getString(cursor.getColumnIndex("display_name"));//获取联系人姓名
-            String firstHeadLetter=cursor.getString(cursor.getColumnIndex("phonebook_label"));//这个字段保存了每个联系人首字的拼音的首字母
-            mContactBean.setTitle(title);
-            mContactBean.setFirstHeadLetter(firstHeadLetter);
+        List<ContactBean> mContactBeanList = new ArrayList<>();
+        ContactBean mContactBean = null;
+        ContentResolver mContentResolver = context.getContentResolver();
+        Uri uri = ContactsContract.Contacts.CONTENT_URI;
+        Cursor cursor = null;
+        try {
+            String[] projection = {ContactsContract.Contacts._ID,
+                    ContactsContract.Contacts.DISPLAY_NAME, "sort_key"};
+            cursor = mContentResolver.query(uri, projection, null, null,
+                    null);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
-            Cursor dataCursor=mContentResolver.query(dataUri,null,"raw_contact_id= ?",new String[]{id},null);
-            while(dataCursor.moveToNext()){
-                String type=dataCursor.getString(dataCursor.getColumnIndex("mimetype"));
-                if (type.equals("vnd.android.cursor.item/phone_v2")){//如果得到的mimeType类型为手机号码类型才去接收
-                    String phoneNum=dataCursor.getString(dataCursor.getColumnIndex("data1"));//获取手机号码
-                    mContactBean.setPhoneNum(phoneNum);
-                }
+        while (null != cursor && cursor.moveToNext()) {
+            int nameFieldColumnIndex = cursor
+                    .getColumnIndex(ContactsContract.PhoneLookup.DISPLAY_NAME);
+            int idCol = cursor.getInt(cursor
+                    .getColumnIndex(ContactsContract.Contacts._ID));
+            int sort_key_index = cursor.getColumnIndex("sort_key");
+            mContactBean = new ContactBean();
+
+            // 取得联系人ID
+            Cursor phone = mContentResolver.query(
+                    ContactsContract.CommonDataKinds.Phone.CONTENT_URI, null,
+                    ContactsContract.CommonDataKinds.Phone.CONTACT_ID + "=?",
+                    new String[] { Integer.toString(idCol) }, null);//
+            // 再类ContactsContract.CommonDataKinds.Phone中根据查询相应id联系人的所有电话；
+
+            // 取得电话号码(可能存在多个号码)
+            while ( phone.moveToNext()) {
+                String id = cursor.getString(cursor.getColumnIndex("_id"));
+
+                String title = cursor.getString(cursor.getColumnIndex("display_name"));//获取联系人姓名
+                String strPhoneNumber = phone
+                        .getString(phone
+                                .getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER));
+                String firstHeadLetter = cursor.getString(sort_key_index);//这个字段保存了每个联系人首字的拼音的首字母
+                mContactBean.setTitle(title);
+                mContactBean.setFirstHeadLetter(firstHeadLetter);
+                mContactBean.setPhoneNum(strPhoneNumber);
             }
-            dataCursor.close();
-            if (mContactBean.getTitle()!=null&&mContactBean.getPhoneNum()!=null){
+            phone.close();
+            if (mContactBean.getTitle() != null && mContactBean.getPhoneNum() != null) {
                 mContactBeanList.add(mContactBean);
             }
 

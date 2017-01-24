@@ -18,6 +18,15 @@ public class ContactBean implements Serializable {
     private String title;
     private String phoneNum;
     private String firstHeadLetter;
+    private Boolean initialVisible;
+
+    public Boolean getInitialVisible() {
+        return initialVisible;
+    }
+
+    public void setInitialVisible(Boolean initialVisible) {
+        this.initialVisible = initialVisible;
+    }
 
     public ContactBean(int iconId, String title, String phoneNum, String firstHeadLetter) {
         this.iconId = iconId;
