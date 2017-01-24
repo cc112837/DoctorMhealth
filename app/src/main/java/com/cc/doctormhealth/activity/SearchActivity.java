@@ -3,7 +3,6 @@ package com.cc.doctormhealth.activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -154,7 +153,6 @@ public class SearchActivity extends BaseActivityOfLeanCloud implements PlatformA
         adapter.setClickListener(new AddFriendListAdapter.AddButtonClickListener() {
             @Override
             public void onAddButtonClick(LeanchatUser user) {
-                Log.e("haha",user.getUsername()+"****");
                 AddRequestManager.getInstance().createAddRequestInBackground(
                         SearchActivity.this, user);
 

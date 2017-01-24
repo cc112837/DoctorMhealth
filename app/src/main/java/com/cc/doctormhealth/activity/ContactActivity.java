@@ -1,5 +1,7 @@
 package com.cc.doctormhealth.activity;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -9,6 +11,7 @@ import android.widget.ImageView;
 
 import com.cc.doctormhealth.R;
 import com.cc.doctormhealth.adapter.ContactGroupAdapter;
+import com.cc.doctormhealth.event.MyRecyItemClickListener;
 import com.cc.doctormhealth.leanchat.event.MemberLetterEvent;
 import com.cc.doctormhealth.leanchat.model.ContactBean;
 import com.cc.doctormhealth.leanchat.service.ContactInfoService;
@@ -18,7 +21,7 @@ import java.util.List;
 
 import de.greenrobot.event.EventBus;
 
-public class ContactActivity extends AppCompatActivity implements View.OnClickListener {
+public class ContactActivity extends AppCompatActivity implements View.OnClickListener{
     private ImageView leftBtn;
     LinearLayoutManager layoutManager;
     private RecyclerView rv_list;
@@ -53,6 +56,18 @@ public class ContactActivity extends AppCompatActivity implements View.OnClickLi
         contactList = mContactInfoService.getContactList();
         contactGroupAdapter = new ContactGroupAdapter(ContactActivity.this,contactList);
         rv_list.setAdapter(contactGroupAdapter);
+        contactGroupAdapter.setOnItemClickListener(new MyRecyItemClickListener() {
+            @Override
+            public void onItemClick(View view, int postion) {
+                String smsBody = "《一点就医》您身边的健康管理专家地址:" + "http://a.app.qq.com/o/simple.jsp?pkgname=com.cc.doctormhealth";
+                Uri smsToUri = Uri.parse("smsto:");
+                Intent sendIntent = new Intent(Intent.ACTION_VIEW, smsToUri);
+                sendIntent.putExtra("address",contactList.get(postion).getPhoneNum()); // 电话号码，这行去掉的话，默认就没有电话
+                sendIntent.putExtra("sms_body", smsBody);
+                sendIntent.setType("vnd.android-dir/mms-sms");
+                startActivityForResult(sendIntent,1002);
+            }
+        });
         leftBtn.setOnClickListener(this);
     }
 

@@ -1,15 +1,17 @@
 package com.cc.doctormhealth.adapter;
 
 import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.cc.doctormhealth.R;
+import com.cc.doctormhealth.event.MyRecyItemClickListener;
 import com.cc.doctormhealth.leanchat.model.ContactBean;
 
 import java.util.Collections;
@@ -33,12 +35,17 @@ import java.util.Map;
 public class ContactGroupAdapter extends RecyclerView.Adapter<ContactGroupAdapter.ContractViewHolder> {
     public Context context;
     public List<ContactBean> list;
+    private MyRecyItemClickListener listener;
     private Map<Character, Integer> indexMap = new HashMap<Character, Integer>();
 
-    public ContactGroupAdapter(Context context,List<ContactBean> list) {
+    public void setOnItemClickListener(MyRecyItemClickListener listener) {
+        this.listener = listener;
+    }
+
+    public ContactGroupAdapter(Context context, List<ContactBean> list) {
         this.context = context;
-        this.list=list;
-        Collections.sort(list,comparator);
+        this.list = list;
+        Collections.sort(list, comparator);
         indexMap = updateIndex(list);
         updateInitialsVisible(list);
     }
@@ -53,7 +60,7 @@ public class ContactGroupAdapter extends RecyclerView.Adapter<ContactGroupAdapte
                             .charAt(0));
                     lastInitial = item.getFirstHeadLetter().charAt(0);
                 } else {
-                    item.setInitialVisible(true) ;
+                    item.setInitialVisible(true);
                     lastInitial = ' ';
                 }
             }
@@ -68,7 +75,6 @@ public class ContactGroupAdapter extends RecyclerView.Adapter<ContactGroupAdapte
     }
 
 
-
     /**
      * 更新索引 Map
      */
@@ -78,7 +84,7 @@ public class ContactGroupAdapter extends RecyclerView.Adapter<ContactGroupAdapte
         for (int i = 0; i < list.size(); i++) {
             Character curChar =
                     Character.toLowerCase(list.get(i).getFirstHeadLetter()
-                    .charAt(0));
+                            .charAt(0));
             if (!lastCharcter.equals(curChar)) {
                 map.put(curChar, i);
             }
@@ -86,23 +92,24 @@ public class ContactGroupAdapter extends RecyclerView.Adapter<ContactGroupAdapte
         }
         return map;
     }
+
     /**
-     * @Mikyou
-     * 首字母按a-z排序
-     * */
-    Comparator<ContactBean> comparator=new Comparator<ContactBean>() {
+     * @Mikyou 首字母按a-z排序
+     */
+    Comparator<ContactBean> comparator = new Comparator<ContactBean>() {
         @Override
         public int compare(ContactBean t1, ContactBean t2) {
-            String a=t1.getFirstHeadLetter();
-            String b=t2.getFirstHeadLetter();
-            int flag=a.compareTo(b);
-            if (flag==0){
+            String a = t1.getFirstHeadLetter();
+            String b = t2.getFirstHeadLetter();
+            int flag = a.compareTo(b);
+            if (flag == 0) {
                 return a.compareTo(b);
-            }else{
+            } else {
                 return flag;
             }
         }
     };
+
     @Override
     public ContractViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         ContractViewHolder holder = new ContractViewHolder(LayoutInflater.from(
@@ -113,7 +120,6 @@ public class ContactGroupAdapter extends RecyclerView.Adapter<ContactGroupAdapte
 
     @Override
     public void onBindViewHolder(ContractViewHolder holder, int position) {
-        holder.iv_avtar.setImageResource(list.get(position).getIconId());
         holder.tv_name.setText(list.get(position).getTitle());
         holder.alpha.setVisibility(list.get(position).getInitialVisible() ? View.VISIBLE : View.GONE);
         holder.alpha.setText(String.valueOf(list.get(position).getFirstHeadLetter().charAt(0)));
@@ -122,20 +128,18 @@ public class ContactGroupAdapter extends RecyclerView.Adapter<ContactGroupAdapte
 
     @Override
     public int getItemCount() {
-        if (list != null){
-            return list.size();}
-        else return 0;
+        if (list != null) {
+            return list.size();
+        } else return 0;
     }
 
     public class ContractViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        private ImageView iv_avtar;
-        private TextView btn_invita,alpha;
+        private TextView btn_invita, alpha;
         private TextView tv_name, tv_show;
 
         public ContractViewHolder(View itemView) {
             super(itemView);
-            alpha=(TextView) itemView.findViewById(R.id.alpha);
-            iv_avtar = ((ImageView) itemView.findViewById(R.id.iv_avtar));
+            alpha = (TextView) itemView.findViewById(R.id.alpha);
             btn_invita = (TextView) itemView.findViewById(R.id.btn_invita);
             tv_show = (TextView) itemView.findViewById(R.id.tv_show);
             btn_invita.setOnClickListener(this);
@@ -146,6 +150,12 @@ public class ContactGroupAdapter extends RecyclerView.Adapter<ContactGroupAdapte
         public void onClick(View v) {
             switch (v.getId()) {
                 case R.id.btn_invita:
+                    if (listener != null) {
+                        listener.onItemClick(v, getLayoutPosition());
+                    }
+
+
+
                     break;
             }
         }
