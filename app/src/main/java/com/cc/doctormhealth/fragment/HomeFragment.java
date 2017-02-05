@@ -20,6 +20,7 @@ import com.bigkoo.convenientbanner.ConvenientBanner;
 import com.bigkoo.convenientbanner.holder.CBViewHolderCreator;
 import com.cc.doctormhealth.R;
 import com.cc.doctormhealth.activity.CaptureActivity;
+import com.cc.doctormhealth.activity.ManagerActivity;
 import com.cc.doctormhealth.activity.MessageActivity;
 import com.cc.doctormhealth.activity.NewsActivity;
 import com.cc.doctormhealth.activity.OrderAidActivity;
@@ -35,8 +36,6 @@ import java.util.List;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-
-import static android.R.id.list;
 
 public class HomeFragment extends Fragment {
     private ConversationManager conversationManager = ConversationManager.getInstance();
@@ -74,6 +73,14 @@ public class HomeFragment extends Fragment {
             public void onClick(View v) {
                 //患者预约
                 Intent intent = new Intent(getActivity(), OrderAidActivity.class);
+                startActivity(intent);
+            }
+        });
+        ll_2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //患者管理
+                Intent intent = new Intent(getActivity(), ManagerActivity.class);
                 startActivity(intent);
             }
         });

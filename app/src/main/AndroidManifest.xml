@@ -136,7 +136,8 @@
         <activity android:name=".activity.BarCodeActivity" />
         <activity android:name=".activity.ContactActivity" />
         <activity android:name=".activity.OrderAidActivity" />
-        <activity android:name=".activity.NewsActivity"></activity>
+        <activity android:name=".activity.NewsActivity" />
+        <activity android:name=".activity.ManagerActivity"></activity>
     </application>
 
 </manifest>
