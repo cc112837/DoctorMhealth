@@ -46,7 +46,7 @@ public class NewsAdapter extends BaseAdapter {
         ViewHolder vholder = null;
         if (view == null) {
             vholder = new ViewHolder();
-            view = mInflater.inflate(R.layout.money_item, null);
+            view = mInflater.inflate(R.layout.news_item, null);
             vholder.tv_title = (TextView) view.findViewById(R.id.tv_title);
             vholder.iv_image = (ImageView) view.findViewById(R.id.iv_image);
             view.setTag(vholder);

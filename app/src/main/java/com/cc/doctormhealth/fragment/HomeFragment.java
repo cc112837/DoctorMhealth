@@ -21,6 +21,7 @@ import com.bigkoo.convenientbanner.holder.CBViewHolderCreator;
 import com.cc.doctormhealth.R;
 import com.cc.doctormhealth.activity.CaptureActivity;
 import com.cc.doctormhealth.activity.MessageActivity;
+import com.cc.doctormhealth.activity.OrderAidActivity;
 import com.cc.doctormhealth.activity.ScanresultActivity;
 import com.cc.doctormhealth.adapter.NewsAdapter;
 import com.cc.doctormhealth.leanchat.service.ConversationManager;
@@ -65,12 +66,20 @@ public class HomeFragment extends Fragment {
         ll_2 = (LinearLayout) headview.findViewById(R.id.ll_2);
         ll_3 = (LinearLayout) headview.findViewById(R.id.ll_3);
         ll_4 = (LinearLayout) headview.findViewById(R.id.ll_4);
+        ll_1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //患者预约
+                Intent intent = new Intent(getActivity(), OrderAidActivity.class);
+                startActivity(intent);
+            }
+        });
         convenientBanner = (ConvenientBanner) headview.findViewById(R.id.convenientBanner);
         for (int i = 0; i < 2; i++) {
             BannerItem bannerItem = new BannerItem();
             bannerItem.setTitle("1");
             bannerItem.setUrl("http://ss.bdimg.com/static/superman/img/logo/bd_logo1_31bdc765.png");
-            bannerItem.setId(i+"");
+            bannerItem.setId(i + "");
             localImages.add(bannerItem);
         }
         convenientBanner.setPages(
@@ -85,7 +94,7 @@ public class HomeFragment extends Fragment {
                 //设置指示器的方向
                 .setPageIndicatorAlign(ConvenientBanner.PageIndicatorAlign.ALIGN_PARENT_RIGHT);
         lvShow.addHeaderView(headview);
-        List titleList=new ArrayList<>();
+        List titleList = new ArrayList<>();
         NewsAdapter newsAdapter = new NewsAdapter
                 (getContext(), titleList);
         lvShow.setAdapter(newsAdapter);
@@ -214,6 +223,7 @@ public class HomeFragment extends Fragment {
     public void onEvent(ImTypeMessageEvent event) {
         updateCount();
     }
+
     @OnClick({R.id.iv_see, R.id.iv_meg})
     public void onClick(View view) {
         switch (view.getId()) {

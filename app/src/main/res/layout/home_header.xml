@@ -28,8 +28,8 @@
             android:padding="5dp">
 
             <ImageView
-                android:layout_width="65dp"
-                android:layout_height="65dp"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
                 android:src="@mipmap/share" />
 
             <TextView
@@ -37,7 +37,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
                 android:gravity="center"
-                android:text="标题1"
+                android:text="患者预约"
                 android:textSize="15sp" />
 
         </LinearLayout>
@@ -57,8 +57,8 @@
             android:padding="5dp">
 
             <ImageView
-                android:layout_width="65dp"
-                android:layout_height="65dp"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
                 android:src="@mipmap/share" />
 
             <TextView
@@ -66,7 +66,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
                 android:gravity="center"
-                android:text="标题1"
+                android:text="患者管理"
                 android:textSize="15sp" />
         </LinearLayout>
 
@@ -85,8 +85,8 @@
             android:padding="5dp">
 
             <ImageView
-                android:layout_width="65dp"
-                android:layout_height="65dp"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
                 android:src="@mipmap/share" />
 
             <TextView
@@ -94,7 +94,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
                 android:gravity="center"
-                android:text="标题1"
+                android:text="医疗资讯"
                 android:textSize="15sp" />
         </LinearLayout>
     </LinearLayout>
@@ -119,8 +119,8 @@
             android:padding="5dp">
 
             <ImageView
-                android:layout_width="65dp"
-                android:layout_height="65dp"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
                 android:src="@mipmap/share" />
 
             <TextView
@@ -128,13 +128,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
                 android:gravity="center"
-                android:text="标题1"
+                android:text="患者咨询"
                 android:textSize="15sp" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="1px"
-                android:background="@color/grey_bg" />
         </LinearLayout>
 
         <TextView
@@ -145,7 +140,7 @@
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:layout_weight="2"
             android:gravity="center"
             android:orientation="vertical"
             android:padding="5dp">
@@ -153,14 +148,5 @@
         </LinearLayout>
 
 
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:orientation="vertical"
-            android:padding="5dp">
-
-        </LinearLayout>
     </LinearLayout>
 </LinearLayout>
