@@ -33,7 +33,7 @@
                 android:button="@null"
                 android:checked="true"
                 android:gravity="center"
-                android:padding="6dp"
+                android:padding="4dp"
                 android:text="当前预约"
                 android:textColor="@drawable/selector_textordercolor" />
 
@@ -45,7 +45,7 @@
                 android:background="@drawable/selector_orderaid"
                 android:button="@null"
                 android:gravity="center"
-                android:padding="6dp"
+                android:padding="4dp"
                 android:text="历史预约"
                 android:textColor="@drawable/selector_textordercolor" />
 

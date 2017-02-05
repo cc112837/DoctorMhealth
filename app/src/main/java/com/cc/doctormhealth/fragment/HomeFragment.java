@@ -21,6 +21,7 @@ import com.bigkoo.convenientbanner.holder.CBViewHolderCreator;
 import com.cc.doctormhealth.R;
 import com.cc.doctormhealth.activity.CaptureActivity;
 import com.cc.doctormhealth.activity.MessageActivity;
+import com.cc.doctormhealth.activity.NewsActivity;
 import com.cc.doctormhealth.activity.OrderAidActivity;
 import com.cc.doctormhealth.activity.ScanresultActivity;
 import com.cc.doctormhealth.adapter.NewsAdapter;
@@ -34,6 +35,8 @@ import java.util.List;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+
+import static android.R.id.list;
 
 public class HomeFragment extends Fragment {
     private ConversationManager conversationManager = ConversationManager.getInstance();
@@ -74,6 +77,22 @@ public class HomeFragment extends Fragment {
                 startActivity(intent);
             }
         });
+        ll_3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //医疗资讯
+                Intent intent = new Intent(getActivity(), NewsActivity.class);
+                startActivity(intent);
+            }
+        });
+        ll_4.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //患者咨询
+                Intent intent = new Intent(getActivity(), MessageActivity.class);
+                startActivity(intent);
+            }
+        });
         convenientBanner = (ConvenientBanner) headview.findViewById(R.id.convenientBanner);
         for (int i = 0; i < 2; i++) {
             BannerItem bannerItem = new BannerItem();
@@ -94,9 +113,11 @@ public class HomeFragment extends Fragment {
                 //设置指示器的方向
                 .setPageIndicatorAlign(ConvenientBanner.PageIndicatorAlign.ALIGN_PARENT_RIGHT);
         lvShow.addHeaderView(headview);
-        List titleList = new ArrayList<>();
-        NewsAdapter newsAdapter = new NewsAdapter
-                (getContext(), titleList);
+        List<String> titleList = new ArrayList<>();
+        for(int i=0;i<10;i++){
+            titleList.add(i+"");
+        }
+        NewsAdapter newsAdapter = new NewsAdapter(getActivity(), titleList);
         lvShow.setAdapter(newsAdapter);
     }
 

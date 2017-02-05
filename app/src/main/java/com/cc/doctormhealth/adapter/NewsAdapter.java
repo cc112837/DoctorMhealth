@@ -53,7 +53,7 @@ public class NewsAdapter extends BaseAdapter {
         } else {
             vholder = (ViewHolder) view.getTag();
         }
-        vholder.tv_title.setText("**"+position);
+        vholder.tv_title.setText("**"+list.get(position));
         ImageLoader.getInstance().displayImage("", vholder.iv_image, PhotoUtils.avatarImageOptions);
         return view;
 
