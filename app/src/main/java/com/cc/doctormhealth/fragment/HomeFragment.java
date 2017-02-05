@@ -22,6 +22,7 @@ import com.cc.doctormhealth.R;
 import com.cc.doctormhealth.activity.CaptureActivity;
 import com.cc.doctormhealth.activity.MessageActivity;
 import com.cc.doctormhealth.activity.ScanresultActivity;
+import com.cc.doctormhealth.adapter.NewsAdapter;
 import com.cc.doctormhealth.leanchat.service.ConversationManager;
 import com.cc.doctormhealth.model.BannerItem;
 import com.cc.doctormhealth.view.LocalImageHolderView;
@@ -54,11 +55,11 @@ public class HomeFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
         ButterKnife.bind(this, view);
-        init();
+        init(view);
         return view;
     }
 
-    private void init() {
+    private void init(View view) {
         View headview = LayoutInflater.from(getContext()).inflate(R.layout.home_header, null);
         ll_1 = (LinearLayout) headview.findViewById(R.id.ll_1);
         ll_2 = (LinearLayout) headview.findViewById(R.id.ll_2);
@@ -68,8 +69,8 @@ public class HomeFragment extends Fragment {
         for (int i = 0; i < 2; i++) {
             BannerItem bannerItem = new BannerItem();
             bannerItem.setTitle("1");
-            bannerItem.setUrl("");
-            bannerItem.setId("");
+            bannerItem.setUrl("http://ss.bdimg.com/static/superman/img/logo/bd_logo1_31bdc765.png");
+            bannerItem.setId(i+"");
             localImages.add(bannerItem);
         }
         convenientBanner.setPages(
@@ -84,6 +85,10 @@ public class HomeFragment extends Fragment {
                 //设置指示器的方向
                 .setPageIndicatorAlign(ConvenientBanner.PageIndicatorAlign.ALIGN_PARENT_RIGHT);
         lvShow.addHeaderView(headview);
+        List titleList=new ArrayList<>();
+        NewsAdapter newsAdapter = new NewsAdapter
+                (getContext(), titleList);
+        lvShow.setAdapter(newsAdapter);
     }
 
     @Override
