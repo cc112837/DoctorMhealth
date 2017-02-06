@@ -1,41 +1,103 @@
 package com.cc.doctormhealth.activity;
 
+
 import android.os.Bundle;
+import android.support.design.widget.TabLayout;
+import android.support.v4.app.Fragment;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
 import android.widget.ImageView;
-import android.widget.ListView;
 
 import com.cc.doctormhealth.R;
 import com.cc.doctormhealth.adapter.NewsAdapter;
+import com.cc.doctormhealth.fragment.HealthListFragment;
 
 import java.util.ArrayList;
-
-import butterknife.Bind;
-import butterknife.ButterKnife;
-import butterknife.OnClick;
+import java.util.List;
 
 public class NewsActivity extends AppCompatActivity {
-
-    @Bind(R.id.leftBtn)
-    ImageView leftBtn;
-    @Bind(R.id.lv_show)
-    ListView lvShow;
+    private ViewPager vp_news;
+    private ImageView leftBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_news);
-        ButterKnife.bind(this);
-        ArrayList<String> list = new ArrayList<>();
-        for(int i=0;i<10;i++){
-            list.add(i+"");
-        }
-        NewsAdapter newsAdapter = new NewsAdapter(NewsActivity.this, list);
-        lvShow.setAdapter(newsAdapter);
+        init();
     }
 
-    @OnClick(R.id.leftBtn)
-    public void onClick() {
-        finish();
+    private void init() {
+        leftBtn=(ImageView) findViewById(R.id.leftBtn);
+        leftBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+        TabLayout tabLayout = (TabLayout) findViewById(R.id.tabid);
+        TabLayout.Tab tab1 = tabLayout.newTab();
+        tab1.setText("热点");
+        tabLayout.addTab(tab1);
+
+        TabLayout.Tab tab2 = tabLayout.newTab();
+        tab2.setText("健康");
+        tabLayout.addTab(tab2);
+
+        TabLayout.Tab tab3 = tabLayout.newTab();
+        tab3.setText("医疗");
+        tabLayout.addTab(tab3);
+
+        TabLayout.Tab tab4 = tabLayout.newTab();
+        tab4.setText("食品");
+        tabLayout.addTab(tab4);
+
+        TabLayout.Tab tab5 = tabLayout.newTab();
+        tab5.setText("生物");
+        tabLayout.addTab(tab5);
+
+        TabLayout.Tab tab6 = tabLayout.newTab();
+        tab6.setText("行业");
+        tabLayout.addTab(tab6);
+
+        vp_news = (ViewPager) findViewById(R.id.vp_news);
+        List<Fragment> fragmentList = new ArrayList<>();
+        HealthListFragment health1 = new HealthListFragment("1");
+        HealthListFragment health2 = new HealthListFragment("2");
+        HealthListFragment health3 = new HealthListFragment("3");
+        HealthListFragment health4 = new HealthListFragment("4");
+        HealthListFragment health5 = new HealthListFragment("5");
+        HealthListFragment health6 = new HealthListFragment("6");
+
+        fragmentList.add(health1);
+        fragmentList.add(health2);
+        fragmentList.add(health3);
+        fragmentList.add(health4);
+        fragmentList.add(health5);
+        fragmentList.add(health6);
+
+        NewsAdapter adapter = new NewsAdapter(getSupportFragmentManager(), fragmentList);
+        vp_news.setAdapter(adapter);
+
+        vp_news.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
+        tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                //切换viewpager
+                vp_news.setCurrentItem(tab.getPosition());
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+
+            }
+        });
     }
 }
+
+

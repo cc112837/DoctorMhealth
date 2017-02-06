@@ -34,6 +34,7 @@ dependencies {
     compile name: 'SMSSDK-2.0.2', ext: 'aar'
     compile project(':onekeyshare')
     compile files('libs/zxing.jar')
+    compile 'com.android.support:design:23.1.1'
     compile 'com.bigkoo:convenientbanner:2.0.4'
     compile 'com.google.code.gson:gson:2.2.4'
     compile 'com.jiechic.library:xUtils:2.6.14'

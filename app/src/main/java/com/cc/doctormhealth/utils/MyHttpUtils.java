@@ -7,6 +7,8 @@ import com.cc.doctormhealth.model.ConfirmFile;
 import com.cc.doctormhealth.model.ForGetpass;
 import com.cc.doctormhealth.model.Info;
 import com.cc.doctormhealth.model.Money;
+import com.cc.doctormhealth.model.NewDetail;
+import com.cc.doctormhealth.model.NewsYang;
 import com.cc.doctormhealth.model.Result;
 import com.cc.doctormhealth.model.User;
 import com.cc.doctormhealth.model.UserEvaluation;
@@ -89,6 +91,15 @@ public class MyHttpUtils extends HttpUtils {
             case 19:
                 params.addBodyParameter("doctorId", LeanchatUser.getCurrentUser().getObjectId());
                 sendData(HttpRequest.HttpMethod.POST, url, params, new MyCallBack(new Money(), handler, what));
+                break;
+            case 20://资讯详情
+                params.addBodyParameter("medicalId", ((User) object).getUsername());
+                sendData(HttpRequest.HttpMethod.POST, url, params, new MyCallBack(new NewDetail(), handler, what));
+                break;
+            case 21://资讯列表页面
+                params.addBodyParameter("type", ((User) object).getUsername());
+                params.addBodyParameter("pageCount", ((User) object).getAdr());
+                sendData(HttpRequest.HttpMethod.POST, url, params, new MyCallBack(new NewsYang(), handler, what));
                 break;
         }
 

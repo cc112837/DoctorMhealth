@@ -4,10 +4,13 @@ package com.cc.doctormhealth.fragment;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -23,11 +26,16 @@ import com.cc.doctormhealth.activity.CaptureActivity;
 import com.cc.doctormhealth.activity.ManagerActivity;
 import com.cc.doctormhealth.activity.MessageActivity;
 import com.cc.doctormhealth.activity.NewsActivity;
+import com.cc.doctormhealth.activity.NewsDetailActivity;
 import com.cc.doctormhealth.activity.OrderAidActivity;
 import com.cc.doctormhealth.activity.ScanresultActivity;
-import com.cc.doctormhealth.adapter.NewsAdapter;
+import com.cc.doctormhealth.adapter.NewsItemAdapter;
+import com.cc.doctormhealth.constant.Constants;
 import com.cc.doctormhealth.leanchat.service.ConversationManager;
 import com.cc.doctormhealth.model.BannerItem;
+import com.cc.doctormhealth.model.NewsYang;
+import com.cc.doctormhealth.model.User;
+import com.cc.doctormhealth.utils.MyHttpUtils;
 import com.cc.doctormhealth.view.LocalImageHolderView;
 
 import java.util.ArrayList;
@@ -43,7 +51,30 @@ public class HomeFragment extends Fragment {
     @Bind(R.id.lv_show)
     ListView lvShow;
     LinearLayout ll_1, ll_2, ll_3, ll_4;
-
+    List<NewsYang.DataEntity>  titleList=new ArrayList<>();
+    private Handler handler=new Handler(){
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            switch (msg.what){
+                case 21:
+                    NewsYang newsYang=(NewsYang) msg.obj;
+                    if(newsYang!=null){
+                        titleList.addAll(newsYang.getData());
+                        newsAdapter.notifyDataSetChanged();
+                    }
+                    lvShow.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                        @Override
+                        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                            Intent intent = new Intent(getActivity(), NewsDetailActivity.class);
+                            intent.putExtra("content", titleList.get(position-1).getMedicalId()+"");
+                            startActivity(intent);
+                        }
+                    });
+                    break;
+            }
+        }
+    };
     @Bind(R.id.iv_see)
     ImageView ivSee;
     @Bind(R.id.iv_meg)
@@ -51,6 +82,7 @@ public class HomeFragment extends Fragment {
     @Bind(R.id.tv_count)
     TextView tvCount;
     private ArrayList<BannerItem> localImages = new ArrayList<>();
+    private NewsItemAdapter newsAdapter;
 
 
     @Override
@@ -58,6 +90,11 @@ public class HomeFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
         ButterKnife.bind(this, view);
+        String url= Constants.SERVER_URL+"MedicalArticleServlet";
+        User user=new User();
+        user.setUsername(1+"");
+        user.setAdr(1+"");
+        MyHttpUtils.handData(handler, 21, url, user);
         init(view);
         return view;
     }
@@ -120,11 +157,8 @@ public class HomeFragment extends Fragment {
                 //设置指示器的方向
                 .setPageIndicatorAlign(ConvenientBanner.PageIndicatorAlign.ALIGN_PARENT_RIGHT);
         lvShow.addHeaderView(headview);
-        List<String> titleList = new ArrayList<>();
-        for(int i=0;i<10;i++){
-            titleList.add(i+"");
-        }
-        NewsAdapter newsAdapter = new NewsAdapter(getActivity(), titleList);
+
+        newsAdapter = new NewsItemAdapter(getActivity(), titleList);
         lvShow.setAdapter(newsAdapter);
     }
 

@@ -95,6 +95,7 @@
         <activity
             android:name=".leanchat.activity.ChatRoomActivity"
             android:screenOrientation="portrait" />
+        <activity android:name=".activity.NewsDetailActivity" />
         <activity
             android:name="com.mob.tools.MobUIShell"
             android:configChanges="keyboardHidden|orientation|screenSize"

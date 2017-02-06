@@ -1,19 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tab="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/blue"
+    android:background="@color/common_blue"
     android:fitsSystemWindows="true"
     android:orientation="vertical"
-    tools:context="com.cc.doctormhealth.activity.NewsActivity">
+    tools:context="com.cc.doctormhealth.activity.NewsDetailActivity">
 
     <RelativeLayout
         android:id="@+id/title1"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:background="@color/blue"
+        android:background="@color/common_blue"
         android:gravity="center_vertical">
 
         <TextView
@@ -21,7 +20,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:text="资讯"
+            android:text="咨讯详情"
             android:textColor="#ffffff"
             android:textSize="18sp" />
 
@@ -35,30 +34,19 @@
 
     </RelativeLayout>
 
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/white"
-        android:orientation="vertical">
+        android:background="@color/white">
 
-        <RelativeLayout
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/bg_gray">
-
-            <android.support.design.widget.TabLayout
-                android:id="@+id/tabid"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+            <WebView
+                android:id="@+id/wv_dis"
                 android:layout_width="match_parent"
-                android:layout_height="40dp"
-                tab:tabIndicatorColor="@color/common_blue"
-                tab:tabSelectedTextColor="@color/common_blue"></android.support.design.widget.TabLayout>
-
-
-        </RelativeLayout>
-
-        <android.support.v4.view.ViewPager
-            android:id="@+id/vp_news"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"></android.support.v4.view.ViewPager>
-    </LinearLayout>
+                android:layout_height="match_parent"></WebView>
+        </LinearLayout>
+    </ScrollView>
 </LinearLayout>
