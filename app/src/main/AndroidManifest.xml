@@ -137,7 +137,9 @@
         <activity android:name=".activity.ContactActivity" />
         <activity android:name=".activity.OrderAidActivity" />
         <activity android:name=".activity.NewsActivity" />
-        <activity android:name=".activity.ManagerActivity"></activity>
+        <activity android:name=".activity.ManagerActivity" />
+        <activity android:name=".activity.AidsDetailActivity" />
+        <activity android:name=".activity.BookAidsActivity"></activity>
     </application>
 
 </manifest>
