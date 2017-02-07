@@ -13,6 +13,7 @@ import android.widget.ListView;
 import android.widget.Spinner;
 
 import java.text.DecimalFormat;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -287,5 +288,8 @@ public class Util {
 //     	System.out.println("失败");
      }  
  }
+	public static <D> boolean isEmpty(List<D> list) {
+		return list == null || list.isEmpty();
+	}
 }
 
