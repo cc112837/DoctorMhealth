@@ -1,17 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/ll_cli"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/grey_e"
     android:orientation="horizontal"
-    android:padding="10dp">
+    android:padding="7dp">
 
     <TextView
         android:id="@+id/tv_data"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:text="2016-10-23" />
+        android:text="2016-10-23"
+        android:textColor="@color/black" />
 
     <TextView
         android:id="@+id/tv_num"
@@ -19,14 +21,14 @@
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:gravity="right"
-        android:text="预约5人" />
+        android:text="预约5人"
+        android:textColor="@color/black" />
 
     <ImageView
-        android:id="@+id/iv_jiantou"
-        android:src="@mipmap/jiantou"
         android:layout_width="10dp"
-        android:layout_gravity="center_vertical"
         android:layout_height="10dp"
-        android:scaleType="fitXY" />
+        android:layout_gravity="center_vertical"
+        android:scaleType="fitXY"
+        android:src="@mipmap/jiantou" />
 
 </LinearLayout>

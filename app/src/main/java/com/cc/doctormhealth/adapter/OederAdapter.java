@@ -34,6 +34,7 @@ public class OederAdapter extends SectionedRecyclerViewAdapter<HeaderHolder, Des
     private Context mContext;
     private LayoutInflater mInflater;
     private SparseBooleanArray mBooleanMap;//记录下哪个section是被打开的
+
     public OederAdapter(Context context) {
         mContext = context;
         mInflater = LayoutInflater.from(context);
@@ -52,11 +53,11 @@ public class OederAdapter extends SectionedRecyclerViewAdapter<HeaderHolder, Des
 
     @Override
     protected int getItemCountForSection(int section) {
-        int count = orderList.get(section).getProductData().size();
+        int count = orderList.get(section).getAppointData().size();
         if (count >= 0 && !mBooleanMap.get(section)) {
             count = 0;
         }
-        return Util.isEmpty(orderList.get(section).getProductData()) ? 0 : count;
+        return Util.isEmpty(orderList.get(section).getAppointData()) ? 0 : count;
     }
 
     //是否有footer布局
@@ -82,9 +83,9 @@ public class OederAdapter extends SectionedRecyclerViewAdapter<HeaderHolder, Des
 
     @Override
     protected void onBindSectionHeaderViewHolder(HeaderHolder holder, final int section) {
-       holder.tv_data.setText("2017-02-07");
-        holder.tv_num.setText("预约"+"5人");
-        holder.iv_jiantou.setOnClickListener(new View.OnClickListener() {
+        holder.tv_data.setText(orderList.get(section).getClinicTime() + "");
+        holder.tv_num.setText("预约" + orderList.get(section).getAppointSize() + "人");
+        holder.ll_cli.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 boolean isOpen = mBooleanMap.get(section);
@@ -102,12 +103,12 @@ public class OederAdapter extends SectionedRecyclerViewAdapter<HeaderHolder, Des
 
     @Override
     protected void onBindItemViewHolder(DescHolder holder, final int section, final int position) {
-        holder.tv_age.setText("年龄");
-        holder.tv_name.setText("用户名");
-        holder.tv_sex.setText("性别");
-        holder.tv_content.setText("病情");
+        holder.tv_age.setText("" + orderList.get(section).getAppointData().get(position).getAge());
+        holder.tv_name.setText("" + orderList.get(section).getAppointData().get(position).getName());
+        holder.tv_sex.setText("" + orderList.get(section).getAppointData().get(position).getSex());
+        holder.tv_content.setText("" + orderList.get(section).getAppointData().get(position).getIllness());
         holder.iv_status.setImageResource(R.mipmap.info);
-        ImageLoader.getInstance().displayImage(orderList.get(section).getProductData().get(position).getProductImageSmall(), holder.iv_head, com.avoscloud.leanchatlib.utils.PhotoUtils.avatarImageOption);
+        ImageLoader.getInstance().displayImage(orderList.get(section).getAppointData().get(position).getCaseness(), holder.iv_head, com.avoscloud.leanchatlib.utils.PhotoUtils.avatarImageOption);
         holder.ll_content.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

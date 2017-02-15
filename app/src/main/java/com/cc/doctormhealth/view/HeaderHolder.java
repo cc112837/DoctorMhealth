@@ -2,7 +2,7 @@ package com.cc.doctormhealth.view;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.cc.doctormhealth.R;
@@ -19,7 +19,7 @@ import com.cc.doctormhealth.R;
  * 修改备注：
  */
 public class HeaderHolder extends RecyclerView.ViewHolder {
-    public ImageView iv_jiantou;
+    public LinearLayout ll_cli;
     public TextView tv_num, tv_data;
 
     public HeaderHolder(View itemView) {
@@ -30,6 +30,6 @@ public class HeaderHolder extends RecyclerView.ViewHolder {
     private void initView() {
         tv_num=(TextView) itemView.findViewById(R.id.tv_num);
         tv_data=(TextView) itemView.findViewById(R.id.tv_data);
-        iv_jiantou = (ImageView) itemView.findViewById(R.id.iv_jiantou);
+        ll_cli = (LinearLayout) itemView.findViewById(R.id.ll_cli);
     }
 }

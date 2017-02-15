@@ -3,12 +3,14 @@ package com.cc.doctormhealth.utils;
 import android.os.Handler;
 
 import com.avoscloud.leanchatlib.model.LeanchatUser;
+import com.cc.doctormhealth.model.AidManager;
 import com.cc.doctormhealth.model.ConfirmFile;
 import com.cc.doctormhealth.model.ForGetpass;
 import com.cc.doctormhealth.model.Info;
 import com.cc.doctormhealth.model.Money;
 import com.cc.doctormhealth.model.NewDetail;
 import com.cc.doctormhealth.model.NewsYang;
+import com.cc.doctormhealth.model.OederAids;
 import com.cc.doctormhealth.model.Result;
 import com.cc.doctormhealth.model.User;
 import com.cc.doctormhealth.model.UserEvaluation;
@@ -100,6 +102,15 @@ public class MyHttpUtils extends HttpUtils {
                 params.addBodyParameter("type", ((User) object).getUsername());
                 params.addBodyParameter("pageCount", ((User) object).getAdr());
                 sendData(HttpRequest.HttpMethod.POST, url, params, new MyCallBack(new NewsYang(), handler, what));
+                break;
+            case 22://用户预约管理
+                params.addBodyParameter("doctorId", ((User) object).getUsername());
+                params.addBodyParameter("type", ((User) object).getAdr());
+                sendData(HttpRequest.HttpMethod.POST, url, params, new MyCallBack(new OederAids(), handler, what));
+                break;
+            case 23://用户管理
+                params.addBodyParameter("doctorId", ((User) object).getUsername());
+                sendData(HttpRequest.HttpMethod.POST, url, params, new MyCallBack(new AidManager(), handler, what));
                 break;
         }
 

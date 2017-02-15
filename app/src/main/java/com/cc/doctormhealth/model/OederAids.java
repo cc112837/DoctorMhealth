@@ -17,97 +17,112 @@ public class OederAids {
 
     private List<DataEntity> data;
 
-    public void setData(List<DataEntity> data) {
-        this.data = data;
-    }
-
     public List<DataEntity> getData() {
         return data;
     }
 
+    public void setData(List<DataEntity> data) {
+        this.data = data;
+    }
+
     public static class DataEntity {
-        private String showImage;
         /**
-         * productImageBig : http://117.34.105.29:8818/mhealth/upload/files/20161121102139jprZEZCB.png
-         * productNewPrice : 10.8
-         * productOldPrice : 12.8
-         * productImageSmall : http://117.34.105.29:8818/mhealth/upload/files/20161121102139yPcnfkSW.png
-         * productName : 有机青稞米100g
-         * productId : f5a2e99d5884b056015884b056520000
+         * appointData : [{"sex":"男","caseness":"恶心 ，反胃","illness":"各种疾病，疑难杂症","age":"29","name":"赵祥","appointId":"f5a2e99d5a26f5f4015a2740e8cb0002"},{"sex":"男","caseness":"恶心 ，反胃","illness":"各种疾病，疑难杂症","age":"29","name":"赵祥","appointId":"f5a2e99d5a26f5f4015a2740e8cb0002"}]
+         * clinicTime : 2016-07-05 上午
+         * appointSize : 2
          */
 
-        private List<ProductDataEntity> productData;
+        private String clinicTime;
+        private int appointSize;
+        private List<AppointDataEntity> appointData;
 
-        public void setShowImage(String showImage) {
-            this.showImage = showImage;
+        public String getClinicTime() {
+            return clinicTime;
         }
 
-        public void setProductData(List<ProductDataEntity> productData) {
-            this.productData = productData;
+        public void setClinicTime(String clinicTime) {
+            this.clinicTime = clinicTime;
         }
 
-        public String getShowImage() {
-            return showImage;
+        public int getAppointSize() {
+            return appointSize;
         }
 
-        public List<ProductDataEntity> getProductData() {
-            return productData;
+        public void setAppointSize(int appointSize) {
+            this.appointSize = appointSize;
         }
 
-        public static class ProductDataEntity {
-            private String productImageBig;
-            private double productNewPrice;
-            private double productOldPrice;
-            private String productImageSmall;
-            private String productName;
-            private String productId;
+        public List<AppointDataEntity> getAppointData() {
+            return appointData;
+        }
 
-            public void setProductImageBig(String productImageBig) {
-                this.productImageBig = productImageBig;
+        public void setAppointData(List<AppointDataEntity> appointData) {
+            this.appointData = appointData;
+        }
+
+        public static class AppointDataEntity {
+            /**
+             * sex : 男
+             * caseness : 恶心 ，反胃
+             * illness : 各种疾病，疑难杂症
+             * age : 29
+             * name : 赵祥
+             * appointId : f5a2e99d5a26f5f4015a2740e8cb0002
+             */
+
+            private String sex;
+            private String caseness;
+            private String illness;
+            private String age;
+            private String name;
+            private String appointId;
+
+            public String getSex() {
+                return sex;
             }
 
-            public void setProductNewPrice(double productNewPrice) {
-                this.productNewPrice = productNewPrice;
+            public void setSex(String sex) {
+                this.sex = sex;
             }
 
-            public void setProductOldPrice(double productOldPrice) {
-                this.productOldPrice = productOldPrice;
+            public String getCaseness() {
+                return caseness;
             }
 
-            public void setProductImageSmall(String productImageSmall) {
-                this.productImageSmall = productImageSmall;
+            public void setCaseness(String caseness) {
+                this.caseness = caseness;
             }
 
-            public void setProductName(String productName) {
-                this.productName = productName;
+            public String getIllness() {
+                return illness;
             }
 
-            public void setProductId(String productId) {
-                this.productId = productId;
+            public void setIllness(String illness) {
+                this.illness = illness;
             }
 
-            public String getProductImageBig() {
-                return productImageBig;
+            public String getAge() {
+                return age;
             }
 
-            public double getProductNewPrice() {
-                return productNewPrice;
+            public void setAge(String age) {
+                this.age = age;
             }
 
-            public double getProductOldPrice() {
-                return productOldPrice;
+            public String getName() {
+                return name;
             }
 
-            public String getProductImageSmall() {
-                return productImageSmall;
+            public void setName(String name) {
+                this.name = name;
             }
 
-            public String getProductName() {
-                return productName;
+            public String getAppointId() {
+                return appointId;
             }
 
-            public String getProductId() {
-                return productId;
+            public void setAppointId(String appointId) {
+                this.appointId = appointId;
             }
         }
     }
