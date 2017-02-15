@@ -32,7 +32,7 @@
             <ImageView
                 android:layout_width="50dp"
                 android:layout_height="50dp"
-                android:src="@mipmap/share" />
+                android:src="@mipmap/aid_order" />
 
             <TextView
                 android:layout_width="match_parent"
@@ -61,7 +61,7 @@
             <ImageView
                 android:layout_width="50dp"
                 android:layout_height="50dp"
-                android:src="@mipmap/share" />
+                android:src="@mipmap/aid_manager" />
 
             <TextView
                 android:layout_width="match_parent"
@@ -89,7 +89,7 @@
             <ImageView
                 android:layout_width="50dp"
                 android:layout_height="50dp"
-                android:src="@mipmap/share" />
+                android:src="@mipmap/aid_news" />
 
             <TextView
                 android:layout_width="match_parent"
@@ -123,7 +123,7 @@
             <ImageView
                 android:layout_width="50dp"
                 android:layout_height="50dp"
-                android:src="@mipmap/share" />
+                android:src="@mipmap/aid_message" />
 
             <TextView
                 android:layout_width="match_parent"
