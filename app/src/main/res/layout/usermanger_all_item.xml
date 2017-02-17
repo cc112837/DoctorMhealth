@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:descendantFocusability="blocksDescendants"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/alpha"
+
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#e3e3e3"
+        android:padding="2dp"
+        android:textColor="@color/chat_common_guide_color"
+        android:textSize="18sp" />
+
+    <LinearLayout
+        android:id="@+id/ll_item"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:gravity="center_vertical"
+        android:layout_gravity="center_vertical"
+        android:orientation="horizontal"
+        android:background="@drawable/contact_person_info_mid_bg"
+        android:padding="8dp">
+
+        <ImageView
+            android:id="@+id/iv_head"
+            android:layout_width="40dp"
+            android:layout_marginLeft="10dp"
+            android:src="@mipmap/share"
+            android:layout_height="40dp" />
+        <TextView
+            android:id="@+id/tv_name"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:text="姓名"
+            android:gravity="center_vertical"
+            android:layout_marginLeft="18dp"
+            android:textColor="#0F0F0F"
+            android:textSize="16sp" />
+
+       <ImageView
+           android:layout_width="20dp"
+           android:src="@mipmap/jiantou"
+           android:layout_height="20dp" />
+    </LinearLayout>
+
+</LinearLayout>

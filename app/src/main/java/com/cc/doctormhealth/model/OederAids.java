@@ -27,10 +27,10 @@ public class OederAids {
         this.data = data;
     }
 
-    public static class DataEntity{
+    public static class DataEntity {
         /**
-         * appointData : [{"sex":"男","caseness":"恶心 ，反胃","illness":"各种疾病，疑难杂症","age":"29","name":"赵祥","userImage":"http://117.34.105.29:8818/mhealth/upload/2014061009231433.png","appointId":"f5a2e99d5a26f5f4015a2740e8cb0002"},{"sex":"男","caseness":"恶心 ，反胃","illness":"各种疾病，疑难杂症","age":"29","name":"赵祥","userImage":"http://117.34.105.29:8818/mhealth/upload/2014061009231433.png","appointId":"f5a2e99d5a26f5f4015a2740e8cb0002"}]
-         * clinicTime : 2016-07-05 上午
+         * appointData : [{"sex":"女","caseness":"很嫩白","illness":"根儿作品","age":"24","name":"吴聪聪","userImage":"http://117.34.105.29:8818/mhealth/upload/2014061009231433.png","appointId":"f5a2e99d5a49e932015a4ab0e2900010","checkCase":"0"},{"sex":"女","caseness":"很嫩白","illness":"根儿作品","age":"24","name":"吴聪聪","userImage":"http://117.34.105.29:8818/mhealth/upload/2014061009231433.png","appointId":"f5a2e99d5a49e932015a4ab0e2900010","checkCase":"0"}]
+         * clinicTime : 02-22星期三下午
          * appointSize : 2
          */
 
@@ -62,15 +62,16 @@ public class OederAids {
             this.appointData = appointData;
         }
 
-        public static class AppointDataEntity  implements Serializable{
+        public static class AppointDataEntity implements Serializable{
             /**
-             * sex : 男
-             * caseness : 恶心 ，反胃
-             * illness : 各种疾病，疑难杂症
-             * age : 29
-             * name : 赵祥
+             * sex : 女
+             * caseness : 很嫩白
+             * illness : 根儿作品
+             * age : 24
+             * name : 吴聪聪
              * userImage : http://117.34.105.29:8818/mhealth/upload/2014061009231433.png
-             * appointId : f5a2e99d5a26f5f4015a2740e8cb0002
+             * appointId : f5a2e99d5a49e932015a4ab0e2900010
+             * checkCase : 0
              */
 
             private String sex;
@@ -80,6 +81,7 @@ public class OederAids {
             private String name;
             private String userImage;
             private String appointId;
+            private String checkCase;
 
             public String getSex() {
                 return sex;
@@ -135,6 +137,14 @@ public class OederAids {
 
             public void setAppointId(String appointId) {
                 this.appointId = appointId;
+            }
+
+            public String getCheckCase() {
+                return checkCase;
+            }
+
+            public void setCheckCase(String checkCase) {
+                this.checkCase = checkCase;
             }
         }
     }

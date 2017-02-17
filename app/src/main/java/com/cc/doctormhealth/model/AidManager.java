@@ -15,6 +15,7 @@ import java.util.List;
 
 public class AidManager {
 
+
     private List<DataEntity> data;
 
     public List<DataEntity> getData() {
@@ -27,13 +28,15 @@ public class AidManager {
 
     public static class DataEntity {
         /**
-         * sex : 男
-         * caseness : 恶心 ，反胃
-         * illness : 各种疾病，疑难杂症
-         * age : 29
-         * name : 赵祥
-         * clinicTime : 2016-07-05 上午
-         * appointId : f5a2e99d5a26f5f4015a2740e8cb0002
+         * sex : 女
+         * caseness : 哈哈
+         * illness : 哈哈
+         * age : 24
+         * name : 吴聪聪
+         * userImage : http://117.34.105.29:8818/mhealth/upload/2014061009231433.png
+         * clinicTime : 02-22星期三上午
+         * appointId : f5a2e99d5a4563c2015a4575f4790003
+         * checkCase : 0
          */
 
         private String sex;
@@ -41,9 +44,19 @@ public class AidManager {
         private String illness;
         private String age;
         private String name;
+        private String userImage;
         private String clinicTime;
         private String appointId;
+        private String checkCase;
+        private Boolean initialVisible;
 
+        public Boolean getInitialVisible() {
+            return initialVisible;
+        }
+
+        public void setInitialVisible(Boolean initialVisible) {
+            this.initialVisible = initialVisible;
+        }
         public String getSex() {
             return sex;
         }
@@ -84,6 +97,14 @@ public class AidManager {
             this.name = name;
         }
 
+        public String getUserImage() {
+            return userImage;
+        }
+
+        public void setUserImage(String userImage) {
+            this.userImage = userImage;
+        }
+
         public String getClinicTime() {
             return clinicTime;
         }
@@ -98,6 +119,14 @@ public class AidManager {
 
         public void setAppointId(String appointId) {
             this.appointId = appointId;
+        }
+
+        public String getCheckCase() {
+            return checkCase;
+        }
+
+        public void setCheckCase(String checkCase) {
+            this.checkCase = checkCase;
         }
     }
 }
