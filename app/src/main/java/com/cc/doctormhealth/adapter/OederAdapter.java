@@ -108,12 +108,12 @@ public class OederAdapter extends SectionedRecyclerViewAdapter<HeaderHolder, Des
         holder.tv_sex.setText("" + orderList.get(section).getAppointData().get(position).getSex());
         holder.tv_content.setText("" + orderList.get(section).getAppointData().get(position).getIllness());
         holder.iv_status.setImageResource(R.mipmap.info);
-        ImageLoader.getInstance().displayImage(orderList.get(section).getAppointData().get(position).getCaseness(), holder.iv_head, com.avoscloud.leanchatlib.utils.PhotoUtils.avatarImageOption);
+        ImageLoader.getInstance().displayImage(orderList.get(section).getAppointData().get(position).getUserImage(), holder.iv_head, com.avoscloud.leanchatlib.utils.PhotoUtils.avatarImageOption);
         holder.ll_content.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(mContext, BookAidsActivity.class);
-//                intent.putExtra("id", orderList.get(section).getProductData().get(position).getProductId() + "");
+                intent.putExtra("id", orderList.get(section).getAppointData().get(position));
                 mContext.startActivity(intent);
             }
         });

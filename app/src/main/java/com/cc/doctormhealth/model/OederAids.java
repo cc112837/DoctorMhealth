@@ -1,5 +1,6 @@
 package com.cc.doctormhealth.model;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -15,6 +16,7 @@ import java.util.List;
 
 public class OederAids {
 
+
     private List<DataEntity> data;
 
     public List<DataEntity> getData() {
@@ -25,9 +27,9 @@ public class OederAids {
         this.data = data;
     }
 
-    public static class DataEntity {
+    public static class DataEntity{
         /**
-         * appointData : [{"sex":"男","caseness":"恶心 ，反胃","illness":"各种疾病，疑难杂症","age":"29","name":"赵祥","appointId":"f5a2e99d5a26f5f4015a2740e8cb0002"},{"sex":"男","caseness":"恶心 ，反胃","illness":"各种疾病，疑难杂症","age":"29","name":"赵祥","appointId":"f5a2e99d5a26f5f4015a2740e8cb0002"}]
+         * appointData : [{"sex":"男","caseness":"恶心 ，反胃","illness":"各种疾病，疑难杂症","age":"29","name":"赵祥","userImage":"http://117.34.105.29:8818/mhealth/upload/2014061009231433.png","appointId":"f5a2e99d5a26f5f4015a2740e8cb0002"},{"sex":"男","caseness":"恶心 ，反胃","illness":"各种疾病，疑难杂症","age":"29","name":"赵祥","userImage":"http://117.34.105.29:8818/mhealth/upload/2014061009231433.png","appointId":"f5a2e99d5a26f5f4015a2740e8cb0002"}]
          * clinicTime : 2016-07-05 上午
          * appointSize : 2
          */
@@ -60,13 +62,14 @@ public class OederAids {
             this.appointData = appointData;
         }
 
-        public static class AppointDataEntity {
+        public static class AppointDataEntity  implements Serializable{
             /**
              * sex : 男
              * caseness : 恶心 ，反胃
              * illness : 各种疾病，疑难杂症
              * age : 29
              * name : 赵祥
+             * userImage : http://117.34.105.29:8818/mhealth/upload/2014061009231433.png
              * appointId : f5a2e99d5a26f5f4015a2740e8cb0002
              */
 
@@ -75,6 +78,7 @@ public class OederAids {
             private String illness;
             private String age;
             private String name;
+            private String userImage;
             private String appointId;
 
             public String getSex() {
@@ -115,6 +119,14 @@ public class OederAids {
 
             public void setName(String name) {
                 this.name = name;
+            }
+
+            public String getUserImage() {
+                return userImage;
+            }
+
+            public void setUserImage(String userImage) {
+                this.userImage = userImage;
             }
 
             public String getAppointId() {
