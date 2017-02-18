@@ -1,5 +1,6 @@
 package com.cc.doctormhealth.model;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -26,7 +27,7 @@ public class AidManager {
         this.data = data;
     }
 
-    public static class DataEntity {
+    public static class DataEntity implements Serializable{
         /**
          * sex : 女
          * caseness : 哈哈

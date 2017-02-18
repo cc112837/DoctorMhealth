@@ -1,17 +1,20 @@
 package com.cc.doctormhealth.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
 import android.widget.ImageView;
 
 import com.avoscloud.leanchatlib.model.LeanchatUser;
 import com.cc.doctormhealth.R;
 import com.cc.doctormhealth.adapter.UserManagerAdapter;
 import com.cc.doctormhealth.constant.Constants;
+import com.cc.doctormhealth.event.MyRecyItemClickListener;
 import com.cc.doctormhealth.leanchat.event.MemberLetterEvent;
 import com.cc.doctormhealth.leanchat.view.LetterView;
 import com.cc.doctormhealth.model.AidManager;
@@ -49,6 +52,14 @@ public class ManagerActivity extends AppCompatActivity {
                         userManagerAdapter = new UserManagerAdapter(ManagerActivity.this, entityList);
                         rvList.setAdapter(userManagerAdapter);
                         userManagerAdapter.notifyDataSetChanged();
+                        userManagerAdapter.setOnItemClickListener(new MyRecyItemClickListener() {
+                            @Override
+                            public void onItemClick(View view, int postion) {
+                                Intent intent=new Intent(ManagerActivity.this,AidsDetailActivity.class);
+                                intent.putExtra("content",entityList.get(postion));
+                                startActivity(intent);
+                            }
+                        });
                     }
                     break;
             }

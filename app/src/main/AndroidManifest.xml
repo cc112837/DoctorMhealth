@@ -140,7 +140,8 @@
         <activity android:name=".activity.NewsActivity" />
         <activity android:name=".activity.ManagerActivity" />
         <activity android:name=".activity.AidsDetailActivity" />
-        <activity android:name=".activity.BookAidsActivity"></activity>
+        <activity android:name=".activity.BookAidsActivity" />
+        <activity android:name=".activity.BookManagerActivity"></activity>
     </application>
 
 </manifest>

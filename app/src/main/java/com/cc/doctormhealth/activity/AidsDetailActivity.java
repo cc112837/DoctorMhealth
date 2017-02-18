@@ -8,7 +8,12 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.avoscloud.leanchatlib.utils.PhotoUtils;
 import com.cc.doctormhealth.R;
+import com.cc.doctormhealth.model.AidManager;
+import com.nostra13.universalimageloader.core.ImageLoader;
+
+import java.io.Serializable;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -34,12 +39,20 @@ public class AidsDetailActivity extends AppCompatActivity {
     RelativeLayout reAsk;
     @Bind(R.id.re_order)
     RelativeLayout reOrder;
+    private Serializable entity;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_aids_detail);
         ButterKnife.bind(this);
+        entity = getIntent().getSerializableExtra("content");
+        AidManager.DataEntity content = (AidManager.DataEntity) entity;
+        tvName.setText(content.getName());
+        tvAge.setText(content.getAge());
+        ImageLoader.getInstance().displayImage(content.getUserImage(),ivHead, PhotoUtils.avatarImageOption);
+        tvSex.setText(content.getSex());
+        tvContent.setText(content.getIllness());
     }
 
     @OnClick({R.id.leftBtn, R.id.re_book, R.id.re_ask, R.id.re_order})
@@ -49,7 +62,7 @@ public class AidsDetailActivity extends AppCompatActivity {
                 finish();
                 break;
             case R.id.re_book:
-                Intent intent=new Intent(AidsDetailActivity.this,BookAidsActivity.class);
+                Intent intent=new Intent(AidsDetailActivity.this,BookManagerActivity.class);
                 startActivity(intent);
                 break;
             case R.id.re_ask:
