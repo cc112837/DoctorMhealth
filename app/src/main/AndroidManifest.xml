@@ -141,7 +141,8 @@
         <activity android:name=".activity.ManagerActivity" />
         <activity android:name=".activity.AidsDetailActivity" />
         <activity android:name=".activity.BookAidsActivity" />
-        <activity android:name=".activity.BookManagerActivity"></activity>
+        <activity android:name=".activity.BookManagerActivity" />
+        <activity android:name=".activity.ImageScannerActivity"></activity>
     </application>
 
 </manifest>

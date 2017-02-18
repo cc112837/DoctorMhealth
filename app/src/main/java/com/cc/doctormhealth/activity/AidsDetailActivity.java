@@ -13,8 +13,6 @@ import com.cc.doctormhealth.R;
 import com.cc.doctormhealth.model.AidManager;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
-import java.io.Serializable;
-
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -39,15 +37,14 @@ public class AidsDetailActivity extends AppCompatActivity {
     RelativeLayout reAsk;
     @Bind(R.id.re_order)
     RelativeLayout reOrder;
-    private Serializable entity;
+    AidManager.DataEntity  content;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_aids_detail);
         ButterKnife.bind(this);
-        entity = getIntent().getSerializableExtra("content");
-        AidManager.DataEntity content = (AidManager.DataEntity) entity;
+         content = (AidManager.DataEntity)getIntent().getSerializableExtra("content");
         tvName.setText(content.getName());
         tvAge.setText(content.getAge());
         ImageLoader.getInstance().displayImage(content.getUserImage(),ivHead, PhotoUtils.avatarImageOption);
@@ -63,6 +60,7 @@ public class AidsDetailActivity extends AppCompatActivity {
                 break;
             case R.id.re_book:
                 Intent intent=new Intent(AidsDetailActivity.this,BookManagerActivity.class);
+                intent.putExtra("id",content.getAppointId());
                 startActivity(intent);
                 break;
             case R.id.re_ask:

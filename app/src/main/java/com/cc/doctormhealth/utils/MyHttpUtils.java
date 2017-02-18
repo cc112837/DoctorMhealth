@@ -4,6 +4,7 @@ import android.os.Handler;
 
 import com.avoscloud.leanchatlib.model.LeanchatUser;
 import com.cc.doctormhealth.model.AidManager;
+import com.cc.doctormhealth.model.Bookmanger;
 import com.cc.doctormhealth.model.ConfirmFile;
 import com.cc.doctormhealth.model.ForGetpass;
 import com.cc.doctormhealth.model.Info;
@@ -111,6 +112,10 @@ public class MyHttpUtils extends HttpUtils {
             case 23://用户管理
                 params.addBodyParameter("doctorId", ((User) object).getUsername());
                 sendData(HttpRequest.HttpMethod.POST, url, params, new MyCallBack(new AidManager(), handler, what));
+                break;
+            case 24://病历管理
+                params.addBodyParameter("appointId", ((User) object).getUsername());
+                sendData(HttpRequest.HttpMethod.POST, url, params, new MyCallBack(new Bookmanger(), handler, what));
                 break;
         }
 
