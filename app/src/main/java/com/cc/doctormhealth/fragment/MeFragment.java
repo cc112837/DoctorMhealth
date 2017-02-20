@@ -52,20 +52,23 @@ public class MeFragment extends Fragment implements View.OnClickListener {
         View view = inflater.inflate(R.layout.fragment_me, container, false);
         ShareSDK.initSDK(getContext());
         setting = (RelativeLayout) view.findViewById(R.id.setting);
-        layout_up=(LinearLayout) view.findViewById(R.id.layout_up);
+        layout_up = (LinearLayout) view.findViewById(R.id.layout_up);
         about = (RelativeLayout) view.findViewById(R.id.about);
         pride = (RelativeLayout) view.findViewById(R.id.pride);
         money = (RelativeLayout) view.findViewById(R.id.money);
         share = (RelativeLayout) view.findViewById(R.id.share);
         username = (TextView) view.findViewById(R.id.username);
-        username.setText(MyApplication.sharedPreferences.getString(Constants.LOGIN_ACCOUNT,
-                null));
         headImage = (ImageView) view.findViewById(R.id.headView);
         LeanchatUser.getCurrentUser().fetchInBackground(new GetCallback<AVObject>() {
             @Override
             public void done(AVObject avObject, AVException e) {
                 LeanchatUser user = (LeanchatUser) avObject;
                 String avatarUrl = user.getAvatarUrl();
+                if ("".equals(user.get("realName"))) {
+                    username.setText(LeanchatUser.getCurrentUser().getUsername());
+                } else {
+                    username.setText(user.get("realName") + "");
+                }
                 MyAndroidUtil.editXmlByString(
                         Constants.icon, avatarUrl);
                 ImageLoader.getInstance().displayImage(avatarUrl, headImage,
@@ -113,7 +116,7 @@ public class MeFragment extends Fragment implements View.OnClickListener {
                 startActivity(intent1);
                 break;
             case R.id.layout_up:
-                Intent intenttt=new Intent(getActivity(), BarCodeActivity.class);
+                Intent intenttt = new Intent(getActivity(), BarCodeActivity.class);
                 startActivity(intenttt);
                 break;
             case R.id.money:

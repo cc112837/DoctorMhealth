@@ -18,6 +18,8 @@ import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.avos.avoscloud.AVException;
+import com.avos.avoscloud.SignUpCallback;
 import com.avoscloud.leanchatlib.model.LeanchatUser;
 import com.cc.doctormhealth.MyApplication;
 import com.cc.doctormhealth.R;
@@ -138,6 +140,15 @@ public class TextActivity extends Activity implements View.OnClickListener {
                     user.setEmail(idcard);
                     user.setAdr(hospital);
                     user.setIntro(keshi);
+                    LeanchatUser avuser = LeanchatUser.getCurrentUser();
+                    avuser.put("realName", name);
+                    avuser.put("IDCard", idcard);
+                    avuser.signUpInBackground(new SignUpCallback() {
+                        @Override
+                        public void done(AVException e) {
+
+                        }
+                    });
                     String url = Constants.SERVER_URL + "MhealthDoctorCheckServlet";
                     MyHttpUtils.handData(handler, 15, url, user);
                 }
