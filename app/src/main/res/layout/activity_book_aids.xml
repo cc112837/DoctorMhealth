@@ -135,10 +135,13 @@
             android:id="@+id/tv_message"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="50dp"
+            android:layout_marginTop="30dp"
             android:gravity="center"
             android:text="发消息"
-            android:textColor="@color/black"
+            android:layout_marginLeft="50dp"
+            android:layout_marginRight="50dp"
+            android:background="@drawable/textview"
+            android:textColor="@color/white"
             android:textSize="16sp" />
 
         <TextView
@@ -148,7 +151,10 @@
             android:layout_marginTop="10dp"
             android:gravity="center"
             android:text="开始就诊"
-            android:textColor="@color/black"
+            android:layout_marginLeft="50dp"
+            android:layout_marginRight="50dp"
+            android:background="@drawable/textview"
+            android:textColor="@color/white"
             android:textSize="16sp" />
     </LinearLayout>
 </LinearLayout>
