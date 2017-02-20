@@ -187,7 +187,7 @@ public class NewFriendActivity extends BaseActivityOfLeanCloud implements
             ImageLoader.getInstance().displayImage(from.getAvatarUrl(),
                     avatarView, PhotoUtils.avatarImageOptions);
             if (from != null) {
-                nameView.setText(from.getUsername());
+                nameView.setText((String)from.get("realName"));
             }
             int status = addRequest.getStatus();
             if (status == AddRequest.STATUS_WAIT) {

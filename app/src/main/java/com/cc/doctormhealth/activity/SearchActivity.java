@@ -228,7 +228,7 @@ public class SearchActivity extends BaseActivityOfLeanCloud implements PlatformA
                             user.getAvatarUrl(),
                             avatarView,
                             com.avoscloud.leanchatlib.utils.PhotoUtils.avatarImageOptions);
-            nameView.setText(user.getUsername());
+            nameView.setText((String)user.get("realName"));
             addBtn.setText(R.string.contact_add);
             addBtn.setOnClickListener(new View.OnClickListener() {
 
