@@ -62,8 +62,8 @@ public class ConversationListAdapter extends ArrayAdapter<Room> {
         final Room room = getItem(position);
         AVIMConversation conversation = room.getConversation();
 
-        if (ConversationType.Doctor.getValue()==Integer.parseInt(conversation.getAttribute(ConversationType.TYPE_KEY).toString())&&room.getUnreadCount()<1) {
-            if (null!=room.getLastMessage()&&(new Date().getTime() - room.getLastMessage().getTimestamp() > 60  * 60 * 1000)) {
+        if (ConversationType.Doctor.getValue() == Integer.parseInt(conversation.getAttribute(ConversationType.TYPE_KEY).toString()) && room.getUnreadCount() < 1) {
+            if (null != room.getLastMessage() && (new Date().getTime() - room.getLastMessage().getTimestamp() > 60 * 60 * 1000)) {
                 ChatManager.getInstance().getRoomsTable()
                         .deleteRoom(room.getConversationId());
             }
@@ -71,16 +71,22 @@ public class ConversationListAdapter extends ArrayAdapter<Room> {
 
         if (null != conversation) {
 
-            vh.recentNameView.setText(ConversationHelper
-                    .nameOfConversation(conversation));
-            if (ConversationHelper.typeOfConversation(conversation) == ConversationType.Single||ConversationHelper.typeOfConversation(conversation) == ConversationType.Doctor) {
+
+            if (ConversationHelper.typeOfConversation(conversation) == ConversationType.Single || ConversationHelper.typeOfConversation(conversation) == ConversationType.Doctor) {
                 LeanchatUser user = (LeanchatUser) CacheService
                         .lookupUser(ConversationHelper.otherIdOfConversation(conversation));
                 if (null != user) {
                     ImageLoader.getInstance().displayImage(user.getAvatarUrl(),
                             vh.recentAvatarView, PhotoUtils.avatarImageOptions);
-                    if (user.getUsername().equals("mdoctor"))
-                        vh.recentNameView.setText("一点医生");
+
+                    String name = (String) user.get("realName");
+                    if ("".equals(name)) {
+                        vh.recentNameView.setText(ConversationHelper
+                                .nameOfConversation(conversation));
+                    } else {
+                        vh.recentNameView.setText(name);
+                    }
+
                 }
 
             } else {
