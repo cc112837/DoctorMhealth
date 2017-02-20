@@ -32,9 +32,10 @@ public class AidManager {
          * sex : 女
          * caseness : 哈哈
          * illness : 哈哈
+         * userId : null
          * age : 24
          * name : 吴聪聪
-         * userImage : http://117.34.105.29:8818/mhealth/upload/2014061009231433.png
+         * userImage : http://ac-cirdf9pJ.clouddn.com/d71b8dKTdoKMxIKZQA2cALC
          * clinicTime : 02-22星期三上午
          * appointId : f5a2e99d5a4563c2015a4575f4790003
          * checkCase : 0
@@ -43,6 +44,7 @@ public class AidManager {
         private String sex;
         private String caseness;
         private String illness;
+        private String userId;
         private String age;
         private String name;
         private String userImage;
@@ -80,6 +82,14 @@ public class AidManager {
 
         public void setIllness(String illness) {
             this.illness = illness;
+        }
+
+        public String getUserId() {
+            return userId;
+        }
+
+        public void setUserId(String userId) {
+            this.userId = userId;
         }
 
         public String getAge() {

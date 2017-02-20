@@ -4,6 +4,7 @@ import android.text.TextUtils;
 
 import com.avoscloud.leanchatlib.adapter.HeaderListAdapter;
 import com.avoscloud.leanchatlib.model.LeanchatUser;
+import com.cc.doctormhealth.leanchat.pinyin.PinyinHelper;
 import com.cc.doctormhealth.leanchat.viewholder.ContactItemHolder;
 
 import java.text.Collator;
@@ -44,7 +45,7 @@ public class ContactsAdapter extends
 			for (LeanchatUser user : list) {
 				ContactItem item = new ContactItem();
 				item.user = user;
-				item.sortContent = user.getUsername();
+				item.sortContent = (String)user.get("realName");
 //				PinyinHelper.convertToPinyinString(user.getUsername(),"",
 //				 PinyinFormat.WITHOUT_TONE);
 				contactList.add(item);
@@ -76,14 +77,10 @@ public class ContactsAdapter extends
 		Character lastCharcter = '#';
 		Map<Character, Integer> map = new HashMap<Character, Integer>();
 		for (int i = 0; i < list.size(); i++) {
-			Character curChar = Character.toLowerCase(list.get(i).sortContent
+			Character curChar = Character.toLowerCase(PinyinHelper.getShortPinyin(list.get(i).sortContent)
 					.charAt(0));
 			if (!lastCharcter.equals(curChar)) {
 				map.put(curChar, i);
-
-//				 Log.e("sortContent", list.get(i).sortContent);
-//				 Log.e("username",
-//				 list.get(i).user.getUsername()+"?????????????????????upIndex");
 			}
 			lastCharcter = curChar;
 		}
@@ -100,9 +97,9 @@ public class ContactsAdapter extends
 			char lastInitial = ' ';
 			for (ContactItem item : list) {
 				if (!TextUtils.isEmpty(item.sortContent)) {
-					item.initialVisible = (lastInitial != item.sortContent
+					item.initialVisible = (lastInitial != PinyinHelper.getShortPinyin(item.sortContent)
 							.charAt(0));
-					lastInitial = item.sortContent.charAt(0);
+					lastInitial = PinyinHelper.getShortPinyin(item.sortContent).charAt(0);
 				} else {
 					item.initialVisible = true;
 					lastInitial = ' ';
@@ -124,9 +121,9 @@ public class ContactsAdapter extends
 			if (null == str2) {
 				return 1;
 			}
-			if (cmp.compare(str1.sortContent, str2.sortContent) > 0) {
+			if (cmp.compare(PinyinHelper.getShortPinyin(str1.sortContent), PinyinHelper.getShortPinyin(str2.sortContent)) > 0) {
 				return 1;
-			} else if (cmp.compare(str1.sortContent, str2.sortContent) < 0) {
+			} else if (cmp.compare(PinyinHelper.getShortPinyin(str1.sortContent), PinyinHelper.getShortPinyin(str2.sortContent)) < 0) {
 				return -1;
 			}
 			return 0;

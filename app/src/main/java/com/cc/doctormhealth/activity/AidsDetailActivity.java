@@ -7,9 +7,15 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.avos.avoscloud.im.v2.AVIMConversation;
+import com.avos.avoscloud.im.v2.AVIMException;
+import com.avos.avoscloud.im.v2.callback.AVIMConversationCreatedCallback;
+import com.avoscloud.leanchatlib.controller.ChatManager;
 import com.avoscloud.leanchatlib.utils.PhotoUtils;
 import com.cc.doctormhealth.R;
+import com.cc.doctormhealth.leanchat.activity.ChatRoomActivity;
 import com.cc.doctormhealth.model.AidManager;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
@@ -64,8 +70,22 @@ public class AidsDetailActivity extends AppCompatActivity {
                 startActivity(intent);
                 break;
             case R.id.re_ask:
-                Intent intent2=new Intent(AidsDetailActivity.this,MessageActivity.class);
-                startActivity(intent2);
+                ChatManager chatManager = ChatManager.getInstance();
+                chatManager.fetchConversationWithUserId(content.getUserId(),
+                        new AVIMConversationCreatedCallback() {
+                            @Override
+                            public void done(AVIMConversation conversation, AVIMException e) {
+                                if (e != null) {
+                                    Toast.makeText(AidsDetailActivity.this, e.getMessage(),
+                                            Toast.LENGTH_LONG).show();
+                                } else {
+                                    Intent intent = new Intent(AidsDetailActivity.this,
+                                            ChatRoomActivity.class);
+                                    intent.putExtra(com.avoscloud.leanchatlib.utils.Constants.CONVERSATION_ID,
+                                            conversation.getConversationId());
+                                    startActivity(intent);}
+                                }
+                        });
                 break;
             case R.id.re_order:
                 Intent intent1=new Intent(AidsDetailActivity.this,OrderAidActivity.class);

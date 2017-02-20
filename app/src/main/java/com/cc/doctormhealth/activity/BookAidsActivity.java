@@ -1,13 +1,20 @@
 package com.cc.doctormhealth.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.avos.avoscloud.im.v2.AVIMConversation;
+import com.avos.avoscloud.im.v2.AVIMException;
+import com.avos.avoscloud.im.v2.callback.AVIMConversationCreatedCallback;
+import com.avoscloud.leanchatlib.controller.ChatManager;
 import com.avoscloud.leanchatlib.utils.PhotoUtils;
 import com.cc.doctormhealth.R;
+import com.cc.doctormhealth.leanchat.activity.ChatRoomActivity;
 import com.cc.doctormhealth.model.OederAids;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
@@ -37,13 +44,14 @@ public class BookAidsActivity extends AppCompatActivity {
     TextView tvMessage;
     @Bind(R.id.tv_start)
     TextView tvStart;
+    private OederAids.DataEntity.AppointDataEntity entityAid;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_book_aids);
         ButterKnife.bind(this);
-        OederAids.DataEntity.AppointDataEntity entityAid = (OederAids.DataEntity.AppointDataEntity) getIntent().getSerializableExtra("id");
+        entityAid = (OederAids.DataEntity.AppointDataEntity) getIntent().getSerializableExtra("id");
         ImageLoader.getInstance().displayImage(entityAid.getUserImage(),ivHead, PhotoUtils.avatarImageOption);
         tvName.setText(entityAid.getName());
         tvSex.setText(entityAid.getSex());
@@ -59,6 +67,22 @@ public class BookAidsActivity extends AppCompatActivity {
                 finish();
                 break;
             case R.id.tv_message:
+                ChatManager chatManager = ChatManager.getInstance();
+                chatManager.fetchConversationWithUserId(entityAid.getUserId(),
+                        new AVIMConversationCreatedCallback() {
+                            @Override
+                            public void done(AVIMConversation conversation, AVIMException e) {
+                                if (e != null) {
+                                    Toast.makeText(BookAidsActivity.this, e.getMessage(),
+                                            Toast.LENGTH_LONG).show();
+                                } else {
+                                    Intent intent = new Intent(BookAidsActivity.this,
+                                            ChatRoomActivity.class);
+                                    intent.putExtra(com.avoscloud.leanchatlib.utils.Constants.CONVERSATION_ID,
+                                            conversation.getConversationId());
+                                    startActivity(intent);}
+                            }
+                        });
                 break;
             case R.id.tv_start:
                 break;

@@ -16,7 +16,6 @@ import java.util.List;
 
 public class OederAids {
 
-
     private List<DataEntity> data;
 
     public List<DataEntity> getData() {
@@ -29,7 +28,7 @@ public class OederAids {
 
     public static class DataEntity {
         /**
-         * appointData : [{"sex":"女","caseness":"很嫩白","illness":"根儿作品","age":"24","name":"吴聪聪","userImage":"http://117.34.105.29:8818/mhealth/upload/2014061009231433.png","appointId":"f5a2e99d5a49e932015a4ab0e2900010","checkCase":"0"},{"sex":"女","caseness":"很嫩白","illness":"根儿作品","age":"24","name":"吴聪聪","userImage":"http://117.34.105.29:8818/mhealth/upload/2014061009231433.png","appointId":"f5a2e99d5a49e932015a4ab0e2900010","checkCase":"0"}]
+         * appointData : [{"sex":"女","caseness":"很嫩白","illness":"根儿作品","userId":"579ec0ad2e958a00665b5daa","age":"24","name":"吴聪聪","userImage":"http://ac-cirdf9pJ.clouddn.com/GCePTaOeypkAiDR1jQ9HzNDRiDzjtAC7TPZJDenx","appointId":"f5a2e99d5a49e932015a4ab0e2900010","checkCase":"1"},{"sex":"女","caseness":"很嫩白","illness":"根儿作品","userId":"579ec0ad2e958a00665b5daa","age":"24","name":"吴聪聪","userImage":"http://ac-cirdf9pJ.clouddn.com/GCePTaOeypkAiDR1jQ9HzNDRiDzjtAC7TPZJDenx","appointId":"f5a2e99d5a49e932015a4ab0e2900010","checkCase":"1"}]
          * clinicTime : 02-22星期三下午
          * appointSize : 2
          */
@@ -67,16 +66,18 @@ public class OederAids {
              * sex : 女
              * caseness : 很嫩白
              * illness : 根儿作品
+             * userId : 579ec0ad2e958a00665b5daa
              * age : 24
              * name : 吴聪聪
-             * userImage : http://117.34.105.29:8818/mhealth/upload/2014061009231433.png
+             * userImage : http://ac-cirdf9pJ.clouddn.com/GCePTaOeypkAiDR1jQ9HzNDRiDzjtAC7TPZJDenx
              * appointId : f5a2e99d5a49e932015a4ab0e2900010
-             * checkCase : 0
+             * checkCase : 1
              */
 
             private String sex;
             private String caseness;
             private String illness;
+            private String userId;
             private String age;
             private String name;
             private String userImage;
@@ -105,6 +106,14 @@ public class OederAids {
 
             public void setIllness(String illness) {
                 this.illness = illness;
+            }
+
+            public String getUserId() {
+                return userId;
+            }
+
+            public void setUserId(String userId) {
+                this.userId = userId;
             }
 
             public String getAge() {

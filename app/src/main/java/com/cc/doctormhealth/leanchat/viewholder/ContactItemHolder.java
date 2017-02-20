@@ -11,6 +11,7 @@ import com.cc.doctormhealth.R;
 import com.cc.doctormhealth.leanchat.adapter.ContactsAdapter;
 import com.cc.doctormhealth.leanchat.event.ContactItemClickEvent;
 import com.cc.doctormhealth.leanchat.event.ContactItemLongClickEvent;
+import com.cc.doctormhealth.leanchat.pinyin.PinyinHelper;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
 import de.greenrobot.event.EventBus;
@@ -57,10 +58,10 @@ public class ContactItemHolder extends CommonViewHolder<ContactsAdapter.ContactI
   public void bindData(ContactsAdapter.ContactItem memberItem) {
     contactItem = memberItem;
     alpha.setVisibility(memberItem.initialVisible ? View.VISIBLE : View.GONE);
-    alpha.setText(String.valueOf(Character.toUpperCase(memberItem.sortContent.charAt(0))));
+    alpha.setText(String.valueOf(Character.toUpperCase(PinyinHelper.getShortPinyin(memberItem.sortContent).charAt(0))));
     ImageLoader.getInstance().displayImage(memberItem.user.getAvatarUrl(),
       avatarView, com.avoscloud.leanchatlib.utils.PhotoUtils.avatarImageOptions);
-    nameView.setText(memberItem.user.getUsername());
+    nameView.setText((String)memberItem.user.get("realName"));
     itemView.setVisibility(View.VISIBLE);
   }
 
