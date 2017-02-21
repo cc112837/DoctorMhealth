@@ -106,8 +106,15 @@ public class OederAdapter extends SectionedRecyclerViewAdapter<HeaderHolder, Des
         holder.tv_age.setText("" + orderList.get(section).getAppointData().get(position).getAge());
         holder.tv_name.setText("" + orderList.get(section).getAppointData().get(position).getName());
         holder.tv_sex.setText("" + orderList.get(section).getAppointData().get(position).getSex());
-        holder.tv_content.setText("" + orderList.get(section).getAppointData().get(position).getIllness());
-        holder.iv_status.setImageResource(R.mipmap.info);
+        holder.tv_content.setText("" + orderList.get(section).getAppointData().get(position).getCaseness());
+        if("0".equals(orderList.get(section).getAppointData().get(position).getAppointStatu())){
+            holder.tv_status.setText("未\n到");
+            holder.tv_status.setBackgroundColor(mContext.getResources().getColor(R.color.red));
+        }else{
+            holder.tv_status.setText("已\n到");
+            holder.tv_status.setBackgroundColor(mContext.getResources().getColor(R.color.blue));
+        }
+
         ImageLoader.getInstance().displayImage(orderList.get(section).getAppointData().get(position).getUserImage(), holder.iv_head, com.avoscloud.leanchatlib.utils.PhotoUtils.avatarImageOption);
         holder.ll_content.setOnClickListener(new View.OnClickListener() {
             @Override

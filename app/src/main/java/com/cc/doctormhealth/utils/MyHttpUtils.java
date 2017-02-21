@@ -117,6 +117,10 @@ public class MyHttpUtils extends HttpUtils {
                 params.addBodyParameter("appointId", ((User) object).getUsername());
                 sendData(HttpRequest.HttpMethod.POST, url, params, new MyCallBack(new Bookmanger(), handler, what));
                 break;
+            case 25://是否马上就诊
+                params.addBodyParameter("appointId", ((User) object).getUsername());
+                sendData(HttpRequest.HttpMethod.POST, url, params, new MyCallBack(new Info(), handler, what));
+                break;
         }
 
     }

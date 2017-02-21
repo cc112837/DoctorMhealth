@@ -20,9 +20,9 @@ import com.cc.doctormhealth.R;
  * 修改备注：
  */
 public class DescHolder extends RecyclerView.ViewHolder {
-    public TextView tv_content,tv_name;
+    public TextView tv_content,tv_name,tv_status;
     public TextView tv_age, tv_sex;
-    public ImageView iv_head,iv_status;
+    public ImageView iv_head;
     public LinearLayout ll_content;
 
     public DescHolder(View itemView) {
@@ -34,7 +34,7 @@ public class DescHolder extends RecyclerView.ViewHolder {
         ll_content=(LinearLayout) itemView.findViewById(R.id.ll_content);
         tv_name = (TextView) itemView.findViewById(R.id.tv_name);
         tv_content = (TextView) itemView.findViewById(R.id.tv_content);
-        iv_status = (ImageView) itemView.findViewById(R.id.iv_status);
+        tv_status = (TextView) itemView.findViewById(R.id.tv_status);
         tv_sex = (TextView) itemView.findViewById(R.id.tv_sex);
         iv_head = (ImageView) itemView.findViewById(R.id.iv_head);
         tv_age = (TextView) itemView.findViewById(R.id.tv_age);

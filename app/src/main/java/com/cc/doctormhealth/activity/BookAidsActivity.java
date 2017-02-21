@@ -2,6 +2,8 @@ package com.cc.doctormhealth.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ImageView;
@@ -14,8 +16,12 @@ import com.avos.avoscloud.im.v2.callback.AVIMConversationCreatedCallback;
 import com.avoscloud.leanchatlib.controller.ChatManager;
 import com.avoscloud.leanchatlib.utils.PhotoUtils;
 import com.cc.doctormhealth.R;
+import com.cc.doctormhealth.constant.Constants;
 import com.cc.doctormhealth.leanchat.activity.ChatRoomActivity;
+import com.cc.doctormhealth.model.Info;
 import com.cc.doctormhealth.model.OederAids;
+import com.cc.doctormhealth.model.User;
+import com.cc.doctormhealth.utils.MyHttpUtils;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
 import butterknife.Bind;
@@ -45,6 +51,18 @@ public class BookAidsActivity extends AppCompatActivity {
     @Bind(R.id.tv_start)
     TextView tvStart;
     private OederAids.DataEntity.AppointDataEntity entityAid;
+    private Handler handler=new Handler(){
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            switch (msg.what){
+                case 25:
+                    Info info=(Info) msg.obj;
+                    Toast.makeText(BookAidsActivity.this,info.getData(),Toast.LENGTH_LONG).show();
+                    break;
+            }
+        }
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -85,6 +103,10 @@ public class BookAidsActivity extends AppCompatActivity {
                         });
                 break;
             case R.id.tv_start:
+                String url= Constants.SERVER_URL+"PatientAppointStatuServlet";
+                User user=new User();
+                user.setUsername(entityAid.getAppointId()+"");
+                MyHttpUtils.handData(handler,25,url,user);
                 break;
         }
     }

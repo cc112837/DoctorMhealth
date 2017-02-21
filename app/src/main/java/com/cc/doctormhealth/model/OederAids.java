@@ -83,6 +83,15 @@ public class OederAids {
             private String userImage;
             private String appointId;
             private String checkCase;
+            private String appointStatu;
+
+            public String getAppointStatu() {
+                return appointStatu;
+            }
+
+            public void setAppointStatu(String appointStatu) {
+                this.appointStatu = appointStatu;
+            }
 
             public String getSex() {
                 return sex;

@@ -52,7 +52,15 @@ public class AidManager {
         private String appointId;
         private String checkCase;
         private Boolean initialVisible;
+        private String appointStatu;
 
+        public String getAppointStatu() {
+            return appointStatu;
+        }
+
+        public void setAppointStatu(String appointStatu) {
+            this.appointStatu = appointStatu;
+        }
         public Boolean getInitialVisible() {
             return initialVisible;
         }
