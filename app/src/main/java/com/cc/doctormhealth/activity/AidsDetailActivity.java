@@ -1,7 +1,9 @@
 package com.cc.doctormhealth.activity;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ImageView;
@@ -43,17 +45,17 @@ public class AidsDetailActivity extends AppCompatActivity {
     RelativeLayout reAsk;
     @Bind(R.id.re_order)
     RelativeLayout reOrder;
-    AidManager.DataEntity  content;
+    AidManager.DataEntity content;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_aids_detail);
         ButterKnife.bind(this);
-         content = (AidManager.DataEntity)getIntent().getSerializableExtra("content");
+        content = (AidManager.DataEntity) getIntent().getSerializableExtra("content");
         tvName.setText(content.getName());
         tvAge.setText(content.getAge());
-        ImageLoader.getInstance().displayImage(content.getUserImage(),ivHead, PhotoUtils.avatarImageOption);
+        ImageLoader.getInstance().displayImage(content.getUserImage(), ivHead, PhotoUtils.avatarImageOption);
         tvSex.setText(content.getSex());
         tvContent.setText(content.getIllness());
     }
@@ -65,9 +67,26 @@ public class AidsDetailActivity extends AppCompatActivity {
                 finish();
                 break;
             case R.id.re_book:
-                Intent intent=new Intent(AidsDetailActivity.this,BookManagerActivity.class);
-                intent.putExtra("id",content.getAppointId());
-                startActivity(intent);
+                if ("0".equals(content.getCheckCase())) {
+                    Intent intent = new Intent(AidsDetailActivity.this, BookManagerActivity.class);
+                    intent.putExtra("id", content.getAppointId());
+                    startActivity(intent);
+                } else {
+                    new AlertDialog.Builder(AidsDetailActivity.this).setTitle("提示")//设置对话框标题
+                            .setMessage("暂无病历可以查询！")//设置显示的内容
+                            .setPositiveButton("确定", new DialogInterface.OnClickListener() {//添加确定按钮
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {//确定按钮的响应事件
+                                    dialog.dismiss();
+                                }
+
+                            }).setNegativeButton("返回", new DialogInterface.OnClickListener() {//添加返回按钮
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {//响应事件
+                            dialog.dismiss();
+                        }
+                    }).show();//在按键响应事件中显示此对话框
+                }
                 break;
             case R.id.re_ask:
                 ChatManager chatManager = ChatManager.getInstance();
@@ -83,12 +102,13 @@ public class AidsDetailActivity extends AppCompatActivity {
                                             ChatRoomActivity.class);
                                     intent.putExtra(com.avoscloud.leanchatlib.utils.Constants.CONVERSATION_ID,
                                             conversation.getConversationId());
-                                    startActivity(intent);}
+                                    startActivity(intent);
                                 }
+                            }
                         });
                 break;
             case R.id.re_order:
-                Intent intent1=new Intent(AidsDetailActivity.this,OrderAidActivity.class);
+                Intent intent1 = new Intent(AidsDetailActivity.this, OrderAidActivity.class);
                 startActivity(intent1);
                 break;
         }

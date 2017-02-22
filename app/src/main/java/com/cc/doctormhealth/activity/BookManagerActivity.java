@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.cc.doctormhealth.R;
 import com.cc.doctormhealth.adapter.ManageAdapter;
@@ -24,13 +25,14 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-import static com.cc.doctormhealth.R.id.lv_show;
-
 public class BookManagerActivity extends AppCompatActivity {
     @Bind(R.id.leftBtn)
     ImageView leftBtn;
-    @Bind(lv_show)
+    @Bind(R.id.lv_show)
     ListView lvShow;
+    @Bind(R.id.tv_con)
+    TextView tvCon;
+
     private List<Bookmanger.DataEntity> list = new ArrayList<>();
     ManageAdapter manageAdapter;
     private Handler handler = new Handler() {
@@ -42,15 +44,20 @@ public class BookManagerActivity extends AppCompatActivity {
                     Bookmanger bookmanger = (Bookmanger) msg.obj;
                     list.clear();
                     list.addAll(bookmanger.getData());
-                    manageAdapter.notifyDataSetChanged();
-                    lvShow.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                        @Override
-                        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                            Intent intent = new Intent(BookManagerActivity.this, ImageScannerActivity.class);
-                            intent.putStringArrayListExtra("name", (ArrayList<String>) list.get(position).getMdicalPicture());
-                            startActivity(intent);
-                        }
-                    });
+                    if (list.size() == 0) {
+                        tvCon.setVisibility(View.VISIBLE);
+                    } else {
+                        tvCon.setVisibility(View.GONE);
+                        manageAdapter.notifyDataSetChanged();
+                        lvShow.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                            @Override
+                            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                                Intent intent = new Intent(BookManagerActivity.this, ImageScannerActivity.class);
+                                intent.putStringArrayListExtra("name", (ArrayList<String>) list.get(position).getMdicalPicture());
+                                startActivity(intent);
+                            }
+                        });
+                    }
                     break;
             }
         }
