@@ -6,6 +6,7 @@ import com.avoscloud.leanchatlib.model.LeanchatUser;
 import com.cc.doctormhealth.model.AidManager;
 import com.cc.doctormhealth.model.Bookmanger;
 import com.cc.doctormhealth.model.ConfirmFile;
+import com.cc.doctormhealth.model.ConvHome;
 import com.cc.doctormhealth.model.ForGetpass;
 import com.cc.doctormhealth.model.Info;
 import com.cc.doctormhealth.model.Money;
@@ -120,6 +121,9 @@ public class MyHttpUtils extends HttpUtils {
             case 25://是否马上就诊
                 params.addBodyParameter("appointId", ((User) object).getUsername());
                 sendData(HttpRequest.HttpMethod.POST, url, params, new MyCallBack(new Info(), handler, what));
+                break;
+            case 26://轮播图
+                sendData(HttpRequest.HttpMethod.POST, url, params, new MyCallBack(new ConvHome(), handler, what));
                 break;
         }
 

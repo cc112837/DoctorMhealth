@@ -2,6 +2,7 @@ package com.cc.doctormhealth.fragment;
 
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
@@ -11,9 +12,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ImageView;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.avos.avoscloud.AVException;
@@ -33,10 +35,12 @@ import com.cc.doctormhealth.adapter.NewsItemAdapter;
 import com.cc.doctormhealth.constant.Constants;
 import com.cc.doctormhealth.leanchat.service.ConversationManager;
 import com.cc.doctormhealth.model.BannerItem;
+import com.cc.doctormhealth.model.ConvHome;
 import com.cc.doctormhealth.model.NewsYang;
 import com.cc.doctormhealth.model.User;
 import com.cc.doctormhealth.utils.MyHttpUtils;
 import com.cc.doctormhealth.view.LocalImageHolderView;
+import com.cc.doctormhealth.view.MyScrollView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -45,7 +49,9 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
+
 public class HomeFragment extends Fragment {
+    private MyScrollView my_scroll;
     private ConversationManager conversationManager = ConversationManager.getInstance();
     ConvenientBanner convenientBanner;
     @Bind(R.id.lv_show)
@@ -72,13 +78,38 @@ public class HomeFragment extends Fragment {
                         }
                     });
                     break;
+                case 26:
+                    ConvHome convHome=(ConvHome) msg.obj;
+                    if(convHome!=null){
+                        for (int i = 0; i < convHome.getData().size(); i++) {
+                            BannerItem bannerItem = new BannerItem();
+                            bannerItem.setTitle(convHome.getData().get(i).getDoctorTitle());
+                            bannerItem.setUrl(convHome.getData().get(i).getDoctorImage());
+                            bannerItem.setId(convHome.getData().get(i).getDoctorImageId());
+                            localImages.add(bannerItem);
+                        }
+                        convenientBanner.setPages(
+                                new CBViewHolderCreator<LocalImageHolderView>() {
+                                    @Override
+                                    public LocalImageHolderView createHolder() {
+                                        return new LocalImageHolderView();
+                                    }
+                                }, localImages)
+                                //设置两个点图片作为翻页指示器，不设置则没有指示器，可以根据自己需求自行配合自己的指示器,不需要圆点指示器可用不设
+                                .setPageIndicator(new int[]{R.mipmap.dots_gray, R.mipmap.dot_white})
+                                //设置指示器的方向
+                                .setPageIndicatorAlign(ConvenientBanner.PageIndicatorAlign.ALIGN_PARENT_RIGHT);
+                    }
+                    break;
             }
         }
     };
     @Bind(R.id.iv_see)
-    ImageView ivSee;
+    Button ivSee;
     @Bind(R.id.iv_meg)
-    ImageView ivMeg;
+    Button ivMeg;
+    @Bind(R.id.title1)
+    RelativeLayout title1;
     @Bind(R.id.tv_count)
     TextView tvCount;
     private ArrayList<BannerItem> localImages = new ArrayList<>();
@@ -100,6 +131,7 @@ public class HomeFragment extends Fragment {
     }
 
     private void init(View view) {
+        my_scroll = (MyScrollView) view.findViewById(R.id.my_scroll);
         View headview = LayoutInflater.from(getContext()).inflate(R.layout.home_header, null);
         ll_1 = (LinearLayout) headview.findViewById(R.id.ll_1);
         ll_2 = (LinearLayout) headview.findViewById(R.id.ll_2);
@@ -138,26 +170,24 @@ public class HomeFragment extends Fragment {
             }
         });
         convenientBanner = (ConvenientBanner) headview.findViewById(R.id.convenientBanner);
-        for (int i = 0; i < 2; i++) {
-            BannerItem bannerItem = new BannerItem();
-            bannerItem.setTitle("1");
-            bannerItem.setUrl("http://ss.bdimg.com/static/superman/img/logo/bd_logo1_31bdc765.png");
-            bannerItem.setId(i + "");
-            localImages.add(bannerItem);
-        }
-        convenientBanner.setPages(
-                new CBViewHolderCreator<LocalImageHolderView>() {
-                    @Override
-                    public LocalImageHolderView createHolder() {
-                        return new LocalImageHolderView();
-                    }
-                }, localImages)
-                //设置两个点图片作为翻页指示器，不设置则没有指示器，可以根据自己需求自行配合自己的指示器,不需要圆点指示器可用不设
-                .setPageIndicator(new int[]{R.mipmap.dots_gray, R.mipmap.dot_white})
-                //设置指示器的方向
-                .setPageIndicatorAlign(ConvenientBanner.PageIndicatorAlign.ALIGN_PARENT_RIGHT);
-        lvShow.addHeaderView(headview);
+        String url=Constants.SERVER_URL+"MhealthDoctorImageServlet";
+        MyHttpUtils.handData(handler,26,url,null);
+        my_scroll.setScrollViewListener(new MyScrollView.ScrollViewListener() {
+            @Override
+            public void onScrollChanged(MyScrollView scrollView, int x, int y, int oldx, int oldy) {
+                if (y <= 0) {
+                    title1.setBackgroundColor(Color.argb((int) 0, 0, 0, 0));//AGB由相关工具获得，或者美工提供
+                } else if (y > 0 && y <= 500) {
+                    float scale = (float) y / 500;
+                    float alpha = (255 * scale);
+                    title1.setBackgroundColor(Color.argb((int) alpha,13, 151, 249));
+                } else {
+                    title1.setBackgroundColor(Color.argb((int) 255, 13, 151, 249));
+                }
+            }
 
+        });
+        lvShow.addHeaderView(headview);
         newsAdapter = new NewsItemAdapter(getActivity(), titleList);
         lvShow.setAdapter(newsAdapter);
     }

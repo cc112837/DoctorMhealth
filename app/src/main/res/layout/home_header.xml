@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
+    android:background="@color/white"
     android:layout_height="match_parent"
     android:orientation="vertical">
 
@@ -30,17 +31,18 @@
             android:padding="5dp">
 
             <ImageView
+                android:layout_marginTop="2dp"
                 android:layout_width="50dp"
+                android:scaleType="fitXY"
                 android:layout_height="50dp"
                 android:src="@mipmap/aid_order" />
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
                 android:gravity="center"
                 android:text="患者预约"
-                android:textSize="15sp" />
+                android:textSize="14sp" />
 
         </LinearLayout>
 
@@ -60,16 +62,17 @@
 
             <ImageView
                 android:layout_width="50dp"
+                android:layout_marginTop="2dp"
+                android:scaleType="fitXY"
                 android:layout_height="50dp"
                 android:src="@mipmap/aid_manager" />
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
                 android:gravity="center"
                 android:text="患者管理"
-                android:textSize="15sp" />
+                android:textSize="14sp" />
         </LinearLayout>
 
         <TextView
@@ -89,15 +92,16 @@
             <ImageView
                 android:layout_width="50dp"
                 android:layout_height="50dp"
+                android:scaleType="fitXY"
+                android:layout_marginTop="2dp"
                 android:src="@mipmap/aid_news" />
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
                 android:gravity="center"
                 android:text="医疗资讯"
-                android:textSize="15sp" />
+                android:textSize="14sp" />
         </LinearLayout>
     </LinearLayout>
 
@@ -121,17 +125,18 @@
             android:padding="5dp">
 
             <ImageView
+                android:layout_marginTop="2dp"
                 android:layout_width="50dp"
+                android:scaleType="fitXY"
                 android:layout_height="50dp"
                 android:src="@mipmap/aid_message" />
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
                 android:gravity="center"
                 android:text="患者咨询"
-                android:textSize="15sp" />
+                android:textSize="14sp" />
         </LinearLayout>
 
         <TextView
