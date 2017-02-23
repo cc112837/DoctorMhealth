@@ -59,7 +59,7 @@ public class ContactActivity extends AppCompatActivity implements View.OnClickLi
         contactGroupAdapter.setOnItemClickListener(new MyRecyItemClickListener() {
             @Override
             public void onItemClick(View view, int postion) {
-                String smsBody = "《一点就医》您身边的健康管理专家地址:" + "http://a.app.qq.com/o/simple.jsp?pkgname=com.cc.doctormhealth";
+                String smsBody = "我正在使用【一点就医医生版】APP，通过一点就医可以拉近医患距离，让彼此感到心的温暖。点击下载:" + "http://a.app.qq.com/o/simple.jsp?pkgname=com.cc.doctormhealth"+"[康泽云]";
                 Uri smsToUri = Uri.parse("smsto:");
                 Intent sendIntent = new Intent(Intent.ACTION_VIEW, smsToUri);
                 sendIntent.putExtra("address",contactList.get(postion).getPhoneNum()); // 电话号码，这行去掉的话，默认就没有电话
