@@ -47,19 +47,21 @@ public class MoneyAdapter extends BaseAdapter {
             view = mInflater.inflate(R.layout.money_item, null);
             vholder.tv_item = (TextView) view.findViewById(R.id.tv_item);
             vholder.tv_price = (TextView) view.findViewById(R.id.tv_price);
+            vholder.tv_type=(TextView) view.findViewById(R.id.tv_type);
             view.setTag(vholder);
         } else {
             vholder = (ViewHolder) view.getTag();
         }
         vholder.tv_item.setText(""+list.get(position).getTime());
         vholder.tv_price.setText("+¥"+list.get(position).getPrice() );
+        vholder.tv_type.setText(""+list.get(position).getType());
         return view;
 
     }
 
     static class ViewHolder {
         public TextView tv_item;
-        public TextView tv_price;
+        public TextView tv_price,tv_type;
     }
 
 }
