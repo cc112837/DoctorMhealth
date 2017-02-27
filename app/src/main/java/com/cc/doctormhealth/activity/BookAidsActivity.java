@@ -29,6 +29,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 import static com.cc.doctormhealth.R.id.iv_head;
+import static com.cc.doctormhealth.R.id.tv_start;
 
 public class BookAidsActivity extends AppCompatActivity {
 
@@ -76,9 +77,21 @@ public class BookAidsActivity extends AppCompatActivity {
         tvAge.setText(entityAid.getAge());
         tvContent.setText(entityAid.getCaseness());
         tvBookcontent.setText(entityAid.getIllness());
+        if("1".equals(entityAid.getAppointStatu())){
+            tvStart.setEnabled(true);
+            tvStart.setBackgroundResource(R.drawable.textview);
+        }else if("0".equals(entityAid.getAppointStatu())){
+            tvStart.setEnabled(false);
+            tvStart.setText("未报道");
+            tvStart.setBackgroundResource(R.drawable.textview3);
+        }else{
+            tvStart.setEnabled(false);
+            tvStart.setText("已完成");
+            tvStart.setBackgroundResource(R.drawable.textview3);
+        }
     }
 
-    @OnClick({R.id.leftBtn, R.id.tv_message, R.id.tv_start})
+    @OnClick({R.id.leftBtn, R.id.tv_message, tv_start})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.leftBtn:
@@ -102,7 +115,7 @@ public class BookAidsActivity extends AppCompatActivity {
                             }
                         });
                 break;
-            case R.id.tv_start:
+            case tv_start:
                 String url= Constants.SERVER_URL+"PatientAppointStatuServlet";
                 User user=new User();
                 user.setUsername(entityAid.getAppointId()+"");
