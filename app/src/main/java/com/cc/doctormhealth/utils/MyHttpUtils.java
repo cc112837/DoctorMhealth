@@ -8,6 +8,7 @@ import com.cc.doctormhealth.model.Bookmanger;
 import com.cc.doctormhealth.model.ConfirmFile;
 import com.cc.doctormhealth.model.ConvHome;
 import com.cc.doctormhealth.model.ForGetpass;
+import com.cc.doctormhealth.model.HistoryOrder;
 import com.cc.doctormhealth.model.Info;
 import com.cc.doctormhealth.model.Money;
 import com.cc.doctormhealth.model.NewDetail;
@@ -124,6 +125,10 @@ public class MyHttpUtils extends HttpUtils {
                 break;
             case 26://轮播图
                 sendData(HttpRequest.HttpMethod.POST, url, params, new MyCallBack(new ConvHome(), handler, what));
+                break;
+            case 27://历史预约
+                params.addBodyParameter("appointId", ((User) object).getUsername());
+                sendData(HttpRequest.HttpMethod.POST, url, params, new MyCallBack(new HistoryOrder(), handler, what));
                 break;
         }
 

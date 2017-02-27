@@ -108,7 +108,8 @@ public class AidsDetailActivity extends AppCompatActivity {
                         });
                 break;
             case R.id.re_order:
-                Intent intent1 = new Intent(AidsDetailActivity.this, OrderAidActivity.class);
+                Intent intent1 = new Intent(AidsDetailActivity.this, HistoryOrderActivity.class);
+                intent1.putExtra("id", content.getAppointId());
                 startActivity(intent1);
                 break;
         }
