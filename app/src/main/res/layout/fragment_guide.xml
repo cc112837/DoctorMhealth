@@ -1,0 +1,29 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.cc.doctormhealth.activity.GuideActivity">
+
+    <!-- TODO: Update blank fragment layout -->
+    <ImageView
+        android:id="@+id/guide_imageView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="fitXY"
+        />
+    <TextView
+        android:id="@+id/goToSee"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:lines="1"
+        android:text="立即体验"
+        android:layout_marginBottom="50dp"
+        android:gravity="center"
+        android:textColor="#0274ff"
+        android:textSize="25sp"
+        android:layout_gravity="bottom|center"
+        android:visibility="gone"
+        />
+
+</FrameLayout>
+

@@ -85,7 +85,15 @@
                 <action android:name="com.avoscloud.chat.intent.mhealthdclient_notification" />
             </intent-filter>
         </receiver>
+        <activity
+            android:name=".activity.SplashActivity"
+            android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity android:name=".activity.SearchActivity" />
         <activity android:name="com.avos.avoscloud.feedback.ThreadActivity" />
         <activity android:name=".activity.MainActivity" />
@@ -121,13 +129,7 @@
         <activity android:name=".activity.ServicePriActivity" />
         <activity android:name=".activity.CheckActivity" />
         <activity android:name=".activity.TextActivity" />
-        <activity android:name=".activity.WelcomeActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+        <activity android:name=".activity.GuideActivity"/>
         <activity android:name=".leanchat.activity.ImageBrowserActivity" />
         <activity android:name=".activity.SettingActivity" />
         <activity android:name=".activity.PrideActivity" />

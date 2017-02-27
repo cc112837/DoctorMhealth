@@ -1,19 +1,26 @@
 package com.cc.doctormhealth.activity;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.support.v4.app.FragmentActivity;
 
+import com.avos.avoscloud.AVAnalytics;
 import com.cc.doctormhealth.R;
 import com.cc.doctormhealth.utils.PackageUtils;
 
-public class WelcomeActivity extends Activity {
+
+/**
+ * 创建人：吴聪聪
+ * 邮箱:cc112837@163.com
+ * 创建时间：2016/3/31 11:25
+ */
+public class SplashActivity extends FragmentActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_welcome);
+        setContentView(R.layout.activity_splash);
 
         SharedPreferences sp = getSharedPreferences("version", MODE_PRIVATE);
 
@@ -22,6 +29,7 @@ public class WelcomeActivity extends Activity {
 
         //相当于新版本
         final String newVersion = PackageUtils.getPackageVersion(this);
+
         Thread thread = new Thread(new Runnable() {
             @Override
             public void run() {
@@ -30,20 +38,32 @@ public class WelcomeActivity extends Activity {
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
+
                 //说明登录过，不需要进入导航页，直接进入主界面
                 //当新版本与旧版本一致时直接跳转进入主界面
                 if (newVersion.equals(version)) {
-                    Intent intent = new Intent(WelcomeActivity.this, LoginActivity.class);
+
+                    Intent intent = new Intent(SplashActivity.this, LoginActivity.class);
                     startActivity(intent);
                     finish();
 
                 } else {//需要进入导航页
-                    Intent intent = new Intent(WelcomeActivity.this, LoginActivity.class);
+                    Intent intent = new Intent(SplashActivity.this, GuideActivity.class);
                     startActivity(intent);
                     finish();
                 }
             }
         });
         thread.start();
+    }
+
+    protected void onPause() {
+        super.onPause();
+        AVAnalytics.onPause(this);
+    }
+
+    protected void onResume() {
+        super.onResume();
+        AVAnalytics.onResume(this);
     }
 }
