@@ -57,7 +57,7 @@ public class AidsDetailActivity extends AppCompatActivity {
         tvAge.setText(content.getAge());
         ImageLoader.getInstance().displayImage(content.getUserImage(), ivHead, PhotoUtils.avatarImageOption);
         tvSex.setText(content.getSex());
-        tvContent.setText(content.getIllness());
+        tvContent.setText(content.getCaseness());
     }
 
     @OnClick({R.id.leftBtn, R.id.re_book, R.id.re_ask, R.id.re_order})

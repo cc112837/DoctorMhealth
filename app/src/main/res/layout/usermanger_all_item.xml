@@ -43,9 +43,12 @@
             android:textSize="16sp" />
 
        <ImageView
-           android:layout_width="20dp"
-           android:src="@mipmap/jiantou"
-           android:layout_height="20dp" />
+           android:id="@+id/iv_show"
+           android:layout_width="35dp"
+           android:src="@mipmap/siren"
+           android:visibility="gone"
+           android:layout_marginRight="22dp"
+           android:layout_height="35dp" />
     </LinearLayout>
 
 </LinearLayout>

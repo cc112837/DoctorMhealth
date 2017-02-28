@@ -123,6 +123,7 @@ public class UserManagerAdapter extends RecyclerView.Adapter<UserManagerAdapter.
     @Override
     public void onBindViewHolder(ManagerViewHolder holder, int position) {
         holder.tv_name.setText(list.get(position).getName());
+        holder.iv_show.setVisibility(View.GONE);
         ImageLoader.getInstance().displayImage(list.get(position).getUserImage(),holder.iv_head, com.avoscloud.leanchatlib.utils.PhotoUtils.avatarImageOption);
         holder.alpha.setVisibility(list.get(position).getInitialVisible() ? View.VISIBLE : View.GONE);
         holder.alpha.setText(String.valueOf(PinyinHelper.getShortPinyin(list.get(position).getName()).charAt(0)));
@@ -139,6 +140,7 @@ public class UserManagerAdapter extends RecyclerView.Adapter<UserManagerAdapter.
         private TextView  alpha;
         private TextView tv_name;
         public ImageView iv_head;
+        public ImageView iv_show;
         private LinearLayout ll_item;
 
         public ManagerViewHolder(View itemView) {
@@ -146,6 +148,7 @@ public class UserManagerAdapter extends RecyclerView.Adapter<UserManagerAdapter.
             alpha = (TextView) itemView.findViewById(R.id.alpha);
             ll_item = (LinearLayout) itemView.findViewById(R.id.ll_item);
             iv_head = (ImageView) itemView.findViewById(R.id.iv_head);
+            iv_show=(ImageView) itemView.findViewById(R.id.iv_show);
             ll_item.setOnClickListener(this);
             tv_name = (TextView) itemView.findViewById(R.id.tv_name);
         }
