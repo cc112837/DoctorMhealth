@@ -4,7 +4,7 @@ import java.util.List;
 
 /**
  * 项目名称：DoctorMhealth
- * 类描述：
+ * 类描述：病历管理实体类
  * 创建人：吴聪聪
  * 邮箱：cc112837@163.com
  * 创建时间：2017/2/18 10:56
@@ -13,7 +13,7 @@ import java.util.List;
  * 修改备注：
  */
 
-public class Bookmanger {
+public class CaseHistory {
 
     private List<DataEntity> data;
 

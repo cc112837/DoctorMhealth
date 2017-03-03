@@ -21,7 +21,7 @@ import com.cc.doctormhealth.R;
 import com.cc.doctormhealth.constant.Constants;
 import com.cc.doctormhealth.leanchat.activity.ChatRoomActivity;
 import com.cc.doctormhealth.model.Info;
-import com.cc.doctormhealth.model.OederAids;
+import com.cc.doctormhealth.model.AppointUser;
 import com.cc.doctormhealth.model.User;
 import com.cc.doctormhealth.utils.MyHttpUtils;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -54,7 +54,7 @@ public class PatientDetailsActivity extends AppCompatActivity {
     TextView tvMessage;
     @Bind(R.id.tv_start)
     TextView tvStart;
-    private OederAids.DataEntity.AppointDataEntity entityAid;
+    private AppointUser.DataEntity.AppointDataEntity entityAid;
     private Handler handler=new Handler(){
         @Override
         public void handleMessage(Message msg) {
@@ -73,7 +73,7 @@ public class PatientDetailsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_book_aids);
         ButterKnife.bind(this);
-        entityAid = (OederAids.DataEntity.AppointDataEntity) getIntent().getSerializableExtra("id");
+        entityAid = (AppointUser.DataEntity.AppointDataEntity) getIntent().getSerializableExtra("id");
         ImageLoader.getInstance().displayImage(entityAid.getUserImage(),ivHead, PhotoUtils.avatarImageOption);
         tvName.setText(entityAid.getName());
         tvSex.setText(entityAid.getSex());

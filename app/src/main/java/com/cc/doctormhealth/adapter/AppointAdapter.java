@@ -10,7 +10,7 @@ import android.view.ViewGroup;
 
 import com.cc.doctormhealth.R;
 import com.cc.doctormhealth.activity.PatientDetailsActivity;
-import com.cc.doctormhealth.model.OederAids;
+import com.cc.doctormhealth.model.AppointUser;
 import com.cc.doctormhealth.utils.Util;
 import com.cc.doctormhealth.view.DescHolder;
 import com.cc.doctormhealth.view.HeaderHolder;
@@ -30,7 +30,7 @@ import java.util.List;
  */
 
 public class AppointAdapter extends SectionedRecyclerViewAdapter<HeaderHolder, DescHolder, RecyclerView.ViewHolder> {
-    public List<OederAids.DataEntity> orderList;
+    public List<AppointUser.DataEntity> orderList;
     private Context mContext;
     private LayoutInflater mInflater;
     private SparseBooleanArray mBooleanMap;//记录下哪个section是被打开的
@@ -41,7 +41,7 @@ public class AppointAdapter extends SectionedRecyclerViewAdapter<HeaderHolder, D
         mBooleanMap = new SparseBooleanArray();
     }
 
-    public void setData(List<OederAids.DataEntity> orderList) {
+    public void setData(List<AppointUser.DataEntity> orderList) {
         this.orderList = orderList;
         notifyDataSetChanged();
     }

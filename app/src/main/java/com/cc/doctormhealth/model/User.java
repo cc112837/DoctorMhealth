@@ -8,7 +8,7 @@ import android.widget.ImageView;
 
 
 /**
- * @author MZH
+ * @author 用户类
  *
  */
 public class User {

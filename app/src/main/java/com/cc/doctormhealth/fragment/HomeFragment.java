@@ -36,7 +36,7 @@ import com.cc.doctormhealth.constant.Constants;
 import com.cc.doctormhealth.leanchat.service.ConversationManager;
 import com.cc.doctormhealth.model.BannerItem;
 import com.cc.doctormhealth.model.ConvHome;
-import com.cc.doctormhealth.model.NewsYang;
+import com.cc.doctormhealth.model.NewsList;
 import com.cc.doctormhealth.model.User;
 import com.cc.doctormhealth.utils.MyHttpUtils;
 import com.cc.doctormhealth.view.LocalImageHolderView;
@@ -61,14 +61,14 @@ public class HomeFragment extends Fragment {
     @Bind(R.id.lv_show)
     ListView lvShow;
     LinearLayout ll_1, ll_2, ll_3, ll_4;
-    List<NewsYang.DataEntity>  titleList=new ArrayList<>();
+    List<NewsList.DataEntity>  titleList=new ArrayList<>();
     private Handler handler=new Handler(){
         @Override
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
             switch (msg.what){
                 case 21:
-                    NewsYang newsYang=(NewsYang) msg.obj;
+                    NewsList newsYang=(NewsList) msg.obj;
                     if(newsYang!=null){
                         titleList.addAll(newsYang.getData());
                         newsAdapter.notifyDataSetChanged();

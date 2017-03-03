@@ -10,7 +10,7 @@ import android.widget.TextView;
 
 import com.avoscloud.leanchatlib.utils.PhotoUtils;
 import com.cc.doctormhealth.R;
-import com.cc.doctormhealth.model.NewsYang;
+import com.cc.doctormhealth.model.NewsList;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
 import java.util.List;
@@ -28,9 +28,9 @@ import java.util.List;
 public class NewsItemAdapter extends BaseAdapter{
     private LayoutInflater mInflater;
     private Context context;
-    private List<NewsYang.DataEntity> list;
+    private List<NewsList.DataEntity> list;
 
-    public NewsItemAdapter(Context context, List<NewsYang.DataEntity> list) {
+    public NewsItemAdapter(Context context, List<NewsList.DataEntity> list) {
         mInflater = LayoutInflater.from(context);
         this.list=list;
         this.context=context;

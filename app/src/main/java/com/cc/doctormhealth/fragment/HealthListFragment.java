@@ -18,7 +18,7 @@ import com.cc.doctormhealth.activity.NewsDetailActivity;
 import com.cc.doctormhealth.adapter.NewsItemAdapter;
 import com.cc.doctormhealth.constant.Constants;
 import com.cc.doctormhealth.leanchat.view.XListView;
-import com.cc.doctormhealth.model.NewsYang;
+import com.cc.doctormhealth.model.NewsList;
 import com.cc.doctormhealth.model.User;
 import com.cc.doctormhealth.utils.MyHttpUtils;
 
@@ -37,7 +37,7 @@ public class HealthListFragment extends Fragment implements XListView.IXListView
     private XListView lv_show;
     private NewsItemAdapter adapter;
     int page;
-    private List<NewsYang.DataEntity> list;
+    private List<NewsList.DataEntity> list;
     private Handler handler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
@@ -46,7 +46,7 @@ public class HealthListFragment extends Fragment implements XListView.IXListView
                     if (page == 1) {
                         list.clear();
                     }
-                    NewsYang newsYang = (NewsYang) msg.obj;
+                    NewsList newsYang = (NewsList) msg.obj;
                     lv_show.stopRefresh();
                     list.addAll(newsYang.getData());
                     adapter.notifyDataSetChanged();

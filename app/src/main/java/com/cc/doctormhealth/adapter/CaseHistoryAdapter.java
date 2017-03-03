@@ -8,7 +8,7 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.cc.doctormhealth.R;
-import com.cc.doctormhealth.model.Bookmanger;
+import com.cc.doctormhealth.model.CaseHistory;
 import com.cc.doctormhealth.utils.Util;
 
 import java.util.List;
@@ -26,9 +26,9 @@ import java.util.List;
 public class CaseHistoryAdapter extends BaseAdapter {
     private LayoutInflater mInflater;
     private Context context;
-    private List<Bookmanger.DataEntity> list;
+    private List<CaseHistory.DataEntity> list;
 
-    public CaseHistoryAdapter(Context context, List<Bookmanger.DataEntity> list) {
+    public CaseHistoryAdapter(Context context, List<CaseHistory.DataEntity> list) {
         mInflater = LayoutInflater.from(context);
         this.list = list;
         this.context = context;

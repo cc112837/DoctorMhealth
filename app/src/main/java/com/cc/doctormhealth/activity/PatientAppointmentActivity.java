@@ -15,7 +15,7 @@ import com.avoscloud.leanchatlib.model.LeanchatUser;
 import com.cc.doctormhealth.R;
 import com.cc.doctormhealth.adapter.AppointAdapter;
 import com.cc.doctormhealth.constant.Constants;
-import com.cc.doctormhealth.model.OederAids;
+import com.cc.doctormhealth.model.AppointUser;
 import com.cc.doctormhealth.model.User;
 import com.cc.doctormhealth.utils.MyHttpUtils;
 import com.cc.doctormhealth.view.DividerItemDecoration;
@@ -43,15 +43,15 @@ public class PatientAppointmentActivity extends AppCompatActivity {
     ImageView leftBtn;
     @Bind(R.id.rv_show)
     RecyclerView rv_show;
-    private List<OederAids.DataEntity> dataEntities=new ArrayList<>();
+    private List<AppointUser.DataEntity> dataEntities=new ArrayList<>();
     private Handler handler=new Handler(){
         @Override
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
             switch (msg.what){
                 case 22:
-                    OederAids oederAids=(OederAids) msg.obj;
-                    appointAdapter.setData(oederAids.getData());
+                    AppointUser appointUser =(AppointUser) msg.obj;
+                    appointAdapter.setData(appointUser.getData());
                     appointAdapter.notifyDataSetChanged();
                 break;
             }

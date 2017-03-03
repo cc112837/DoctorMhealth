@@ -10,7 +10,7 @@ import android.widget.ListView;
 import com.cc.doctormhealth.R;
 import com.cc.doctormhealth.adapter.HistoryAppointAdapter;
 import com.cc.doctormhealth.constant.Constants;
-import com.cc.doctormhealth.model.HistoryOrder;
+import com.cc.doctormhealth.model.HistoryAppoint;
 import com.cc.doctormhealth.model.User;
 import com.cc.doctormhealth.utils.MyHttpUtils;
 
@@ -33,7 +33,7 @@ public class HistoryAppointmentActivity extends AppCompatActivity {
     ImageView leftBtn;
     @Bind(lv_show)
     ListView lvShow;
-    private List<HistoryOrder.DataEntity> list = new ArrayList<>();
+    private List<HistoryAppoint.DataEntity> list = new ArrayList<>();
     private HistoryAppointAdapter historyAppointAdapter;
     private Handler handler=new Handler(){
         @Override
@@ -41,7 +41,7 @@ public class HistoryAppointmentActivity extends AppCompatActivity {
             super.handleMessage(msg);
             switch (msg.what){
                 case 27:
-                    HistoryOrder historyOrder=(HistoryOrder) msg.obj;
+                    HistoryAppoint historyOrder=(HistoryAppoint) msg.obj;
                     if (historyOrder!=null){
                         list.addAll(historyOrder.getData());
                         historyAppointAdapter.notifyDataSetChanged();

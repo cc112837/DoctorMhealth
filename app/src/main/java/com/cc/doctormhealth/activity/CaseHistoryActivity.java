@@ -22,7 +22,7 @@ import com.avoscloud.leanchatlib.controller.ChatManager;
 import com.avoscloud.leanchatlib.utils.PhotoUtils;
 import com.cc.doctormhealth.R;
 import com.cc.doctormhealth.leanchat.activity.ChatRoomActivity;
-import com.cc.doctormhealth.model.AidManager;
+import com.cc.doctormhealth.model.PatientManager;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
 import butterknife.Bind;
@@ -49,14 +49,14 @@ public class CaseHistoryActivity extends AppCompatActivity {
     RelativeLayout reAsk;
     @Bind(R.id.re_order)
     RelativeLayout reOrder;
-    AidManager.DataEntity content;
+    PatientManager.DataEntity content;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_aids_detail);
         ButterKnife.bind(this);
-        content = (AidManager.DataEntity) getIntent().getSerializableExtra("content");
+        content = (PatientManager.DataEntity) getIntent().getSerializableExtra("content");
         tvName.setText(content.getName());
         tvAge.setText(content.getAge());
         ImageLoader.getInstance().displayImage(content.getUserImage(), ivHead, PhotoUtils.avatarImageOption);

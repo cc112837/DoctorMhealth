@@ -13,7 +13,7 @@ import android.widget.TextView;
 import com.cc.doctormhealth.R;
 import com.cc.doctormhealth.event.MyRecyItemClickListener;
 import com.cc.doctormhealth.leanchat.pinyin.PinyinHelper;
-import com.cc.doctormhealth.model.AidManager;
+import com.cc.doctormhealth.model.PatientManager;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
 import java.util.Collections;
@@ -36,7 +36,7 @@ import java.util.Map;
 
 public class UserManagerAdapter extends RecyclerView.Adapter<UserManagerAdapter.ManagerViewHolder> {
     public Context context;
-    public List<AidManager.DataEntity> list;
+    public List<PatientManager.DataEntity> list;
     private MyRecyItemClickListener listener;
     private Map<Character, Integer> indexMap = new HashMap<Character, Integer>();
 
@@ -44,7 +44,7 @@ public class UserManagerAdapter extends RecyclerView.Adapter<UserManagerAdapter.
         this.listener = listener;
     }
 
-    public UserManagerAdapter(Context context, List<AidManager.DataEntity> list) {
+    public UserManagerAdapter(Context context, List<PatientManager.DataEntity> list) {
         this.context = context;
         this.list = list;
         Collections.sort(list, comparator);
@@ -53,10 +53,10 @@ public class UserManagerAdapter extends RecyclerView.Adapter<UserManagerAdapter.
     }
 
 
-    private void updateInitialsVisible(List<AidManager.DataEntity> list) {
+    private void updateInitialsVisible(List<PatientManager.DataEntity> list) {
         if (null != list && list.size() > 0) {
             char lastInitial = ' ';
-            for (AidManager.DataEntity item : list) {
+            for (PatientManager.DataEntity item : list) {
                 if (!TextUtils.isEmpty(PinyinHelper.getShortPinyin(item.getName()))) {
                     item.setInitialVisible(lastInitial != PinyinHelper.getShortPinyin(item.getName())
                             .charAt(0));
@@ -80,7 +80,7 @@ public class UserManagerAdapter extends RecyclerView.Adapter<UserManagerAdapter.
     /**
      * 更新索引 Map
      */
-    private Map<Character, Integer> updateIndex(List<AidManager.DataEntity> list) {
+    private Map<Character, Integer> updateIndex(List<PatientManager.DataEntity> list) {
         Character lastCharcter = '#';
         Map<Character, Integer> map = new HashMap<Character, Integer>();
         for (int i = 0; i < list.size(); i++) {
@@ -98,9 +98,9 @@ public class UserManagerAdapter extends RecyclerView.Adapter<UserManagerAdapter.
     /**
      * @Mikyou 首字母按a-z排序
      */
-    Comparator<AidManager.DataEntity> comparator = new Comparator<AidManager.DataEntity>() {
+    Comparator<PatientManager.DataEntity> comparator = new Comparator<PatientManager.DataEntity>() {
         @Override
-        public int compare(AidManager.DataEntity t1, AidManager.DataEntity t2) {
+        public int compare(PatientManager.DataEntity t1, PatientManager.DataEntity t2) {
             String a = PinyinHelper.getShortPinyin(t1.getName());
             String b = PinyinHelper.getShortPinyin(t2.getName());
             int flag = a.compareTo(b);

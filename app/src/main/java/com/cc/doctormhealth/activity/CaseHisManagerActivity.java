@@ -14,7 +14,7 @@ import android.widget.TextView;
 import com.cc.doctormhealth.R;
 import com.cc.doctormhealth.adapter.CaseHistoryAdapter;
 import com.cc.doctormhealth.constant.Constants;
-import com.cc.doctormhealth.model.Bookmanger;
+import com.cc.doctormhealth.model.CaseHistory;
 import com.cc.doctormhealth.model.User;
 import com.cc.doctormhealth.utils.MyHttpUtils;
 
@@ -33,7 +33,7 @@ public class CaseHisManagerActivity extends AppCompatActivity {
     @Bind(R.id.tv_con)
     TextView tvCon;
 
-    private List<Bookmanger.DataEntity> list = new ArrayList<>();
+    private List<CaseHistory.DataEntity> list = new ArrayList<>();
     CaseHistoryAdapter caseHistoryAdapter;
     private Handler handler = new Handler() {
         @Override
@@ -41,7 +41,7 @@ public class CaseHisManagerActivity extends AppCompatActivity {
             super.handleMessage(msg);
             switch (msg.what) {
                 case 24:
-                    Bookmanger bookmanger = (Bookmanger) msg.obj;
+                    CaseHistory bookmanger = (CaseHistory) msg.obj;
                     list.clear();
                     list.addAll(bookmanger.getData());
                     if (list.size() == 0) {

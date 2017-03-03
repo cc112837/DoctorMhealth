@@ -4,7 +4,7 @@ import java.util.List;
 
 /**
  * 项目名称：DoctorMhealth
- * 类描述：
+ * 类描述：历史预约
  * 创建人：吴聪聪
  * 邮箱：cc112837@163.com
  * 创建时间：2017/2/27 15:40
@@ -13,7 +13,7 @@ import java.util.List;
  * 修改备注：
  */
 
-public class HistoryOrder {
+public class HistoryAppoint {
 
     private List<DataEntity> data;
 

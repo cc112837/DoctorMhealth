@@ -2,7 +2,11 @@ package com.cc.doctormhealth.model;
 
 import java.io.Serializable;
 import java.util.List;
-
+/**
+ * 创建人：吴聪聪
+ * 邮箱:cc112837@163.com
+ * 用户评价
+*/
 public class UserEvaluation implements Serializable {
 
 

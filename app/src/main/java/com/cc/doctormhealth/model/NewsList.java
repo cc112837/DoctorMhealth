@@ -4,7 +4,7 @@ import java.util.List;
 
 /**
  * 项目名称：mhealth
- * 类描述：
+ * 类描述：资讯列表
  * 创建人：吴聪聪
  * 邮箱：cc112837@163.com
  * 创建时间：2016/7/16 10:23
@@ -12,7 +12,7 @@ import java.util.List;
  * 修改时间：2016/7/16 10:23
  * 修改备注：
  */
-public class NewsYang {
+public class NewsList {
     /**
      * medicalId : f5a2e99d591646a00159165f70a80003
      * medicalTitle : 天生聚宝又旺夫的三大生肖女

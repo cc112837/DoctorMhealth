@@ -5,7 +5,7 @@ import java.util.List;
 
 /**
  * 项目名称：DoctorMhealth
- * 类描述：
+ * 类描述：患者管理
  * 创建人：吴聪聪
  * 邮箱：cc112837@163.com
  * 创建时间：2017/2/15 14:58
@@ -14,7 +14,7 @@ import java.util.List;
  * 修改备注：
  */
 
-public class AidManager {
+public class PatientManager {
 
 
     private List<DataEntity> data;

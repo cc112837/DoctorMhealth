@@ -14,7 +14,7 @@ import java.util.List;
  * 修改备注：
  */
 
-public class OederAids {
+public class AppointUser {
 
     private List<DataEntity> data;
 

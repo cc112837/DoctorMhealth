@@ -17,7 +17,7 @@ import com.cc.doctormhealth.constant.Constants;
 import com.cc.doctormhealth.event.MyRecyItemClickListener;
 import com.cc.doctormhealth.leanchat.event.MemberLetterEvent;
 import com.cc.doctormhealth.leanchat.view.LetterView;
-import com.cc.doctormhealth.model.AidManager;
+import com.cc.doctormhealth.model.PatientManager;
 import com.cc.doctormhealth.model.User;
 import com.cc.doctormhealth.utils.MyHttpUtils;
 
@@ -42,7 +42,7 @@ public class PatientManagerActivity extends AppCompatActivity {
     LetterView lvPhone;
     @Bind(R.id.leftBtn)
     ImageView leftBtn;
-    List<AidManager.DataEntity> entityList=new ArrayList<>();
+    List<PatientManager.DataEntity> entityList=new ArrayList<>();
     LinearLayoutManager layoutManager;
     private Handler handler = new Handler() {
         @Override
@@ -50,7 +50,7 @@ public class PatientManagerActivity extends AppCompatActivity {
             super.handleMessage(msg);
             switch (msg.what) {
                 case 23:
-                    AidManager aidManager = (AidManager) msg.obj;
+                    PatientManager aidManager = (PatientManager) msg.obj;
                     if(aidManager!=null){
                         entityList.addAll(aidManager.getData());
                         userManagerAdapter = new UserManagerAdapter(PatientManagerActivity.this, entityList);

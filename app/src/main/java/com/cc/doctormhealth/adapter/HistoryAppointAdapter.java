@@ -8,7 +8,7 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.cc.doctormhealth.R;
-import com.cc.doctormhealth.model.HistoryOrder;
+import com.cc.doctormhealth.model.HistoryAppoint;
 
 import java.util.List;
 /**
@@ -19,10 +19,10 @@ import java.util.List;
 public class HistoryAppointAdapter extends BaseAdapter {
 
     private Context context;
-    private List<HistoryOrder.DataEntity> list;
+    private List<HistoryAppoint.DataEntity> list;
     private LayoutInflater mInflater;
 
-    public HistoryAppointAdapter(Context context, List<HistoryOrder.DataEntity> list) {
+    public HistoryAppointAdapter(Context context, List<HistoryAppoint.DataEntity> list) {
         this.context = context;
         this.list = list;
         mInflater = LayoutInflater.from(context);

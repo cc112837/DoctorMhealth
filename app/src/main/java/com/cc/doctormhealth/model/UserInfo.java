@@ -2,7 +2,7 @@ package com.cc.doctormhealth.model;
 
 /**
  * 项目名称：DoctorMhealth
- * 类描述：
+ * 类描述：用户登录
  * 创建人：吴聪聪
  * 邮箱：cc112837@163.com
  * 创建时间：2016/9/30 9:18

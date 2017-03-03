@@ -3,17 +3,17 @@ package com.cc.doctormhealth.utils;
 import android.os.Handler;
 
 import com.avoscloud.leanchatlib.model.LeanchatUser;
-import com.cc.doctormhealth.model.AidManager;
-import com.cc.doctormhealth.model.Bookmanger;
+import com.cc.doctormhealth.model.PatientManager;
+import com.cc.doctormhealth.model.CaseHistory;
 import com.cc.doctormhealth.model.ConfirmFile;
 import com.cc.doctormhealth.model.ConvHome;
 import com.cc.doctormhealth.model.ForGetpass;
-import com.cc.doctormhealth.model.HistoryOrder;
+import com.cc.doctormhealth.model.HistoryAppoint;
 import com.cc.doctormhealth.model.Info;
 import com.cc.doctormhealth.model.Money;
 import com.cc.doctormhealth.model.NewDetail;
-import com.cc.doctormhealth.model.NewsYang;
-import com.cc.doctormhealth.model.OederAids;
+import com.cc.doctormhealth.model.NewsList;
+import com.cc.doctormhealth.model.AppointUser;
 import com.cc.doctormhealth.model.Result;
 import com.cc.doctormhealth.model.User;
 import com.cc.doctormhealth.model.UserEvaluation;
@@ -104,20 +104,20 @@ public class MyHttpUtils extends HttpUtils {
             case 21://资讯列表页面
                 params.addBodyParameter("type", ((User) object).getUsername());
                 params.addBodyParameter("pageCount", ((User) object).getAdr());
-                sendData(HttpRequest.HttpMethod.POST, url, params, new MyCallBack(new NewsYang(), handler, what));
+                sendData(HttpRequest.HttpMethod.POST, url, params, new MyCallBack(new NewsList(), handler, what));
                 break;
             case 22://用户预约管理
                 params.addBodyParameter("doctorId", ((User) object).getUsername());
                 params.addBodyParameter("type", ((User) object).getAdr());
-                sendData(HttpRequest.HttpMethod.POST, url, params, new MyCallBack(new OederAids(), handler, what));
+                sendData(HttpRequest.HttpMethod.POST, url, params, new MyCallBack(new AppointUser(), handler, what));
                 break;
             case 23://用户管理
                 params.addBodyParameter("doctorId", ((User) object).getUsername());
-                sendData(HttpRequest.HttpMethod.POST, url, params, new MyCallBack(new AidManager(), handler, what));
+                sendData(HttpRequest.HttpMethod.POST, url, params, new MyCallBack(new PatientManager(), handler, what));
                 break;
             case 24://病历管理
                 params.addBodyParameter("appointId", ((User) object).getUsername());
-                sendData(HttpRequest.HttpMethod.POST, url, params, new MyCallBack(new Bookmanger(), handler, what));
+                sendData(HttpRequest.HttpMethod.POST, url, params, new MyCallBack(new CaseHistory(), handler, what));
                 break;
             case 25://是否马上就诊
                 params.addBodyParameter("appointId", ((User) object).getUsername());
@@ -128,7 +128,7 @@ public class MyHttpUtils extends HttpUtils {
                 break;
             case 27://历史预约
                 params.addBodyParameter("appointId", ((User) object).getUsername());
-                sendData(HttpRequest.HttpMethod.POST, url, params, new MyCallBack(new HistoryOrder(), handler, what));
+                sendData(HttpRequest.HttpMethod.POST, url, params, new MyCallBack(new HistoryAppoint(), handler, what));
                 break;
         }
 
