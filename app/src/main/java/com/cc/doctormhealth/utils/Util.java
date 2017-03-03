@@ -140,7 +140,7 @@ public class Util {
 	/**
 	 * 判断邮箱的正确性
 	 * 
-	 * @param mobiles
+	 * @param
 	 * @return
 	 */
 	public boolean isEmail(String email) {

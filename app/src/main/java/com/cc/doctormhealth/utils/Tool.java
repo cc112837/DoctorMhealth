@@ -1,12 +1,18 @@
 package com.cc.doctormhealth.utils;
 
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
 import android.content.Context;
 import android.widget.Toast;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 public class Tool {
+	/**
+	 * 首字母转换
+	 * 创建人：吴聪聪
+	 * 邮箱:cc112837@163.com
+	 * 创建时间：2017/3/3 13:12
+	*/
 	public static String tofirstLowerCase(String str) {
 
 		if (str != null && str.length() > 0) {

@@ -25,7 +25,6 @@ public class MyCallBack extends RequestCallBack<String> {
 
     @Override
     public void onSuccess(ResponseInfo<String> responseInfo) {
-        Log.e("成功",responseInfo.result);
         object = new Gson().fromJson(responseInfo.result, object.getClass());
         Message msg = Message.obtain();
         msg.what = what;

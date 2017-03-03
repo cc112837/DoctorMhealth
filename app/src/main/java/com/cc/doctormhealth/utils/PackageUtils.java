@@ -5,6 +5,7 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 
 /**
+ * 获取版本号
  * 创建人：吴聪聪
  * 邮箱:cc112837@163.com
  * 创建时间：2016/3/31 11:24
