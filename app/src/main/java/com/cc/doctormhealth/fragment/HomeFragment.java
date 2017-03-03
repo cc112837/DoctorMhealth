@@ -48,7 +48,11 @@ import java.util.List;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-
+/**
+ * 创建人：吴聪聪
+ * 邮箱:cc112837@163.com
+ * 首页fragment
+*/
 
 public class HomeFragment extends Fragment {
     private MyScrollView my_scroll;

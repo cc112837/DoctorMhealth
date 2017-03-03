@@ -14,7 +14,7 @@ import java.lang.reflect.Field;
 
 
 /**
- * @author MZH
+ * fragment的基类
  *
  */
 public abstract class D3Fragment extends Fragment {
