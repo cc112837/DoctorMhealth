@@ -6,7 +6,7 @@
     android:background="@color/blue"
     android:fitsSystemWindows="true"
     android:orientation="vertical"
-    tools:context="com.cc.doctormhealth.activity.ManagerActivity">
+    tools:context="com.cc.doctormhealth.activity.PatientManagerActivity">
 
     <RelativeLayout
         android:id="@+id/title1"

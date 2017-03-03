@@ -25,11 +25,11 @@ import com.bigkoo.convenientbanner.ConvenientBanner;
 import com.bigkoo.convenientbanner.holder.CBViewHolderCreator;
 import com.cc.doctormhealth.R;
 import com.cc.doctormhealth.activity.CaptureActivity;
-import com.cc.doctormhealth.activity.ManagerActivity;
+import com.cc.doctormhealth.activity.PatientManagerActivity;
 import com.cc.doctormhealth.activity.MessageActivity;
 import com.cc.doctormhealth.activity.NewsActivity;
 import com.cc.doctormhealth.activity.NewsDetailActivity;
-import com.cc.doctormhealth.activity.OrderAidActivity;
+import com.cc.doctormhealth.activity.PatientAppointmentActivity;
 import com.cc.doctormhealth.activity.ScanresultActivity;
 import com.cc.doctormhealth.adapter.NewsItemAdapter;
 import com.cc.doctormhealth.constant.Constants;
@@ -141,7 +141,7 @@ public class HomeFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 //患者预约
-                Intent intent = new Intent(getActivity(), OrderAidActivity.class);
+                Intent intent = new Intent(getActivity(), PatientAppointmentActivity.class);
                 startActivity(intent);
             }
         });
@@ -149,7 +149,7 @@ public class HomeFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 //患者管理
-                Intent intent = new Intent(getActivity(), ManagerActivity.class);
+                Intent intent = new Intent(getActivity(), PatientManagerActivity.class);
                 startActivity(intent);
             }
         });

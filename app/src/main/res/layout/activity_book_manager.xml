@@ -6,7 +6,7 @@
     android:background="@color/common_blue"
     android:fitsSystemWindows="true"
     android:orientation="vertical"
-    tools:context="com.cc.doctormhealth.activity.BookManagerActivity">
+    tools:context="com.cc.doctormhealth.activity.CaseHisManagerActivity">
 
     <RelativeLayout
         android:id="@+id/title1"

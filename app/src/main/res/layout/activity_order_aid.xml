@@ -7,7 +7,7 @@
     android:background="@color/blue"
     android:fitsSystemWindows="true"
     android:orientation="vertical"
-    tools:context="com.cc.doctormhealth.activity.OrderAidActivity">
+    tools:context="com.cc.doctormhealth.activity.PatientAppointmentActivity">
 
     <RelativeLayout
         android:id="@+id/title1"

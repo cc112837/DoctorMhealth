@@ -33,7 +33,9 @@ import com.cc.doctormhealth.utils.MyAndroidUtil;
 import com.cc.doctormhealth.utils.MyHttpUtils;
 import com.cc.doctormhealth.utils.Tool;
 
-
+/*
+密码校验页面
+ */
 
 public class CheckActivity extends Activity {
     private EditText register_password, register_password_again;
@@ -150,7 +152,7 @@ public class CheckActivity extends Activity {
                         finish();
                     } else {
                         Utils.toast(MyApplication.getInstance().getString(
-                                        R.string.registerFailed)
+                                R.string.registerFailed)
                         );
                     }
                     break;

@@ -6,7 +6,7 @@
     android:background="@color/blue"
     android:fitsSystemWindows="true"
     android:orientation="vertical"
-    tools:context="com.cc.doctormhealth.activity.PrideActivity">
+    tools:context="com.cc.doctormhealth.activity.CommentActivity">
 
     <RelativeLayout
         android:id="@+id/title1"

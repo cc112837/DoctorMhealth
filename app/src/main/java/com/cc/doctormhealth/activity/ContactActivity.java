@@ -21,7 +21,10 @@ import java.util.List;
 
 import de.greenrobot.event.EventBus;
 
-public class ContactActivity extends AppCompatActivity implements View.OnClickListener{
+/*
+手机联系人页面
+ */
+public class ContactActivity extends AppCompatActivity implements View.OnClickListener {
     private ImageView leftBtn;
     LinearLayoutManager layoutManager;
     private RecyclerView rv_list;
@@ -54,18 +57,18 @@ public class ContactActivity extends AppCompatActivity implements View.OnClickLi
         ContactInfoService mContactInfoService = new ContactInfoService(this);
         //返回手机联系人对象集合
         contactList = mContactInfoService.getContactList();
-        contactGroupAdapter = new ContactGroupAdapter(ContactActivity.this,contactList);
+        contactGroupAdapter = new ContactGroupAdapter(ContactActivity.this, contactList);
         rv_list.setAdapter(contactGroupAdapter);
         contactGroupAdapter.setOnItemClickListener(new MyRecyItemClickListener() {
             @Override
             public void onItemClick(View view, int postion) {
-                String smsBody = "我正在使用【一点就医医生版】APP，通过一点就医可以拉近医患距离，让彼此感到心的温暖。点击下载:" + "http://a.app.qq.com/o/simple.jsp?pkgname=com.cc.doctormhealth"+"[康泽云]";
+                String smsBody = "我正在使用【一点就医医生版】APP，通过一点就医可以拉近医患距离，让彼此感到心的温暖。点击下载:" + "http://a.app.qq.com/o/simple.jsp?pkgname=com.cc.doctormhealth" + "[康泽云]";
                 Uri smsToUri = Uri.parse("smsto:");
                 Intent sendIntent = new Intent(Intent.ACTION_VIEW, smsToUri);
-                sendIntent.putExtra("address",contactList.get(postion).getPhoneNum()); // 电话号码，这行去掉的话，默认就没有电话
+                sendIntent.putExtra("address", contactList.get(postion).getPhoneNum()); // 电话号码，这行去掉的话，默认就没有电话
                 sendIntent.putExtra("sms_body", smsBody);
                 sendIntent.setType("vnd.android-dir/mms-sms");
-                startActivityForResult(sendIntent,1002);
+                startActivityForResult(sendIntent, 1002);
             }
         });
         leftBtn.setOnClickListener(this);

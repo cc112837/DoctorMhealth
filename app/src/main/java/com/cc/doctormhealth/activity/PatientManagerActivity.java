@@ -30,8 +30,12 @@ import butterknife.OnClick;
 import de.greenrobot.event.EventBus;
 
 import static com.cc.doctormhealth.R.id.rv_list;
-
-public class ManagerActivity extends AppCompatActivity {
+/**
+ * 创建人：吴聪聪
+ * 邮箱:cc112837@163.com
+ * 患者管理页面
+*/
+public class PatientManagerActivity extends AppCompatActivity {
     @Bind(rv_list)
     RecyclerView rvList;
     @Bind(R.id.lv_phone)
@@ -49,13 +53,13 @@ public class ManagerActivity extends AppCompatActivity {
                     AidManager aidManager = (AidManager) msg.obj;
                     if(aidManager!=null){
                         entityList.addAll(aidManager.getData());
-                        userManagerAdapter = new UserManagerAdapter(ManagerActivity.this, entityList);
+                        userManagerAdapter = new UserManagerAdapter(PatientManagerActivity.this, entityList);
                         rvList.setAdapter(userManagerAdapter);
                         userManagerAdapter.notifyDataSetChanged();
                         userManagerAdapter.setOnItemClickListener(new MyRecyItemClickListener() {
                             @Override
                             public void onItemClick(View view, int postion) {
-                                Intent intent=new Intent(ManagerActivity.this,AidsDetailActivity.class);
+                                Intent intent=new Intent(PatientManagerActivity.this,CaseHistoryActivity.class);
                                 intent.putExtra("content",entityList.get(postion));
                                 startActivity(intent);
                             }
@@ -78,7 +82,7 @@ public class ManagerActivity extends AppCompatActivity {
         setContentView(R.layout.activity_manager);
         EventBus.getDefault().register(this);
         ButterKnife.bind(this);
-        layoutManager = new LinearLayoutManager(ManagerActivity.this);
+        layoutManager = new LinearLayoutManager(PatientManagerActivity.this);
         rvList.setLayoutManager(layoutManager);
 
         String url = Constants.SERVER_URL + "PatientControlServlet";

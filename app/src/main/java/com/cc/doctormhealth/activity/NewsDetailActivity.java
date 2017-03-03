@@ -2,7 +2,7 @@ package com.cc.doctormhealth.activity;
 /**
  * 创建人：吴聪聪
  * 邮箱:cc112837@163.com
- * 创建时间：2016/7/18
+ * 资讯详情页面
  */
 
 import android.app.Activity;

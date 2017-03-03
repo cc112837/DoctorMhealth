@@ -10,7 +10,11 @@ import android.widget.ToggleButton;
 import com.cc.doctormhealth.MyApplication;
 import com.cc.doctormhealth.R;
 import com.cc.doctormhealth.utils.MyAndroidUtil;
-
+/**
+ * 创建人：吴聪聪
+ * 邮箱:cc112837@163.com
+ * 新消息通知页面
+*/
 public class NotiNewsActivity extends AppCompatActivity {
     ImageView btn_back;
 

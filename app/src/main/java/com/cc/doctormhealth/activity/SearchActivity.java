@@ -40,7 +40,11 @@ import cn.sharesdk.tencent.qq.QQ;
 import cn.sharesdk.wechat.friends.Wechat;
 
 import static com.avoscloud.leanchatlib.controller.ChatManager.getContext;
-
+/**
+ * 创建人：吴聪聪
+ * 邮箱:cc112837@163.com
+ * 查找好友页面
+*/
 public class SearchActivity extends BaseActivityOfLeanCloud implements PlatformActionListener {
     private EditText searchNameEdit;
     private ImageView left;

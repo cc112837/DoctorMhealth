@@ -25,7 +25,7 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class BookManagerActivity extends AppCompatActivity {
+public class CaseHisManagerActivity extends AppCompatActivity {
     @Bind(R.id.leftBtn)
     ImageView leftBtn;
     @Bind(R.id.lv_show)
@@ -52,7 +52,7 @@ public class BookManagerActivity extends AppCompatActivity {
                         lvShow.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                             @Override
                             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                                Intent intent = new Intent(BookManagerActivity.this, ImageScannerActivity.class);
+                                Intent intent = new Intent(CaseHisManagerActivity.this, ImageScannerActivity.class);
                                 intent.putStringArrayListExtra("name", (ArrayList<String>) list.get(position).getMdicalPicture());
                                 startActivity(intent);
                             }
@@ -68,7 +68,7 @@ public class BookManagerActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_book_manager);
         ButterKnife.bind(this);
-        manageAdapter = new ManageAdapter(BookManagerActivity.this, list);
+        manageAdapter = new ManageAdapter(CaseHisManagerActivity.this, list);
         lvShow.setAdapter(manageAdapter);
         String id = getIntent().getStringExtra("id");
         User user = new User();

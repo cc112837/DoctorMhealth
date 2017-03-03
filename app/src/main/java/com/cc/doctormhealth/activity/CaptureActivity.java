@@ -32,6 +32,9 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Vector;
 
+/*
+二维码扫描
+ */
 public class CaptureActivity extends Activity implements Callback {
 
     private CaptureActivityHandler handler;
@@ -155,7 +158,7 @@ public class CaptureActivity extends Activity implements Callback {
                 for (int i = 0; i < list.size(); i++) {
                     try {
                         JSONObject s = new JSONObject(String.valueOf(list.get(i)));
-                        String objectId=s.getString("objectId");
+                        String objectId = s.getString("objectId");
                         if (result.equals(objectId)) {
 //                            Intent intent = new Intent(CaptureActivity.this, ContactPersonInfoActivity.class);
 //                            intent.putExtra(Constants.LEANCHAT_USER_ID, objectId);

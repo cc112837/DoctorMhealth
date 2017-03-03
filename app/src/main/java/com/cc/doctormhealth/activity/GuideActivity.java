@@ -18,7 +18,7 @@ import java.util.ArrayList;
 /**
  * 创建人：吴聪聪
  * 邮箱:cc112837@163.com
- * 创建时间：2016/3/31 13:17
+ * 应用首次安装欢迎页
 */
 public class GuideActivity extends FragmentActivity {
     public GuideActivity() {

@@ -34,7 +34,11 @@ import com.cc.doctormhealth.utils.MyAndroidUtil;
 import com.cc.doctormhealth.utils.MyHttpUtils;
 import com.cc.doctormhealth.utils.Tool;
 import com.nostra13.universalimageloader.core.ImageLoader;
-
+/**
+ * 创建人：吴聪聪
+ * 邮箱:cc112837@163.com
+ * 登录页面
+*/
 public class LoginActivity extends BaseActivity implements TextWatcher {
 
     Button loginBtn, regButton, forgetButton;

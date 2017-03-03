@@ -26,8 +26,12 @@ import java.util.List;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-
-public class OrderAidActivity extends AppCompatActivity {
+/**
+ * 创建人：吴聪聪
+ * 邮箱:cc112837@163.com
+ * 患者预约页面
+*/
+public class PatientAppointmentActivity extends AppCompatActivity {
     private OederAdapter oederAdapter;
     @Bind(R.id.rb_noworder)
     RadioButton rbNoworder;
@@ -66,12 +70,12 @@ public class OrderAidActivity extends AppCompatActivity {
         user.setUsername(LeanchatUser.getCurrentUser().getObjectId());
         user.setAdr("1");
         MyHttpUtils.handData(handler,22,url,user);
-        oederAdapter = new OederAdapter(OrderAidActivity.this);
-        LinearLayoutManager manager = new LinearLayoutManager(OrderAidActivity.this);
+        oederAdapter = new OederAdapter(PatientAppointmentActivity.this);
+        LinearLayoutManager manager = new LinearLayoutManager(PatientAppointmentActivity.this);
         rv_show.setLayoutManager(manager);
         rv_show.setAdapter(oederAdapter);
         rv_show.addItemDecoration(new DividerItemDecoration(
-                OrderAidActivity.this, DividerItemDecoration.VERTICAL_LIST));
+                PatientAppointmentActivity.this, DividerItemDecoration.VERTICAL_LIST));
         oederAdapter.setData(dataEntities);
     }
 

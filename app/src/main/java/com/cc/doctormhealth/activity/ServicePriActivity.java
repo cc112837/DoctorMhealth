@@ -8,7 +8,11 @@ import android.webkit.WebView;
 import android.widget.ImageView;
 
 import com.cc.doctormhealth.R;
-
+/**
+ * 创建人：吴聪聪
+ * 邮箱:cc112837@163.com
+ * 服务条款页面
+*/
 public class ServicePriActivity extends Activity {
     private ImageView leftBtn;
 

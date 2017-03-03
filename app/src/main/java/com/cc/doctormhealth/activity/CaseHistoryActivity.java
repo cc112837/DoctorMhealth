@@ -1,5 +1,9 @@
 package com.cc.doctormhealth.activity;
-
+/**
+ * 创建人：吴聪聪
+ * 邮箱:cc112837@163.com
+ * 患者具体详情页面
+*/
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -25,7 +29,7 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class AidsDetailActivity extends AppCompatActivity {
+public class CaseHistoryActivity extends AppCompatActivity {
 
     @Bind(R.id.leftBtn)
     ImageView leftBtn;
@@ -68,11 +72,11 @@ public class AidsDetailActivity extends AppCompatActivity {
                 break;
             case R.id.re_book:
                 if ("0".equals(content.getCheckCase())) {
-                    Intent intent = new Intent(AidsDetailActivity.this, BookManagerActivity.class);
+                    Intent intent = new Intent(CaseHistoryActivity.this, CaseHisManagerActivity.class);
                     intent.putExtra("id", content.getAppointId());
                     startActivity(intent);
                 } else {
-                    new AlertDialog.Builder(AidsDetailActivity.this).setTitle("提示")//设置对话框标题
+                    new AlertDialog.Builder(CaseHistoryActivity.this).setTitle("提示")//设置对话框标题
                             .setMessage("暂无病历可以查询！")//设置显示的内容
                             .setPositiveButton("确定", new DialogInterface.OnClickListener() {//添加确定按钮
                                 @Override
@@ -95,10 +99,10 @@ public class AidsDetailActivity extends AppCompatActivity {
                             @Override
                             public void done(AVIMConversation conversation, AVIMException e) {
                                 if (e != null) {
-                                    Toast.makeText(AidsDetailActivity.this, e.getMessage(),
+                                    Toast.makeText(CaseHistoryActivity.this, e.getMessage(),
                                             Toast.LENGTH_LONG).show();
                                 } else {
-                                    Intent intent = new Intent(AidsDetailActivity.this,
+                                    Intent intent = new Intent(CaseHistoryActivity.this,
                                             ChatRoomActivity.class);
                                     intent.putExtra(com.avoscloud.leanchatlib.utils.Constants.CONVERSATION_ID,
                                             conversation.getConversationId());
@@ -108,7 +112,7 @@ public class AidsDetailActivity extends AppCompatActivity {
                         });
                 break;
             case R.id.re_order:
-                Intent intent1 = new Intent(AidsDetailActivity.this, HistoryOrderActivity.class);
+                Intent intent1 = new Intent(CaseHistoryActivity.this, HistoryAppointmentActivity.class);
                 intent1.putExtra("id", content.getAppointId());
                 startActivity(intent1);
                 break;

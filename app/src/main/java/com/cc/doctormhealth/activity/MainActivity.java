@@ -31,7 +31,11 @@ import com.cc.doctormhealth.utils.Tool;
 import java.util.List;
 
 import de.greenrobot.event.EventBus;
-
+/**
+ * 创建人：吴聪聪
+ * 邮箱:cc112837@163.com
+ * 首页
+*/
 public class MainActivity extends AppCompatActivity {
 
     private TextView countView;

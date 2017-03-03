@@ -13,7 +13,7 @@ import com.cc.doctormhealth.utils.PackageUtils;
 /**
  * 创建人：吴聪聪
  * 邮箱:cc112837@163.com
- * 创建时间：2016/3/31 11:25
+ * 导航页
  */
 public class SplashActivity extends FragmentActivity {
 

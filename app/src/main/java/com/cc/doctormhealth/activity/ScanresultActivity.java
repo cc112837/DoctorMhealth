@@ -8,7 +8,11 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.cc.doctormhealth.R;
-
+/**
+ * 创建人：吴聪聪
+ * 邮箱:cc112837@163.com
+ * 二维码扫描结果
+*/
 public class ScanresultActivity extends AppCompatActivity {
 
     Button btn_back;

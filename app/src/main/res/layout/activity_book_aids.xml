@@ -6,13 +6,13 @@
     android:background="@color/blue"
     android:fitsSystemWindows="true"
     android:orientation="vertical"
-    tools:context="com.cc.doctormhealth.activity.BookAidsActivity">
+    tools:context="com.cc.doctormhealth.activity.PatientDetailsActivity">
 
     <RelativeLayout
         android:id="@+id/title1"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:background="@color/blue"
+        android:background="@color/common_blue"
         android:gravity="center_vertical">
 
         <TextView
@@ -20,7 +20,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:text="详情"
+            android:text="个人详情"
             android:textColor="#ffffff"
             android:textSize="18sp" />
 
@@ -31,6 +31,20 @@
             android:layout_gravity="center_vertical"
             android:padding="10dp"
             android:src="@mipmap/btn_back" />
+
+        <TextView
+            android:id="@+id/tv_aid"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="10dp"
+            android:background="@drawable/textview_border"
+            android:text="个人病历"
+            android:padding="5dp"
+            android:textColor="@color/white"
+            android:textSize="12sp" />
 
     </RelativeLayout>
 

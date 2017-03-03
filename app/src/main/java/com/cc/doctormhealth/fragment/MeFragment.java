@@ -22,7 +22,7 @@ import com.cc.doctormhealth.R;
 import com.cc.doctormhealth.activity.AboutActivity;
 import com.cc.doctormhealth.activity.BarCodeActivity;
 import com.cc.doctormhealth.activity.MyMoneyActivity;
-import com.cc.doctormhealth.activity.PrideActivity;
+import com.cc.doctormhealth.activity.CommentActivity;
 import com.cc.doctormhealth.activity.SettingActivity;
 import com.cc.doctormhealth.activity.TextActivity;
 import com.cc.doctormhealth.constant.Constants;
@@ -135,7 +135,7 @@ public class MeFragment extends Fragment implements View.OnClickListener {
                 }
                 break;
             case R.id.pride:
-                Intent intent2 = new Intent(getActivity(), PrideActivity.class);
+                Intent intent2 = new Intent(getActivity(), CommentActivity.class);
                 startActivity(intent2);
                 break;
             case R.id.share:

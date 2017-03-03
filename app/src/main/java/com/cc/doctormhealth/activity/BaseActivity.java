@@ -28,7 +28,7 @@ import java.util.regex.Pattern;
 
 /**
  * 项目名称：DoctorMhealth
- * 类描述：
+ * 类描述：基类
  * 创建人：吴聪聪
  * 邮箱：cc112837@163.com
  * 创建时间：2016/5/10 11:10

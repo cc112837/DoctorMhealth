@@ -15,7 +15,11 @@ import com.cc.doctormhealth.fragment.HealthListFragment;
 
 import java.util.ArrayList;
 import java.util.List;
-
+/**
+ * 创建人：吴聪聪
+ * 邮箱:cc112837@163.com
+ * 资讯页面的列表展示
+*/
 public class NewsActivity extends AppCompatActivity {
     private ViewPager vp_news;
     private ImageView leftBtn;

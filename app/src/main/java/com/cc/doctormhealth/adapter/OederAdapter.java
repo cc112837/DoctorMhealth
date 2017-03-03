@@ -9,7 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.cc.doctormhealth.R;
-import com.cc.doctormhealth.activity.BookAidsActivity;
+import com.cc.doctormhealth.activity.PatientDetailsActivity;
 import com.cc.doctormhealth.model.OederAids;
 import com.cc.doctormhealth.utils.Util;
 import com.cc.doctormhealth.view.DescHolder;
@@ -119,7 +119,7 @@ public class OederAdapter extends SectionedRecyclerViewAdapter<HeaderHolder, Des
         holder.ll_content.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(mContext, BookAidsActivity.class);
+                Intent intent = new Intent(mContext, PatientDetailsActivity.class);
                 intent.putExtra("id", orderList.get(section).getAppointData().get(position));
                 mContext.startActivity(intent);
             }

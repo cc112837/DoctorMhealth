@@ -37,6 +37,11 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Date;
 
+/**
+ * 创建人：吴聪聪
+ * 邮箱:cc112837@163.com
+ * 医生资质校验页面
+ */
 public class TextActivity extends Activity implements View.OnClickListener {
     private ImageView leftBtn, iv_1, iv_2;
     private EditText et_name, et_idcard, et_hospital, et_keshi;
@@ -127,9 +132,9 @@ public class TextActivity extends Activity implements View.OnClickListener {
                 String idcard = et_idcard.getText().toString();
                 String hospital = et_hospital.getText().toString();
                 String keshi = et_keshi.getText().toString();
-                if ("".equals(name)|| "".equals(idcard)||"".equals(hospital)|| "".equals(keshi)) {
+                if ("".equals(name) || "".equals(idcard) || "".equals(hospital) || "".equals(keshi)) {
                     Toast.makeText(TextActivity.this, "输入不能为空", Toast.LENGTH_LONG).show();
-                }else if(idcard.length()!=18){
+                } else if (idcard.length() != 18) {
                     Toast.makeText(TextActivity.this, "身份证号输入不符合规范", Toast.LENGTH_LONG).show();
                 } else {
                     User user = new User();

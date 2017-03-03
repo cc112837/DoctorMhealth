@@ -19,7 +19,11 @@ import com.avos.avoscloud.im.v2.callback.AVIMClientCallback;
 import com.avoscloud.leanchatlib.controller.ChatManager;
 import com.cc.doctormhealth.leanchat.service.PushManager;
 import com.cc.doctormhealth.R;
-
+/**
+ * 创建人：吴聪聪
+ * 邮箱:cc112837@163.com
+ * 设置页面
+*/
 
 public class SettingActivity extends Activity implements View.OnClickListener{
     private ImageView leftBtn;

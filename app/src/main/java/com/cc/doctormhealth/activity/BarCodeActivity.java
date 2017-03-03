@@ -9,6 +9,10 @@ import com.avoscloud.leanchatlib.model.LeanchatUser;
 import com.cc.doctormhealth.R;
 import com.cc.doctormhealth.zxingdemo.CreateQRImageTest;
 
+/*
+我的二维码页面
+ */
+
 public class BarCodeActivity extends AppCompatActivity {
     private ImageView qrImgImageView;
 

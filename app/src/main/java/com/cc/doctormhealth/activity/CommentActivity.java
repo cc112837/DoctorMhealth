@@ -19,8 +19,12 @@ import com.cc.doctormhealth.utils.MyHttpUtils;
 
 import java.util.ArrayList;
 import java.util.List;
-
-public class PrideActivity extends Activity  implements View.OnClickListener, RadioGroup.OnCheckedChangeListener {
+/**
+ * 创建人：吴聪聪
+ * 邮箱:cc112837@163.com
+ * 用户评价页面
+*/
+public class CommentActivity extends Activity  implements View.OnClickListener, RadioGroup.OnCheckedChangeListener {
     private ImageView leftBtn;
     private ListView lv_show;
     private EvaluationListAdapter evaluationListAdapter;
@@ -58,7 +62,7 @@ public class PrideActivity extends Activity  implements View.OnClickListener, Ra
     private void init() {
         leftBtn = (ImageView) findViewById(R.id.leftBtn);
         lv_show = (ListView) findViewById(R.id.lv_show);
-        evaluationListAdapter = new EvaluationListAdapter(PrideActivity.this, dataEntityList);
+        evaluationListAdapter = new EvaluationListAdapter(CommentActivity.this, dataEntityList);
         lv_show.setAdapter(evaluationListAdapter);
         rg_all = (RadioGroup) findViewById(R.id.rg_all);
         tv_all = (RadioButton) findViewById(R.id.tv_all);

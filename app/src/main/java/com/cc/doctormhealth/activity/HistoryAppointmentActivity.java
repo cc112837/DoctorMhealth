@@ -22,8 +22,12 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 import static com.cc.doctormhealth.R.id.lv_show;
-
-public class HistoryOrderActivity extends AppCompatActivity {
+/**
+ * 创建人：吴聪聪
+ * 邮箱:cc112837@163.com
+ * 历史预约
+*/
+public class HistoryAppointmentActivity extends AppCompatActivity {
 
     @Bind(R.id.leftBtn)
     ImageView leftBtn;

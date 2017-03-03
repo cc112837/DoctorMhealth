@@ -133,20 +133,20 @@
         <activity android:name=".activity.GuideActivity" />
         <activity android:name=".leanchat.activity.ImageBrowserActivity" />
         <activity android:name=".activity.SettingActivity" />
-        <activity android:name=".activity.PrideActivity" />
+        <activity android:name=".activity.CommentActivity" />
         <activity android:name=".activity.ScanresultActivity" />
         <activity android:name=".activity.NewFriendActivity" />
         <activity android:name=".activity.MessageActivity" />
         <activity android:name=".activity.BarCodeActivity" />
         <activity android:name=".activity.ContactActivity" />
-        <activity android:name=".activity.OrderAidActivity" />
+        <activity android:name=".activity.PatientAppointmentActivity" />
         <activity android:name=".activity.NewsActivity" />
-        <activity android:name=".activity.ManagerActivity" />
-        <activity android:name=".activity.AidsDetailActivity" />
-        <activity android:name=".activity.BookAidsActivity" />
-        <activity android:name=".activity.BookManagerActivity" />
+        <activity android:name=".activity.PatientManagerActivity" />
+        <activity android:name=".activity.CaseHistoryActivity" />
+        <activity android:name=".activity.PatientDetailsActivity" />
+        <activity android:name=".activity.CaseHisManagerActivity" />
         <activity android:name=".activity.ImageScannerActivity" />
-        <activity android:name=".activity.HistoryOrderActivity"></activity>
+        <activity android:name=".activity.HistoryAppointmentActivity"></activity>
     </application>
 
 </manifest>

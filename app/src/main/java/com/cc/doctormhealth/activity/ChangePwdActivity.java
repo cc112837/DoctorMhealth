@@ -19,7 +19,11 @@ import com.cc.doctormhealth.model.Result;
 import com.cc.doctormhealth.model.UserInfo;
 import com.cc.doctormhealth.utils.MyHttpUtils;
 import com.cc.doctormhealth.utils.Tool;
-
+/**
+ * 创建人：吴聪聪
+ * 邮箱:cc112837@163.com
+ * 修改密码页面
+*/
 public class ChangePwdActivity extends AppCompatActivity {
 
     EditText oldPwdView, pwdView, pwdView1;

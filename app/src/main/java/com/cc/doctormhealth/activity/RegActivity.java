@@ -29,7 +29,11 @@ import org.json.JSONObject;
 
 import cn.smssdk.EventHandler;
 import cn.smssdk.SMSSDK;
-
+/**
+ * 创建人：吴聪聪
+ * 邮箱:cc112837@163.com
+ * 用户注册手机号验证页面
+*/
 public class RegActivity extends BaseActivity implements View.OnClickListener {
     private EditText et_phone, et_code;
     private Button Message_btn, register_btn;

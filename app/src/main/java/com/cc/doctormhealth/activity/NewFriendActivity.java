@@ -37,7 +37,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import de.greenrobot.event.EventBus;
-
+/**
+ * 创建人：吴聪聪
+ * 邮箱:cc112837@163.com
+ * 添加的新朋友介绍
+*/
 public class NewFriendActivity extends BaseActivityOfLeanCloud implements
         Refreshable {
     BaseListView<AddRequest> listView;
