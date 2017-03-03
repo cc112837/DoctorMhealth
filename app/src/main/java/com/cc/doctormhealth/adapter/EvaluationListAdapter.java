@@ -11,7 +11,11 @@ import com.cc.doctormhealth.R;
 import com.cc.doctormhealth.model.UserEvaluation;
 
 import java.util.List;
-
+/**
+ * 创建人：吴聪聪
+ * 邮箱:cc112837@163.com
+ * 用户评价适配器
+*/
 public class EvaluationListAdapter extends BaseAdapter {
 
     private Context context;

@@ -15,7 +15,7 @@ import java.util.List;
 
 /**
  * 项目名称：mhealth
- * 类描述：商品首页的适配器
+ * 类描述：病历管理适配器
  * 创建人：吴聪聪
  * 邮箱：cc112837@163.com
  * 创建时间：2016/9/14 13:48
@@ -23,12 +23,12 @@ import java.util.List;
  * 修改时间：2016/11/19 8:38
  * 修改备注：
  */
-public class ManageAdapter extends BaseAdapter {
+public class CaseHistoryAdapter extends BaseAdapter {
     private LayoutInflater mInflater;
     private Context context;
     private List<Bookmanger.DataEntity> list;
 
-    public ManageAdapter(Context context, List<Bookmanger.DataEntity> list) {
+    public CaseHistoryAdapter(Context context, List<Bookmanger.DataEntity> list) {
         mInflater = LayoutInflater.from(context);
         this.list = list;
         this.context = context;

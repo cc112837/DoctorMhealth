@@ -20,7 +20,7 @@ import java.util.List;
 
 /**
  * 项目名称：DoctorMhealth
- * 类描述：
+ * 类描述：患者预约适配器
  * 创建人：吴聪聪
  * 邮箱：cc112837@163.com
  * 创建时间：2017/2/7 9:25
@@ -29,13 +29,13 @@ import java.util.List;
  * 修改备注：
  */
 
-public class OederAdapter extends SectionedRecyclerViewAdapter<HeaderHolder, DescHolder, RecyclerView.ViewHolder> {
+public class AppointAdapter extends SectionedRecyclerViewAdapter<HeaderHolder, DescHolder, RecyclerView.ViewHolder> {
     public List<OederAids.DataEntity> orderList;
     private Context mContext;
     private LayoutInflater mInflater;
     private SparseBooleanArray mBooleanMap;//记录下哪个section是被打开的
 
-    public OederAdapter(Context context) {
+    public AppointAdapter(Context context) {
         mContext = context;
         mInflater = LayoutInflater.from(context);
         mBooleanMap = new SparseBooleanArray();

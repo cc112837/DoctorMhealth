@@ -1,8 +1,6 @@
 package com.cc.doctormhealth.adapter;
 
 import android.content.Context;
-import android.content.Intent;
-import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -23,7 +21,7 @@ import java.util.Map;
 
 /**
  * 项目名称：DoctorMhealth
- * 类描述：
+ * 类描述：联系人群组适配器
  * 创建人：吴聪聪
  * 邮箱：cc112837@163.com
  * 创建时间：2017/1/24 9:53

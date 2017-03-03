@@ -5,7 +5,11 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
 import java.util.List;
-
+/**
+ * 创建人：吴聪聪
+ * 邮箱:cc112837@163.com
+ * 资讯顶部tab适配器
+*/
 public class NewsAdapter extends FragmentPagerAdapter {
     private List<Fragment> fragmentList;
 

@@ -13,7 +13,7 @@ import android.widget.RadioGroup;
 
 import com.avoscloud.leanchatlib.model.LeanchatUser;
 import com.cc.doctormhealth.R;
-import com.cc.doctormhealth.adapter.OederAdapter;
+import com.cc.doctormhealth.adapter.AppointAdapter;
 import com.cc.doctormhealth.constant.Constants;
 import com.cc.doctormhealth.model.OederAids;
 import com.cc.doctormhealth.model.User;
@@ -32,7 +32,7 @@ import butterknife.OnClick;
  * 患者预约页面
 */
 public class PatientAppointmentActivity extends AppCompatActivity {
-    private OederAdapter oederAdapter;
+    private AppointAdapter appointAdapter;
     @Bind(R.id.rb_noworder)
     RadioButton rbNoworder;
     @Bind(R.id.rb_hisorder)
@@ -51,8 +51,8 @@ public class PatientAppointmentActivity extends AppCompatActivity {
             switch (msg.what){
                 case 22:
                     OederAids oederAids=(OederAids) msg.obj;
-                    oederAdapter.setData(oederAids.getData());
-                    oederAdapter.notifyDataSetChanged();
+                    appointAdapter.setData(oederAids.getData());
+                    appointAdapter.notifyDataSetChanged();
                 break;
             }
         }
@@ -70,13 +70,13 @@ public class PatientAppointmentActivity extends AppCompatActivity {
         user.setUsername(LeanchatUser.getCurrentUser().getObjectId());
         user.setAdr("1");
         MyHttpUtils.handData(handler,22,url,user);
-        oederAdapter = new OederAdapter(PatientAppointmentActivity.this);
+        appointAdapter = new AppointAdapter(PatientAppointmentActivity.this);
         LinearLayoutManager manager = new LinearLayoutManager(PatientAppointmentActivity.this);
         rv_show.setLayoutManager(manager);
-        rv_show.setAdapter(oederAdapter);
+        rv_show.setAdapter(appointAdapter);
         rv_show.addItemDecoration(new DividerItemDecoration(
                 PatientAppointmentActivity.this, DividerItemDecoration.VERTICAL_LIST));
-        oederAdapter.setData(dataEntities);
+        appointAdapter.setData(dataEntities);
     }
 
     private void init() {

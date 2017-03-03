@@ -12,7 +12,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.cc.doctormhealth.R;
-import com.cc.doctormhealth.adapter.ManageAdapter;
+import com.cc.doctormhealth.adapter.CaseHistoryAdapter;
 import com.cc.doctormhealth.constant.Constants;
 import com.cc.doctormhealth.model.Bookmanger;
 import com.cc.doctormhealth.model.User;
@@ -34,7 +34,7 @@ public class CaseHisManagerActivity extends AppCompatActivity {
     TextView tvCon;
 
     private List<Bookmanger.DataEntity> list = new ArrayList<>();
-    ManageAdapter manageAdapter;
+    CaseHistoryAdapter caseHistoryAdapter;
     private Handler handler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
@@ -48,7 +48,7 @@ public class CaseHisManagerActivity extends AppCompatActivity {
                         tvCon.setVisibility(View.VISIBLE);
                     } else {
                         tvCon.setVisibility(View.GONE);
-                        manageAdapter.notifyDataSetChanged();
+                        caseHistoryAdapter.notifyDataSetChanged();
                         lvShow.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                             @Override
                             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -68,8 +68,8 @@ public class CaseHisManagerActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_book_manager);
         ButterKnife.bind(this);
-        manageAdapter = new ManageAdapter(CaseHisManagerActivity.this, list);
-        lvShow.setAdapter(manageAdapter);
+        caseHistoryAdapter = new CaseHistoryAdapter(CaseHisManagerActivity.this, list);
+        lvShow.setAdapter(caseHistoryAdapter);
         String id = getIntent().getStringExtra("id");
         User user = new User();
         user.setUsername(id);

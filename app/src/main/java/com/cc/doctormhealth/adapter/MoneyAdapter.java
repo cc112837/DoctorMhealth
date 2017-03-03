@@ -12,6 +12,11 @@ import com.cc.doctormhealth.model.Money;
 
 import java.util.List;
 
+/**
+ * 创建人：吴聪聪
+ * 邮箱:cc112837@163.com
+ * 我的钱包适配器
+ */
 public class MoneyAdapter extends BaseAdapter {
 
     private Context context;
@@ -47,21 +52,21 @@ public class MoneyAdapter extends BaseAdapter {
             view = mInflater.inflate(R.layout.money_item, null);
             vholder.tv_item = (TextView) view.findViewById(R.id.tv_item);
             vholder.tv_price = (TextView) view.findViewById(R.id.tv_price);
-            vholder.tv_type=(TextView) view.findViewById(R.id.tv_type);
+            vholder.tv_type = (TextView) view.findViewById(R.id.tv_type);
             view.setTag(vholder);
         } else {
             vholder = (ViewHolder) view.getTag();
         }
-        vholder.tv_item.setText(""+list.get(position).getTime());
-        vholder.tv_price.setText("+¥"+list.get(position).getPrice() );
-        vholder.tv_type.setText(""+list.get(position).getType());
+        vholder.tv_item.setText("" + list.get(position).getTime());
+        vholder.tv_price.setText("+¥" + list.get(position).getPrice());
+        vholder.tv_type.setText("" + list.get(position).getType());
         return view;
 
     }
 
     static class ViewHolder {
         public TextView tv_item;
-        public TextView tv_price,tv_type;
+        public TextView tv_price, tv_type;
     }
 
 }

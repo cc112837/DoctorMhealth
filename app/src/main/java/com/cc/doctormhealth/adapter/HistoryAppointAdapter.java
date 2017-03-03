@@ -11,14 +11,18 @@ import com.cc.doctormhealth.R;
 import com.cc.doctormhealth.model.HistoryOrder;
 
 import java.util.List;
-
-public class HistoryAdapter extends BaseAdapter {
+/**
+ * 创建人：吴聪聪
+ * 邮箱:cc112837@163.com
+ * 历史预约适配器
+*/
+public class HistoryAppointAdapter extends BaseAdapter {
 
     private Context context;
     private List<HistoryOrder.DataEntity> list;
     private LayoutInflater mInflater;
 
-    public HistoryAdapter(Context context, List<HistoryOrder.DataEntity> list) {
+    public HistoryAppointAdapter(Context context, List<HistoryOrder.DataEntity> list) {
         this.context = context;
         this.list = list;
         mInflater = LayoutInflater.from(context);
